@@ -176,3 +176,4 @@ $RECYCLE.BIN/
 
 # Custom
 .idea
+*.g.dart
