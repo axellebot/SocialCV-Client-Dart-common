@@ -1,8 +1,8 @@
 import 'package:rxdart/rxdart.dart';
-import 'package:social_cv_client_common/src/blocs/bloc_base.dart';
-import 'package:social_cv_client_common/src/config/values.dart';
-import 'package:social_cv_client_common/src/models/group_model.dart';
-import 'package:social_cv_client_common/src/repositories/cv_repository.dart';
+import 'package:social_cv_client_dart_common/src/blocs/bloc_base.dart';
+import 'package:social_cv_client_dart_common/src/config/values.dart';
+import 'package:social_cv_client_dart_common/src/models/group_model.dart';
+import 'package:social_cv_client_dart_common/src/repositories/cv_repository.dart';
 
 const String _TAG = "GroupListBloc";
 

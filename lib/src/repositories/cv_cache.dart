@@ -1,8 +1,8 @@
-import 'package:social_cv_client_common/src/models/entry_model.dart';
-import 'package:social_cv_client_common/src/models/group_model.dart';
-import 'package:social_cv_client_common/src/models/part_model.dart';
-import 'package:social_cv_client_common/src/models/profile_model.dart';
-import 'package:social_cv_client_common/src/models/user_model.dart';
+import 'package:social_cv_client_dart_common/src/models/entry_model.dart';
+import 'package:social_cv_client_dart_common/src/models/group_model.dart';
+import 'package:social_cv_client_dart_common/src/models/part_model.dart';
+import 'package:social_cv_client_dart_common/src/models/profile_model.dart';
+import 'package:social_cv_client_dart_common/src/models/user_model.dart';
 
 /// Interface for CVCache (depends on the platform flutter/angular/...)
 abstract class CVCacheI {

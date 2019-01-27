@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:social_cv_client_common/src/models/api_models.dart';
+import 'package:social_cv_client_dart_common/src/models/api_models.dart';
 
 part 'user_model.g.dart';
 

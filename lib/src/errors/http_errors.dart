@@ -1,4 +1,4 @@
-import 'package:social_cv_client_common/src/errors/base_errors.dart';
+import 'package:social_cv_client_dart_common/src/errors/base_errors.dart';
 
 // HTTP 400
 class HttpClientErrorBadRequestError extends BaseError {

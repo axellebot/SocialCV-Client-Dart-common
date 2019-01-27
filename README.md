@@ -1,4 +1,4 @@
-# Social-CV Client Common
+# Social-CV Client Dart Common
 
 A new application about "resumes".
 

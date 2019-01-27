@@ -1,10 +1,10 @@
 import 'package:rxdart/rxdart.dart';
-import 'package:social_cv_client_common/repositories.dart';
-import 'package:social_cv_client_common/src/blocs/bloc_base.dart';
-import 'package:social_cv_client_common/src/models/api_models.dart';
-import 'package:social_cv_client_common/src/models/user_model.dart';
-import 'package:social_cv_client_common/src/repositories/cv_repository.dart';
-import 'package:social_cv_client_common/src/repositories/secrets_repository.dart';
+import 'package:social_cv_client_dart_common/repositories.dart';
+import 'package:social_cv_client_dart_common/src/blocs/bloc_base.dart';
+import 'package:social_cv_client_dart_common/src/models/api_models.dart';
+import 'package:social_cv_client_dart_common/src/models/user_model.dart';
+import 'package:social_cv_client_dart_common/src/repositories/cv_repository.dart';
+import 'package:social_cv_client_dart_common/src/repositories/secrets_repository.dart';
 
 const String _TAG = "AccountBloc";
 

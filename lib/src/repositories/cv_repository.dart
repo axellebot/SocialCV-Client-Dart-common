@@ -1,11 +1,11 @@
-import 'package:social_cv_client_common/src/models/api_models.dart';
-import 'package:social_cv_client_common/src/models/entry_model.dart';
-import 'package:social_cv_client_common/src/models/group_model.dart';
-import 'package:social_cv_client_common/src/models/part_model.dart';
-import 'package:social_cv_client_common/src/models/profile_model.dart';
-import 'package:social_cv_client_common/src/models/user_model.dart';
-import 'package:social_cv_client_common/src/repositories/cv_cache.dart';
-import 'package:social_cv_client_common/src/repositories/cv_client.dart';
+import 'package:social_cv_client_dart_common/src/models/api_models.dart';
+import 'package:social_cv_client_dart_common/src/models/entry_model.dart';
+import 'package:social_cv_client_dart_common/src/models/group_model.dart';
+import 'package:social_cv_client_dart_common/src/models/part_model.dart';
+import 'package:social_cv_client_dart_common/src/models/profile_model.dart';
+import 'package:social_cv_client_dart_common/src/models/user_model.dart';
+import 'package:social_cv_client_dart_common/src/repositories/cv_cache.dart';
+import 'package:social_cv_client_dart_common/src/repositories/cv_client.dart';
 
 const String _TAG = "CVRepository";
 
