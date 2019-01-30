@@ -2,7 +2,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:social_cv_client_dart_common/src/blocs/bloc_base.dart';
 import 'package:social_cv_client_dart_common/src/repositories/preferences_repository.dart';
 
-class THEME {
+class ThemeType {
   static const String LIGHT = "THEME_LIGHT";
   static const String DARK = "THEME_DARK";
 }
