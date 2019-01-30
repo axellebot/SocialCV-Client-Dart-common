@@ -19,8 +19,8 @@ class ProfileListBloc extends BlocBase {
     _profilePerPage.add(kCVItemsPerPageDefault);
   }
 
-  final CVRepository cvRepository;
-  final PreferencesRepositoryI preferencesRepository;
+  final CVRepositoryImpl cvRepository;
+  final PreferencesRepository preferencesRepository;
 
   // Reactive variables
   final _isFetchingProfilesController = BehaviorSubject<bool>();

@@ -9,11 +9,89 @@ import 'package:social_cv_client_dart_common/src/repositories/cv_client.dart';
 
 const String _TAG = "CVRepository";
 
-class CVRepository {
-  const CVRepository({this.client, this.cache});
+abstract class CVRepository {
+  Future<OAuthAccessTokenResponseModel> fetchToken({
+    OAuthTokenModel oauthTokenModel,
+  });
 
-  final CVClient client;
-  final CVCacheI cache;
+  ///
+  /// Account
+  ///
+
+  Future<UserModel> fetchAccount();
+
+  Future<List<ProfileModel>> fetchAccountProfiles({
+    int offset = 0,
+    int limit = 5,
+  });
+
+  ///
+  /// Profiles
+  ///
+
+  Future<ProfileModel> fetchProfile(
+    String profileId,
+  );
+
+  Future<List<PartModel>> fetchProfileParts({
+    String profileId,
+    int offset,
+    int limit,
+  });
+
+  ///
+  /// Parts
+  ///
+
+  Future<PartModel> fetchPart(
+    String partId,
+  );
+
+  Future<List<GroupModel>> fetchPartGroups({
+    String partId,
+    int offset,
+    int limit,
+  });
+
+  ///
+  /// Groups
+  ///
+
+  Future<GroupModel> fetchGroup(
+    String groupId,
+  );
+
+  Future<List<EntryModel>> fetchGroupEntries({
+    String groupId,
+    int offset,
+    int limit,
+  });
+
+  ///
+  /// Entries
+  ///
+
+  Future<EntryModel> fetchEntry(
+    String entryId,
+  );
+
+  ///
+  /// Profiles
+  ///
+
+  Future<List<ProfileModel>> fetchProfiles({
+    String profileTitle,
+    int offset,
+    int limit,
+  });
+}
+
+/// Default Implementation of [CVRepository]
+class CVRepositoryImpl extends CVRepository {
+   CVRepositoryImpl({this.client, this.cache});
+
+  final CVClientImpl client;
+  final CVCache cache;
 
   ///
   /// OAuth
@@ -56,7 +134,9 @@ class CVRepository {
   /// Profiles
   ///
 
-  Future<ProfileModel> fetchProfile(String profileId,) async {
+  Future<ProfileModel> fetchProfile(
+    String profileId,
+  ) async {
     ProfileModel profileModel = await cache.getProfile(profileId);
     if (profileModel == null) {
       profileModel = (await client.fetchProfile(profileId)).data;
@@ -83,7 +163,9 @@ class CVRepository {
   /// Parts
   ///
 
-  Future<PartModel> fetchPart(String partId,) async {
+  Future<PartModel> fetchPart(
+    String partId,
+  ) async {
     PartModel partModel = await cache.getPart(partId);
     if (partModel == null) {
       partModel = (await client.fetchPart(partId)).data;
@@ -109,7 +191,9 @@ class CVRepository {
   /// Groups
   ///
 
-  Future<GroupModel> fetchGroup(String groupId,) async {
+  Future<GroupModel> fetchGroup(
+    String groupId,
+  ) async {
     GroupModel groupModel = await cache.getGroup(groupId);
     if (groupModel == null)
       groupModel = (await client.fetchGroup(groupId)).data;
@@ -133,7 +217,9 @@ class CVRepository {
   /// Entries
   ///
 
-  Future<EntryModel> fetchEntry(String entryId,) async {
+  Future<EntryModel> fetchEntry(
+    String entryId,
+  ) async {
     EntryModel entryModel = await cache.getEntry(entryId);
     if (entryModel == null) {
       entryModel = (await client.fetchEntry(entryId)).data;

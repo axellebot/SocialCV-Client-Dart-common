@@ -17,7 +17,7 @@ class EntryListBloc extends BlocBase {
     _entryPerPage.add(kCVItemsPerPageDefault);
   }
 
-  final CVRepository cvRepository;
+  final CVRepositoryImpl cvRepository;
 
   // Reactive variables
   final _isFetchingEntriesController = BehaviorSubject<bool>();

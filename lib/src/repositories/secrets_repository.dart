@@ -1,5 +1,5 @@
 /// Interface for SecretRepository
-abstract class SecretsRepositoryI {
+abstract class SecretsRepository {
   Future<String> loadclientId();
 
   Future<String> loadclientSecret();

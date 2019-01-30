@@ -15,7 +15,7 @@ class GroupBloc extends BlocBase {
     _isFetchingGroupController.add(false);
   }
 
-  final CVRepository cvRepository;
+  final CVRepositoryImpl cvRepository;
 
   // Reactive variables
   final _isFetchingGroupController = BehaviorSubject<bool>();

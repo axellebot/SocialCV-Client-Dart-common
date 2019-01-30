@@ -17,7 +17,7 @@ class GroupListBloc extends BlocBase {
     _groupPerPage.add(kCVItemsPerPageDefault);
   }
 
-  final CVRepository cvRepository;
+  final CVRepositoryImpl cvRepository;
 
   // Reactive variables
   final _isFetchingGroupsController = BehaviorSubject<bool>();
