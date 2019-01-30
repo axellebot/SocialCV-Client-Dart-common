@@ -4,8 +4,10 @@ import 'package:social_cv_client_dart_common/src/models/part_model.dart';
 import 'package:social_cv_client_dart_common/src/models/profile_model.dart';
 import 'package:social_cv_client_dart_common/src/models/user_model.dart';
 
+const String _TAG = "CVCache";
+
 /// Interface for CVCache (depends on the platform flutter/angular/...)
-abstract class CVCacheI {
+abstract class CVCache {
   ///
   /// Account
   ///
@@ -56,10 +58,10 @@ abstract class CVCacheI {
 }
 
 ///
-/// Default Cache Implementation of [CVCacheI]
+/// Default implementation of [CVCache]
 ///
-class CVCacheDefault implements CVCacheI {
-  CVCacheDefault();
+class CVCacheImpl implements CVCache {
+  CVCacheImpl();
 
   final _users = <String, _CacheModel<UserModel>>{};
   final _profiles = <String, _CacheModel<ProfileModel>>{};

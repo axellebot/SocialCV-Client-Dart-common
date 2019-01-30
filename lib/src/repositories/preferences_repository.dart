@@ -1,5 +1,5 @@
-/// Interaface for Preferences
-abstract class PreferencesRepositoryI {
+/// Interface for Preferences
+abstract class PreferencesRepository {
   /// ----------------------------------------------------------
   /// ------------------------- Tokens -------------------------
   /// ----------------------------------------------------------

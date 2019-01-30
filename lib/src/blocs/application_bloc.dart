@@ -18,7 +18,7 @@ class ApplicationBloc extends BlocBase {
     preferencesRepository.getAppTheme().then(_themeController.add);
   }
 
-  final PreferencesRepositoryI preferencesRepository;
+  final PreferencesRepository preferencesRepository;
 
   // Rx Variables
   final _themeController = BehaviorSubject<String>();

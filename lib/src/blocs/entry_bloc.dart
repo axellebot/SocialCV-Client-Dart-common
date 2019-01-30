@@ -15,7 +15,7 @@ class EntryBloc extends BlocBase {
     _isFetchingEntryController.add(false);
   }
 
-  final CVRepository cvRepository;
+  final CVRepositoryImpl cvRepository;
 
   // Reactive variables
   final _isFetchingEntryController = BehaviorSubject<bool>();

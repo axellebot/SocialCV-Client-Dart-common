@@ -20,8 +20,8 @@ class PartListBloc extends BlocBase {
     _partPerPage.add(kCVItemsPerPageDefault);
   }
 
-  final CVRepository cvRepository;
-  final PreferencesRepositoryI preferencesRepository;
+  final CVRepositoryImpl cvRepository;
+  final PreferencesRepository preferencesRepository;
 
   // Reactive variables
   final _isFetchingPartsController = BehaviorSubject<bool>();

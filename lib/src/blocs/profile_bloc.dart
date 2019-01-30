@@ -15,7 +15,7 @@ class ProfileBloc extends BlocBase {
     _isFetchingProfileController.add(false);
   }
 
-  final CVRepository cvRepository;
+  final CVRepositoryImpl cvRepository;
 
   // Reactive variables
   final _isFetchingProfileController = BehaviorSubject<bool>();

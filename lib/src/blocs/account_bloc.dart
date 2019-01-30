@@ -23,9 +23,9 @@ class AccountBloc extends BlocBase {
     _isFetchingAccountDetailsController.add(false);
   }
 
-  CVRepository cvRepository;
-  PreferencesRepositoryI preferencesRepository;
-  SecretsRepositoryI secretRepository;
+  CVRepositoryImpl cvRepository;
+  PreferencesRepository preferencesRepository;
+  SecretsRepository secretRepository;
 
   // Reactive variables
   final _isAuthenticatedController = BehaviorSubject<bool>();

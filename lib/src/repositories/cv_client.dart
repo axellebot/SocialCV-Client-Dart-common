@@ -14,9 +14,93 @@ import 'package:social_cv_client_dart_common/src/models/user_model.dart';
 
 const String _TAG = "CVClient";
 
-// TODO : Inject ApiService
-class CVClient {
-  CVClient({this.accessToken, this.refreshToken,});
+abstract class CVClient {
+  ///
+  /// OAuth
+  ///
+
+  Future<OAuthAccessTokenResponseModel> fetchToken({
+    OAuthTokenModel oauthTokenModel,
+  });
+
+  ///
+  /// Account
+  ///
+
+  Future<ResponseModel<UserModel>> fetchAccount();
+
+  Future<ResponseModelWithArray<ProfileModel>> fetchAccountProfiles({
+    int offset,
+    int limit,
+  });
+
+  ///
+  /// Profiles
+  ///
+
+  Future<ResponseModel<ProfileModel>> fetchProfile(
+    String profileId,
+  );
+
+  Future<ResponseModelWithArray<PartModel>> fetchProfileParts({
+    String profileId,
+    int offset = 0,
+    int limit = 5,
+  });
+
+  ///
+  /// Parts
+  ///
+
+  Future<ResponseModel<PartModel>> fetchPart(
+    String partId,
+  );
+
+  Future<ResponseModelWithArray<GroupModel>> fetchPartGroups({
+    String partId,
+    int offset,
+    int limit,
+  });
+
+  ///
+  /// Groups
+  ///
+
+  Future<ResponseModel<GroupModel>> fetchGroup(
+    String groupId,
+  );
+
+  Future<ResponseModelWithArray<EntryModel>> fetchGroupEntries({
+    String groupId,
+    int offset,
+    int limit,
+  });
+
+  ///
+  /// Entries
+  ///
+
+  Future<ResponseModel<EntryModel>> fetchEntry(
+    String entryId,
+  );
+
+  ///
+  /// Profiles
+  ///
+
+  Future<ResponseModelWithArray<ProfileModel>> fetchProfiles({
+    String profileTitle,
+    int offset,
+    int limit,
+  });
+}
+
+/// Default Implementation of [CVClient]
+class CVClientImpl extends CVClient {
+  CVClientImpl({
+    this.accessToken,
+    this.refreshToken,
+  });
 
   String accessToken;
   String refreshToken;
@@ -64,8 +148,8 @@ class CVClient {
         case HttpStatus.notFound:
           throw ApiErrorUserNotFoundError();
       }
-      final OAuthAccessTokenResponseModel model = OAuthAccessTokenResponseModel
-          .fromJson(response.data);
+      final OAuthAccessTokenResponseModel model =
+          OAuthAccessTokenResponseModel.fromJson(response.data);
       this.accessToken = model.accessToken;
       this.refreshToken = model.refreshToken;
       return model;
@@ -122,7 +206,9 @@ class CVClient {
   /// Profiles
   ///
 
-  Future<ResponseModel<ProfileModel>> fetchProfile(String profileId,) async {
+  Future<ResponseModel<ProfileModel>> fetchProfile(
+    String profileId,
+  ) async {
     return client
         .get(
       _pathProfiles + "/$profileId",
@@ -175,7 +261,9 @@ class CVClient {
   /// Parts
   ///
 
-  Future<ResponseModel<PartModel>> fetchPart(String partId,) async {
+  Future<ResponseModel<PartModel>> fetchPart(
+    String partId,
+  ) async {
     return client
         .get(
       _pathParts + "/$partId",
@@ -218,7 +306,9 @@ class CVClient {
   /// Groups
   ///
 
-  Future<ResponseModel<GroupModel>> fetchGroup(String groupId,) async {
+  Future<ResponseModel<GroupModel>> fetchGroup(
+    String groupId,
+  ) async {
     return client
         .get(
       _pathGroups + "/$groupId",
@@ -259,7 +349,9 @@ class CVClient {
   /// Entries
   ///
 
-  Future<ResponseModel<EntryModel>> fetchEntry(String entryId,) async {
+  Future<ResponseModel<EntryModel>> fetchEntry(
+    String entryId,
+  ) async {
     return client
         .get(
       _pathEntries + "/$entryId",

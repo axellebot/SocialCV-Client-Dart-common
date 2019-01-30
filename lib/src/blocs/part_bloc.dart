@@ -15,7 +15,7 @@ class PartBloc extends BlocBase {
     _isFetchingPartController.add(false);
   }
 
-  final CVRepository cvRepository;
+  final CVRepositoryImpl cvRepository;
 
   // Reactive variables
   final _isFetchingPartController = BehaviorSubject<bool>();
