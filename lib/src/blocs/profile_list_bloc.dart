@@ -1,7 +1,7 @@
 import 'package:rxdart/rxdart.dart';
 import 'package:social_cv_client_dart_common/src/blocs/bloc_base.dart';
 import 'package:social_cv_client_dart_common/src/config/values.dart';
-import 'package:social_cv_client_dart_common/src/models/profile_model.dart';
+import 'package:social_cv_client_dart_common/src/models/profile_data_model.dart';
 import 'package:social_cv_client_dart_common/src/repositories/cv_repository.dart';
 import 'package:social_cv_client_dart_common/src/repositories/preferences_repository.dart';
 
@@ -24,14 +24,14 @@ class ProfileListBloc extends BlocBase {
 
   // Reactive variables
   final _isFetchingProfilesController = BehaviorSubject<bool>();
-  final _profilesController = BehaviorSubject<List<ProfileModel>>();
+  final _profilesController = BehaviorSubject<List<ProfileDataModel>>();
   final _profilePerPage = BehaviorSubject<String>();
 
   // Streams
   Observable<bool> get isFetchingProfilesStream =>
       _isFetchingProfilesController.stream;
 
-  Observable<List<ProfileModel>> get profilesStream =>
+  Observable<List<ProfileDataModel>> get profilesStream =>
       _profilesController.stream;
 
   Observable<String> get profilePerPage => _profilePerPage.stream;

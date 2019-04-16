@@ -1,7 +1,7 @@
 import 'package:rxdart/rxdart.dart';
 import 'package:social_cv_client_dart_common/src/blocs/bloc_base.dart';
 import 'package:social_cv_client_dart_common/src/config/values.dart';
-import 'package:social_cv_client_dart_common/src/models/entry_model.dart';
+import 'package:social_cv_client_dart_common/src/models/entry_data_model.dart';
 import 'package:social_cv_client_dart_common/src/repositories/cv_repository.dart';
 
 const String _TAG = "EntryListBloc";
@@ -21,14 +21,14 @@ class EntryListBloc extends BlocBase {
 
   // Reactive variables
   final _isFetchingEntriesController = BehaviorSubject<bool>();
-  final _entriesController = BehaviorSubject<List<EntryModel>>();
+  final _entriesController = BehaviorSubject<List<EntryDataModel>>();
   final _entryPerPage = BehaviorSubject<String>();
 
   // Streams
   Observable<bool> get isFetchingGroupEntriesStream =>
       _isFetchingEntriesController.stream;
 
-  Observable<List<EntryModel>> get entriesStream => _entriesController.stream;
+  Observable<List<EntryDataModel>> get entriesStream => _entriesController.stream;
 
   Observable<String> get entryPerPage => _entryPerPage.stream;
 

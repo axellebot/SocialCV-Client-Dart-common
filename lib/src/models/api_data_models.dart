@@ -1,30 +1,11 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:social_cv_client_dart_common/src/models/entry_model.dart';
-import 'package:social_cv_client_dart_common/src/models/group_model.dart';
-import 'package:social_cv_client_dart_common/src/models/part_model.dart';
-import 'package:social_cv_client_dart_common/src/models/profile_model.dart';
-import 'package:social_cv_client_dart_common/src/models/user_model.dart';
+import 'package:social_cv_client_dart_common/src/models/entry_data_model.dart';
+import 'package:social_cv_client_dart_common/src/models/group_data_model.dart';
+import 'package:social_cv_client_dart_common/src/models/part_data_model.dart';
+import 'package:social_cv_client_dart_common/src/models/profile_data_model.dart';
+import 'package:social_cv_client_dart_common/src/models/user_data_model.dart';
 
-part 'api_models.g.dart';
-
-@JsonSerializable()
-class ApiBaseModel extends Object {
-  ApiBaseModel({this.id}) : super();
-
-  @JsonKey(name: '_id')
-  String id;
-
-  DateTime createdAt;
-  DateTime updatedAt;
-
-  @JsonKey(name: '__v')
-  int v;
-
-  factory ApiBaseModel.fromJson(Map<String, dynamic> json) =>
-      _$ApiBaseModelFromJson(json);
-
-  Map<String, dynamic> toJson() => _$ApiBaseModelToJson(this);
-}
+part 'api_data_models.g.dart';
 
 @JsonSerializable()
 class ResponseModel<T> extends Object {
@@ -50,16 +31,16 @@ class ResponseModel<T> extends Object {
 T _dataFromJson<T>(Map<String, dynamic> input) {
   print("_dataFromJson $T");
 
-  if (T == UserModel)
-    return UserModel.fromJson(input) as T;
-  else if (T == ProfileModel)
-    return ProfileModel.fromJson(input) as T;
-  else if (T == PartModel)
-    return PartModel.fromJson(input) as T;
-  else if (T == GroupModel)
-    return GroupModel.fromJson(input) as T;
-  else if (T == EntryModel)
-    return EntryModel.fromJson(input) as T;
+  if (T == UserDataModel)
+    return UserDataModel.fromJson(input) as T;
+  else if (T == ProfileDataModel)
+    return ProfileDataModel.fromJson(input) as T;
+  else if (T == PartDataModel)
+    return PartDataModel.fromJson(input) as T;
+  else if (T == GroupDataModel)
+    return GroupDataModel.fromJson(input) as T;
+  else if (T == EntryDataModel)
+    return EntryDataModel.fromJson(input) as T;
   else
     throw Exception("Unknown type $T in ._dataFromJson");
 }
@@ -99,15 +80,15 @@ class _ResponseDataConverter<T> implements JsonConverter<T, Object> {
   @override
   T fromJson(Object json) {
     if (json is Map<String, dynamic>) {
-      if (T == UserModel)
-        return UserModel.fromJson(json) as T;
-      else if (T == ProfileModel)
-        return ProfileModel.fromJson(json) as T;
-      else if (T == PartModel)
-        return PartModel.fromJson(json) as T;
-      else if (T == GroupModel)
-        return GroupModel.fromJson(json) as T;
-      else if (T == EntryModel) return EntryModel.fromJson(json) as T;
+      if (T == UserDataModel)
+        return UserDataModel.fromJson(json) as T;
+      else if (T == ProfileDataModel)
+        return ProfileDataModel.fromJson(json) as T;
+      else if (T == PartDataModel)
+        return PartDataModel.fromJson(json) as T;
+      else if (T == GroupDataModel)
+        return GroupDataModel.fromJson(json) as T;
+      else if (T == EntryDataModel) return EntryDataModel.fromJson(json) as T;
     }
     // This will only work if `json` is a native JSON type:
     //   num, String, bool, null, etc
@@ -133,8 +114,7 @@ class OAuthTokenModel extends Object {
     this.clientId,
     this.clientSecret,
     this.grantType = "password",
-  })
-      : assert((username != null && password != null) || refreshToken != null),
+  })  : assert((username != null && password != null) || refreshToken != null),
         assert(clientId != null),
         assert(clientSecret != null),
         assert(grantType != null),

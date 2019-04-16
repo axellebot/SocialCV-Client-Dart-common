@@ -1,8 +1,10 @@
-import 'package:social_cv_client_dart_common/src/models/entry_model.dart';
-import 'package:social_cv_client_dart_common/src/models/group_model.dart';
-import 'package:social_cv_client_dart_common/src/models/part_model.dart';
-import 'package:social_cv_client_dart_common/src/models/profile_model.dart';
-import 'package:social_cv_client_dart_common/src/models/user_model.dart';
+import 'dart:async';
+
+import 'package:social_cv_client_dart_common/src/models/entry_data_model.dart';
+import 'package:social_cv_client_dart_common/src/models/group_data_model.dart';
+import 'package:social_cv_client_dart_common/src/models/part_data_model.dart';
+import 'package:social_cv_client_dart_common/src/models/profile_data_model.dart';
+import 'package:social_cv_client_dart_common/src/models/user_data_model.dart';
 
 const String _TAG = "CVCache";
 
@@ -12,49 +14,49 @@ abstract class CVCache {
   /// Account
   ///
 
-  Future<UserModel> getAccount();
+  Future<UserDataModel> getAccount();
 
-  void setAccount(UserModel userModel);
+  void setAccount(UserDataModel userModel);
 
   ///
   /// Users
   ///
 
-  Future<UserModel> getUser(String userId);
+  Future<UserDataModel> getUser(String userId);
 
-  void setUser(UserModel userModel);
+  void setUser(UserDataModel userModel);
 
   ///
   /// Profiles
   ///
 
-  Future<ProfileModel> getProfile(String profileId);
+  Future<ProfileDataModel> getProfile(String profileId);
 
-  void setProfile(ProfileModel profileModel);
+  void setProfile(ProfileDataModel profileModel);
 
   ///
   /// Parts
   ///
 
-  Future<PartModel> getPart(String partId);
+  Future<PartDataModel> getPart(String partId);
 
-  void setPart(PartModel partModel);
+  void setPart(PartDataModel partModel);
 
   ///
   /// Groups
   ///
 
-  Future<GroupModel> getGroup(String groupId);
+  Future<GroupDataModel> getGroup(String groupId);
 
-  void setGroup(GroupModel groupModel);
+  void setGroup(GroupDataModel groupModel);
 
   ///
   /// Entries
   ///
 
-  Future<EntryModel> getEntry(String entryId);
+  Future<EntryDataModel> getEntry(String entryId);
 
-  void setEntry(EntryModel entryModel);
+  void setEntry(EntryDataModel entryModel);
 }
 
 ///
@@ -63,45 +65,45 @@ abstract class CVCache {
 class CVCacheImpl implements CVCache {
   CVCacheImpl();
 
-  final _users = <String, _CacheModel<UserModel>>{};
-  final _profiles = <String, _CacheModel<ProfileModel>>{};
-  final _parts = <String, _CacheModel<PartModel>>{};
-  final _groups = <String, _CacheModel<GroupModel>>{};
-  final _entries = <String, _CacheModel<EntryModel>>{};
+  final _users = <String, _CacheModel<UserDataModel>>{};
+  final _profiles = <String, _CacheModel<ProfileDataModel>>{};
+  final _parts = <String, _CacheModel<PartDataModel>>{};
+  final _groups = <String, _CacheModel<GroupDataModel>>{};
+  final _entries = <String, _CacheModel<EntryDataModel>>{};
 
-  _CacheModel<UserModel> accountCache;
+  _CacheModel<UserDataModel> accountCache;
 
   ///
   /// Account
   ///
 
-  Future<UserModel> getAccount() async {
+  Future<UserDataModel> getAccount() async {
     return (accountCache != null && !accountCache.isExpired())
         ? accountCache.model
         : null;
   }
 
-  void setAccount(UserModel userModel) async {
+  void setAccount(UserDataModel userModel) async {
     DateTime expiration = _generateExpirationDateTime(Duration(minutes: 1));
     this.accountCache =
-        _CacheModel<UserModel>(model: userModel, expiration: expiration);
+        _CacheModel<UserDataModel>(model: userModel, expiration: expiration);
   }
 
   ///
   /// Users
   ///
 
-  Future<UserModel> getUser(String userId) async {
-    _CacheModel<UserModel> cacheModel = _users[userId];
+  Future<UserDataModel> getUser(String userId) async {
+    _CacheModel<UserDataModel> cacheModel = _users[userId];
     return (cacheModel != null && !cacheModel.isExpired())
         ? cacheModel.model
         : null;
   }
 
-  void setUser(UserModel userModel) async {
+  void setUser(UserDataModel userModel) async {
     DateTime expiration = _generateExpirationDateTime(Duration(minutes: 1));
     final cacheModel =
-    _CacheModel<UserModel>(model: userModel, expiration: expiration);
+    _CacheModel<UserDataModel>(model: userModel, expiration: expiration);
     _users[userModel.id] = cacheModel;
   }
 
@@ -109,17 +111,17 @@ class CVCacheImpl implements CVCache {
   /// Profiles
   ///
 
-  Future<ProfileModel> getProfile(String profileId) async {
-    _CacheModel<ProfileModel> cacheModel = _profiles[profileId];
+  Future<ProfileDataModel> getProfile(String profileId) async {
+    _CacheModel<ProfileDataModel> cacheModel = _profiles[profileId];
     return (cacheModel != null && !cacheModel.isExpired())
         ? cacheModel.model
         : null;
   }
 
-  void setProfile(ProfileModel profileModel) async {
+  void setProfile(ProfileDataModel profileModel) async {
     DateTime expiration = _generateExpirationDateTime(Duration(minutes: 1));
     final cacheModel =
-    _CacheModel<ProfileModel>(model: profileModel, expiration: expiration);
+    _CacheModel<ProfileDataModel>(model: profileModel, expiration: expiration);
     _profiles[profileModel.id] = cacheModel;
   }
 
@@ -127,17 +129,17 @@ class CVCacheImpl implements CVCache {
   /// Parts
   ///
 
-  Future<PartModel> getPart(String partId) async {
-    _CacheModel<PartModel> cacheModel = _parts[partId];
+  Future<PartDataModel> getPart(String partId) async {
+    _CacheModel<PartDataModel> cacheModel = _parts[partId];
     return (cacheModel != null && !cacheModel.isExpired())
         ? cacheModel.model
         : null;
   }
 
-  void setPart(PartModel partModel) async {
+  void setPart(PartDataModel partModel) async {
     DateTime expiration = _generateExpirationDateTime(Duration(minutes: 1));
     final cacheModel =
-    _CacheModel<PartModel>(model: partModel, expiration: expiration);
+    _CacheModel<PartDataModel>(model: partModel, expiration: expiration);
     _parts[partModel.id] = cacheModel;
   }
 
@@ -145,17 +147,17 @@ class CVCacheImpl implements CVCache {
   /// Groups
   ///
 
-  Future<GroupModel> getGroup(String groupId) async {
-    _CacheModel<GroupModel> cacheModel = _groups[groupId];
+  Future<GroupDataModel> getGroup(String groupId) async {
+    _CacheModel<GroupDataModel> cacheModel = _groups[groupId];
     return (cacheModel != null && !cacheModel.isExpired())
         ? cacheModel.model
         : null;
   }
 
-  void setGroup(GroupModel groupModel) async {
+  void setGroup(GroupDataModel groupModel) async {
     DateTime expiration = _generateExpirationDateTime(Duration(minutes: 1));
     final cacheModel =
-    _CacheModel<GroupModel>(model: groupModel, expiration: expiration);
+    _CacheModel<GroupDataModel>(model: groupModel, expiration: expiration);
     _groups[groupModel.id] = cacheModel;
   }
 
@@ -163,17 +165,17 @@ class CVCacheImpl implements CVCache {
   /// Entries
   ///
 
-  Future<EntryModel> getEntry(String entryId) async {
-    _CacheModel<EntryModel> cacheModel = _entries[entryId];
+  Future<EntryDataModel> getEntry(String entryId) async {
+    _CacheModel<EntryDataModel> cacheModel = _entries[entryId];
     return (cacheModel != null && !cacheModel.isExpired())
         ? cacheModel.model
         : null;
   }
 
-  void setEntry(EntryModel entryModel) async {
+  void setEntry(EntryDataModel entryModel) async {
     DateTime expiration = _generateExpirationDateTime(Duration(minutes: 1));
     final cacheModel =
-    _CacheModel<EntryModel>(model: entryModel, expiration: expiration);
+    _CacheModel<EntryDataModel>(model: entryModel, expiration: expiration);
     _entries[entryModel.id] = cacheModel;
   }
 

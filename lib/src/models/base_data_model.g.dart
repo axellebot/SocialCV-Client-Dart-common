@@ -1,18 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'group_model.dart';
+part of 'base_data_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-GroupModel _$GroupModelFromJson(Map<String, dynamic> json) {
-  return GroupModel(
-      id: json['_id'] as String,
-      name: json['name'] as String,
-      type: json['type'] as String,
-      entryIds: (json['entries'] as List)?.map((e) => e as String)?.toList(),
-      owner: json['owner'] as String)
+BaseDataModel _$BaseDataModelFromJson(Map<String, dynamic> json) {
+  return BaseDataModel(id: json['_id'] as String)
     ..createdAt = json['createdAt'] == null
         ? null
         : DateTime.parse(json['createdAt'] as String)
@@ -22,14 +17,10 @@ GroupModel _$GroupModelFromJson(Map<String, dynamic> json) {
     ..v = json['__v'] as int;
 }
 
-Map<String, dynamic> _$GroupModelToJson(GroupModel instance) =>
+Map<String, dynamic> _$BaseDataModelToJson(BaseDataModel instance) =>
     <String, dynamic>{
       '_id': instance.id,
       'createdAt': instance.createdAt?.toIso8601String(),
       'updatedAt': instance.updatedAt?.toIso8601String(),
-      '__v': instance.v,
-      'name': instance.name,
-      'type': instance.type,
-      'entries': instance.entryIds,
-      'owner': instance.owner
+      '__v': instance.v
     };

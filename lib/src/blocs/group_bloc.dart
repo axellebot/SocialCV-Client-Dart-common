@@ -1,6 +1,6 @@
 import 'package:rxdart/rxdart.dart';
 import 'package:social_cv_client_dart_common/src/blocs/bloc_base.dart';
-import 'package:social_cv_client_dart_common/src/models/group_model.dart';
+import 'package:social_cv_client_dart_common/src/models/group_data_model.dart';
 import 'package:social_cv_client_dart_common/src/repositories/cv_repository.dart';
 
 const String _TAG = "GroupBloc";
@@ -19,13 +19,13 @@ class GroupBloc extends BlocBase {
 
   // Reactive variables
   final _isFetchingGroupController = BehaviorSubject<bool>();
-  final _groupController = BehaviorSubject<GroupModel>();
+  final _groupController = BehaviorSubject<GroupDataModel>();
 
   // Streams
   Observable<bool> get isFetchingGroupStream =>
       _isFetchingGroupController.stream;
 
-  Observable<GroupModel> get groupStream => _groupController.stream;
+  Observable<GroupDataModel> get groupStream => _groupController.stream;
 
   void fetchGroup(String groupId) async {
     print('$_TAG:fetchGroup');

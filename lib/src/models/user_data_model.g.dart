@@ -1,21 +1,20 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'profile_model.dart';
+part of 'user_data_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-ProfileModel _$ProfileModelFromJson(Map<String, dynamic> json) {
-  return ProfileModel(
+UserDataModel _$UserDataModelFromJson(Map<String, dynamic> json) {
+  return UserDataModel(
       id: json['_id'] as String,
-      title: json['title'] as String,
-      subtitle: json['subtitle'] as String,
+      disabled: json['disabled'] as bool,
+      email: json['email'] as String,
+      username: json['username'] as String,
       picture: json['picture'] as String,
-      cover: json['cover'] as String,
-      type: json['type'] as String,
-      parts: json['parts'],
-      owner: json['owner'] as String)
+      profileIds: (json['profiles'] as List)?.map((e) => e as String)?.toList(),
+      permission: json['permission'])
     ..createdAt = json['createdAt'] == null
         ? null
         : DateTime.parse(json['createdAt'] as String)
@@ -25,17 +24,16 @@ ProfileModel _$ProfileModelFromJson(Map<String, dynamic> json) {
     ..v = json['__v'] as int;
 }
 
-Map<String, dynamic> _$ProfileModelToJson(ProfileModel instance) =>
+Map<String, dynamic> _$UserDataModelToJson(UserDataModel instance) =>
     <String, dynamic>{
       '_id': instance.id,
       'createdAt': instance.createdAt?.toIso8601String(),
       'updatedAt': instance.updatedAt?.toIso8601String(),
       '__v': instance.v,
-      'title': instance.title,
-      'subtitle': instance.subtitle,
+      'disabled': instance.disabled,
+      'email': instance.email,
+      'username': instance.username,
       'picture': instance.picture,
-      'cover': instance.cover,
-      'type': instance.type,
-      'parts': instance.parts,
-      'owner': instance.owner
+      'profiles': instance.profileIds,
+      'permission': instance.permission
     };

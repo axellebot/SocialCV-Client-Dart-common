@@ -1,9 +1,11 @@
-import 'package:social_cv_client_dart_common/src/models/api_models.dart';
-import 'package:social_cv_client_dart_common/src/models/entry_model.dart';
-import 'package:social_cv_client_dart_common/src/models/group_model.dart';
-import 'package:social_cv_client_dart_common/src/models/part_model.dart';
-import 'package:social_cv_client_dart_common/src/models/profile_model.dart';
-import 'package:social_cv_client_dart_common/src/models/user_model.dart';
+import 'dart:async';
+
+import 'package:social_cv_client_dart_common/src/models/api_data_models.dart';
+import 'package:social_cv_client_dart_common/src/models/entry_data_model.dart';
+import 'package:social_cv_client_dart_common/src/models/group_data_model.dart';
+import 'package:social_cv_client_dart_common/src/models/part_data_model.dart';
+import 'package:social_cv_client_dart_common/src/models/profile_data_model.dart';
+import 'package:social_cv_client_dart_common/src/models/user_data_model.dart';
 import 'package:social_cv_client_dart_common/src/repositories/cv_cache.dart';
 import 'package:social_cv_client_dart_common/src/repositories/cv_client.dart';
 
@@ -18,9 +20,9 @@ abstract class CVRepository {
   /// Account
   ///
 
-  Future<UserModel> fetchAccount();
+  Future<UserDataModel> fetchAccount();
 
-  Future<List<ProfileModel>> fetchAccountProfiles({
+  Future<List<ProfileDataModel>> fetchAccountProfiles({
     int offset = 0,
     int limit = 5,
   });
@@ -29,11 +31,11 @@ abstract class CVRepository {
   /// Profiles
   ///
 
-  Future<ProfileModel> fetchProfile(
+  Future<ProfileDataModel> fetchProfile(
     String profileId,
   );
 
-  Future<List<PartModel>> fetchProfileParts({
+  Future<List<PartDataModel>> fetchProfileParts({
     String profileId,
     int offset,
     int limit,
@@ -43,11 +45,11 @@ abstract class CVRepository {
   /// Parts
   ///
 
-  Future<PartModel> fetchPart(
+  Future<PartDataModel> fetchPart(
     String partId,
   );
 
-  Future<List<GroupModel>> fetchPartGroups({
+  Future<List<GroupDataModel>> fetchPartGroups({
     String partId,
     int offset,
     int limit,
@@ -57,11 +59,11 @@ abstract class CVRepository {
   /// Groups
   ///
 
-  Future<GroupModel> fetchGroup(
+  Future<GroupDataModel> fetchGroup(
     String groupId,
   );
 
-  Future<List<EntryModel>> fetchGroupEntries({
+  Future<List<EntryDataModel>> fetchGroupEntries({
     String groupId,
     int offset,
     int limit,
@@ -71,7 +73,7 @@ abstract class CVRepository {
   /// Entries
   ///
 
-  Future<EntryModel> fetchEntry(
+  Future<EntryDataModel> fetchEntry(
     String entryId,
   );
 
@@ -79,7 +81,7 @@ abstract class CVRepository {
   /// Profiles
   ///
 
-  Future<List<ProfileModel>> fetchProfiles({
+  Future<List<ProfileDataModel>> fetchProfiles({
     String profileTitle,
     int offset,
     int limit,
@@ -108,18 +110,18 @@ class CVRepositoryImpl extends CVRepository {
   /// Account
   ///
 
-  Future<UserModel> fetchAccount() async {
+  Future<UserDataModel> fetchAccount() async {
     print("$_TAG:fetchAccount");
 
-    UserModel userModel = await cache.getAccount();
-    if (userModel == null) {
-      userModel = (await client.fetchAccount()).data;
-      cache.setAccount(userModel);
+    UserDataModel userDataModel = await cache.getAccount();
+    if (userDataModel == null) {
+      userDataModel = (await client.fetchAccount()).data;
+      cache.setAccount(userDataModel);
     }
-    return userModel;
+    return userDataModel;
   }
 
-  Future<List<ProfileModel>> fetchAccountProfiles({
+  Future<List<ProfileDataModel>> fetchAccountProfiles({
     int offset = 0,
     int limit = 5,
   }) async {
@@ -134,10 +136,10 @@ class CVRepositoryImpl extends CVRepository {
   /// Profiles
   ///
 
-  Future<ProfileModel> fetchProfile(
+  Future<ProfileDataModel> fetchProfile(
     String profileId,
   ) async {
-    ProfileModel profileModel = await cache.getProfile(profileId);
+    ProfileDataModel profileModel = await cache.getProfile(profileId);
     if (profileModel == null) {
       profileModel = (await client.fetchProfile(profileId)).data;
       cache.setProfile(profileModel);
@@ -146,7 +148,7 @@ class CVRepositoryImpl extends CVRepository {
     return profileModel;
   }
 
-  Future<List<PartModel>> fetchProfileParts({
+  Future<List<PartDataModel>> fetchProfileParts({
     String profileId,
     int offset = 0,
     int limit = 5,
@@ -163,10 +165,10 @@ class CVRepositoryImpl extends CVRepository {
   /// Parts
   ///
 
-  Future<PartModel> fetchPart(
+  Future<PartDataModel> fetchPart(
     String partId,
   ) async {
-    PartModel partModel = await cache.getPart(partId);
+    PartDataModel partModel = await cache.getPart(partId);
     if (partModel == null) {
       partModel = (await client.fetchPart(partId)).data;
       cache.setPart(partModel);
@@ -174,7 +176,7 @@ class CVRepositoryImpl extends CVRepository {
     return partModel;
   }
 
-  Future<List<GroupModel>> fetchPartGroups({
+  Future<List<GroupDataModel>> fetchPartGroups({
     String partId,
     int offset = 0,
     int limit = 5,
@@ -191,16 +193,16 @@ class CVRepositoryImpl extends CVRepository {
   /// Groups
   ///
 
-  Future<GroupModel> fetchGroup(
+  Future<GroupDataModel> fetchGroup(
     String groupId,
   ) async {
-    GroupModel groupModel = await cache.getGroup(groupId);
+    GroupDataModel groupModel = await cache.getGroup(groupId);
     if (groupModel == null)
       groupModel = (await client.fetchGroup(groupId)).data;
     return groupModel;
   }
 
-  Future<List<EntryModel>> fetchGroupEntries({
+  Future<List<EntryDataModel>> fetchGroupEntries({
     String groupId,
     int offset = 0,
     int limit = 5,
@@ -217,10 +219,10 @@ class CVRepositoryImpl extends CVRepository {
   /// Entries
   ///
 
-  Future<EntryModel> fetchEntry(
+  Future<EntryDataModel> fetchEntry(
     String entryId,
   ) async {
-    EntryModel entryModel = await cache.getEntry(entryId);
+    EntryDataModel entryModel = await cache.getEntry(entryId);
     if (entryModel == null) {
       entryModel = (await client.fetchEntry(entryId)).data;
       cache.setEntry(entryModel);
@@ -232,7 +234,7 @@ class CVRepositoryImpl extends CVRepository {
   /// Profiles
   ///
 
-  Future<List<ProfileModel>> fetchProfiles({
+  Future<List<ProfileDataModel>> fetchProfiles({
     String profileTitle,
     int offset = 0,
     int limit = 10,

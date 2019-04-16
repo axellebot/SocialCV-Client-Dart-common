@@ -1,6 +1,6 @@
 import 'package:rxdart/rxdart.dart';
 import 'package:social_cv_client_dart_common/src/blocs/bloc_base.dart';
-import 'package:social_cv_client_dart_common/src/models/profile_model.dart';
+import 'package:social_cv_client_dart_common/src/models/profile_data_model.dart';
 import 'package:social_cv_client_dart_common/src/repositories/cv_repository.dart';
 
 const String _TAG = "ProfileBloc";
@@ -19,13 +19,13 @@ class ProfileBloc extends BlocBase {
 
   // Reactive variables
   final _isFetchingProfileController = BehaviorSubject<bool>();
-  final _profileController = BehaviorSubject<ProfileModel>();
+  final _profileController = BehaviorSubject<ProfileDataModel>();
 
   // Streams
   Observable<bool> get isFetchingProfileStream =>
       _isFetchingProfileController.stream;
 
-  Observable<ProfileModel> get profileStream => _profileController.stream;
+  Observable<ProfileDataModel> get profileStream => _profileController.stream;
 
   void fetchProfileDetails(String profileId) async {
     print('$_TAG:fetchProfileDetails');

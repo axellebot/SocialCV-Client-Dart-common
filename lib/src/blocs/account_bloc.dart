@@ -1,8 +1,8 @@
 import 'package:rxdart/rxdart.dart';
 import 'package:social_cv_client_dart_common/repositories.dart';
 import 'package:social_cv_client_dart_common/src/blocs/bloc_base.dart';
-import 'package:social_cv_client_dart_common/src/models/api_models.dart';
-import 'package:social_cv_client_dart_common/src/models/user_model.dart';
+import 'package:social_cv_client_dart_common/src/models/api_data_models.dart';
+import 'package:social_cv_client_dart_common/src/models/user_data_model.dart';
 import 'package:social_cv_client_dart_common/src/repositories/cv_repository.dart';
 import 'package:social_cv_client_dart_common/src/repositories/secrets_repository.dart';
 
@@ -13,8 +13,7 @@ class AccountBloc extends BlocBase {
     this.cvRepository,
     this.preferencesRepository,
     this.secretRepository,
-  })
-      : assert(preferencesRepository != null),
+  })  : assert(preferencesRepository != null),
         assert(cvRepository != null),
         assert(secretRepository != null),
         super() {
@@ -31,7 +30,7 @@ class AccountBloc extends BlocBase {
   final _isAuthenticatedController = BehaviorSubject<bool>();
   final _isLoggingController = BehaviorSubject<bool>();
   final _isFetchingAccountDetailsController = BehaviorSubject<bool>();
-  final _accountDetailsController = BehaviorSubject<UserModel>();
+  final _accountDetailsController = BehaviorSubject<UserDataModel>();
 
   // Streams
   Observable<bool> get isAuthenticatedStream =>
@@ -42,7 +41,7 @@ class AccountBloc extends BlocBase {
   Observable<bool> get isFetchingAccountDetailsStream =>
       _isFetchingAccountDetailsController.stream;
 
-  Observable<UserModel> get accountDetailsStream =>
+  Observable<UserDataModel> get accountDetailsStream =>
       _accountDetailsController.stream;
 
   /* Functions */
@@ -103,7 +102,7 @@ class AccountBloc extends BlocBase {
     if (!_isFetchingAccountDetailsController.value) {
       _isFetchingAccountDetailsController.add(true);
 
-      await cvRepository.fetchAccount().then((UserModel userModel) {
+      await cvRepository.fetchAccount().then((UserDataModel userModel) {
         preferencesRepository.setUserId(userModel.id);
         _accountDetailsController.add(userModel);
       }).catchError(_accountDetailsController.addError);

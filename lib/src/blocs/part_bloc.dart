@@ -1,6 +1,6 @@
 import 'package:rxdart/rxdart.dart';
 import 'package:social_cv_client_dart_common/src/blocs/bloc_base.dart';
-import 'package:social_cv_client_dart_common/src/models/part_model.dart';
+import 'package:social_cv_client_dart_common/src/models/part_data_model.dart';
 import 'package:social_cv_client_dart_common/src/repositories/cv_repository.dart';
 
 const String _TAG = "PartBloc";
@@ -19,12 +19,12 @@ class PartBloc extends BlocBase {
 
   // Reactive variables
   final _isFetchingPartController = BehaviorSubject<bool>();
-  final _partController = BehaviorSubject<PartModel>();
+  final _partController = BehaviorSubject<PartDataModel>();
 
   // Streams
   Observable<bool> get isFetchingPartStream => _isFetchingPartController.stream;
 
-  Observable<PartModel> get partStream => _partController.stream;
+  Observable<PartDataModel> get partStream => _partController.stream;
 
   void fetchPart(String partId) async {
     print('$_TAG:fetchPart');

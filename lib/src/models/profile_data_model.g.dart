@@ -1,20 +1,21 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_model.dart';
+part of 'profile_data_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-UserModel _$UserModelFromJson(Map<String, dynamic> json) {
-  return UserModel(
+ProfileDataModel _$ProfileDataModelFromJson(Map<String, dynamic> json) {
+  return ProfileDataModel(
       id: json['_id'] as String,
-      disabled: json['disabled'] as bool,
-      email: json['email'] as String,
-      username: json['username'] as String,
+      title: json['title'] as String,
+      subtitle: json['subtitle'] as String,
       picture: json['picture'] as String,
-      profileIds: (json['profiles'] as List)?.map((e) => e as String)?.toList(),
-      permission: json['permission'])
+      cover: json['cover'] as String,
+      type: json['type'] as String,
+      parts: json['parts'],
+      owner: json['owner'] as String)
     ..createdAt = json['createdAt'] == null
         ? null
         : DateTime.parse(json['createdAt'] as String)
@@ -24,15 +25,17 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) {
     ..v = json['__v'] as int;
 }
 
-Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
+Map<String, dynamic> _$ProfileDataModelToJson(ProfileDataModel instance) =>
+    <String, dynamic>{
       '_id': instance.id,
       'createdAt': instance.createdAt?.toIso8601String(),
       'updatedAt': instance.updatedAt?.toIso8601String(),
       '__v': instance.v,
-      'disabled': instance.disabled,
-      'email': instance.email,
-      'username': instance.username,
+      'title': instance.title,
+      'subtitle': instance.subtitle,
       'picture': instance.picture,
-      'profiles': instance.profileIds,
-      'permission': instance.permission
+      'cover': instance.cover,
+      'type': instance.type,
+      'parts': instance.parts,
+      'owner': instance.owner
     };

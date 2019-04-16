@@ -1,6 +1,6 @@
 import 'package:rxdart/rxdart.dart';
 import 'package:social_cv_client_dart_common/src/blocs/bloc_base.dart';
-import 'package:social_cv_client_dart_common/src/models/entry_model.dart';
+import 'package:social_cv_client_dart_common/src/models/entry_data_model.dart';
 import 'package:social_cv_client_dart_common/src/repositories/cv_repository.dart';
 
 const String _TAG = "EntryBloc";
@@ -19,13 +19,13 @@ class EntryBloc extends BlocBase {
 
   // Reactive variables
   final _isFetchingEntryController = BehaviorSubject<bool>();
-  final _entryController = BehaviorSubject<EntryModel>();
+  final _entryController = BehaviorSubject<EntryDataModel>();
 
   // Streams
   Observable<bool> get isFetchingEntryStream =>
       _isFetchingEntryController.stream;
 
-  Observable<EntryModel> get entryStream => _entryController.stream;
+  Observable<EntryDataModel> get entryStream => _entryController.stream;
 
   void fetchEntry(String profileEntryId) async {
     print('$_TAG:fetchEntry');

@@ -1,17 +1,20 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'part_model.dart';
+part of 'entry_data_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-PartModel _$PartModelFromJson(Map<String, dynamic> json) {
-  return PartModel(
+EntryDataModel _$EntryDataModelFromJson(Map<String, dynamic> json) {
+  return EntryDataModel(
       id: json['_id'] as String,
       name: json['name'] as String,
-      groupIds: (json['groups'] as List)?.map((e) => e as String)?.toList(),
-      owner: json['owner'] as String)
+      startDate: json['startDate'] as String,
+      endDate: json['endDate'] as String,
+      location: json['location'] as String,
+      owner: json['owner'] as String,
+      type: json['type'] as String)
     ..createdAt = json['createdAt'] == null
         ? null
         : DateTime.parse(json['createdAt'] as String)
@@ -19,18 +22,20 @@ PartModel _$PartModelFromJson(Map<String, dynamic> json) {
         ? null
         : DateTime.parse(json['updatedAt'] as String)
     ..v = json['__v'] as int
-    ..profileId = json['profile'] as String
-    ..type = json['type'] as String;
+    ..content = json['content'];
 }
 
-Map<String, dynamic> _$PartModelToJson(PartModel instance) => <String, dynamic>{
+Map<String, dynamic> _$EntryDataModelToJson(EntryDataModel instance) =>
+    <String, dynamic>{
       '_id': instance.id,
       'createdAt': instance.createdAt?.toIso8601String(),
       'updatedAt': instance.updatedAt?.toIso8601String(),
       '__v': instance.v,
       'name': instance.name,
-      'groups': instance.groupIds,
+      'content': instance.content,
+      'startDate': instance.startDate,
+      'endDate': instance.endDate,
+      'location': instance.location,
       'owner': instance.owner,
-      'profile': instance.profileId,
       'type': instance.type
     };

@@ -1,7 +1,7 @@
 import 'package:rxdart/rxdart.dart';
 import 'package:social_cv_client_dart_common/src/blocs/bloc_base.dart';
 import 'package:social_cv_client_dart_common/src/config/values.dart';
-import 'package:social_cv_client_dart_common/src/models/part_model.dart';
+import 'package:social_cv_client_dart_common/src/models/part_data_model.dart';
 import 'package:social_cv_client_dart_common/src/repositories/cv_repository.dart';
 import 'package:social_cv_client_dart_common/src/repositories/preferences_repository.dart';
 
@@ -25,14 +25,14 @@ class PartListBloc extends BlocBase {
 
   // Reactive variables
   final _isFetchingPartsController = BehaviorSubject<bool>();
-  final _partsController = BehaviorSubject<List<PartModel>>();
+  final _partsController = BehaviorSubject<List<PartDataModel>>();
   final _partPerPage = BehaviorSubject<String>();
 
   // Streams
   Observable<bool> get isFetchingPartsStream =>
       _isFetchingPartsController.stream;
 
-  Observable<List<PartModel>> get partsStream => _partsController.stream;
+  Observable<List<PartDataModel>> get partsStream => _partsController.stream;
 
   Observable<String> get partPerPage => _partPerPage.stream;
 

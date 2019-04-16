@@ -5,12 +5,12 @@ import 'package:dio/dio.dart';
 import 'package:social_cv_client_dart_common/src/errors/api_errors.dart';
 import 'package:social_cv_client_dart_common/src/errors/base_errors.dart';
 import 'package:social_cv_client_dart_common/src/errors/http_errors.dart';
-import 'package:social_cv_client_dart_common/src/models/api_models.dart';
-import 'package:social_cv_client_dart_common/src/models/entry_model.dart';
-import 'package:social_cv_client_dart_common/src/models/group_model.dart';
-import 'package:social_cv_client_dart_common/src/models/part_model.dart';
-import 'package:social_cv_client_dart_common/src/models/profile_model.dart';
-import 'package:social_cv_client_dart_common/src/models/user_model.dart';
+import 'package:social_cv_client_dart_common/src/models/api_data_models.dart';
+import 'package:social_cv_client_dart_common/src/models/entry_data_model.dart';
+import 'package:social_cv_client_dart_common/src/models/group_data_model.dart';
+import 'package:social_cv_client_dart_common/src/models/part_data_model.dart';
+import 'package:social_cv_client_dart_common/src/models/profile_data_model.dart';
+import 'package:social_cv_client_dart_common/src/models/user_data_model.dart';
 
 const String _TAG = "CVClient";
 
@@ -27,9 +27,9 @@ abstract class CVClient {
   /// Account
   ///
 
-  Future<ResponseModel<UserModel>> fetchAccount();
+  Future<ResponseModel<UserDataModel>> fetchAccount();
 
-  Future<ResponseModelWithArray<ProfileModel>> fetchAccountProfiles({
+  Future<ResponseModelWithArray<ProfileDataModel>> fetchAccountProfiles({
     int offset,
     int limit,
   });
@@ -38,11 +38,11 @@ abstract class CVClient {
   /// Profiles
   ///
 
-  Future<ResponseModel<ProfileModel>> fetchProfile(
+  Future<ResponseModel<ProfileDataModel>> fetchProfile(
     String profileId,
   );
 
-  Future<ResponseModelWithArray<PartModel>> fetchProfileParts({
+  Future<ResponseModelWithArray<PartDataModel>> fetchProfileParts({
     String profileId,
     int offset = 0,
     int limit = 5,
@@ -52,11 +52,11 @@ abstract class CVClient {
   /// Parts
   ///
 
-  Future<ResponseModel<PartModel>> fetchPart(
+  Future<ResponseModel<PartDataModel>> fetchPart(
     String partId,
   );
 
-  Future<ResponseModelWithArray<GroupModel>> fetchPartGroups({
+  Future<ResponseModelWithArray<GroupDataModel>> fetchPartGroups({
     String partId,
     int offset,
     int limit,
@@ -66,11 +66,11 @@ abstract class CVClient {
   /// Groups
   ///
 
-  Future<ResponseModel<GroupModel>> fetchGroup(
+  Future<ResponseModel<GroupDataModel>> fetchGroup(
     String groupId,
   );
 
-  Future<ResponseModelWithArray<EntryModel>> fetchGroupEntries({
+  Future<ResponseModelWithArray<EntryDataModel>> fetchGroupEntries({
     String groupId,
     int offset,
     int limit,
@@ -80,7 +80,7 @@ abstract class CVClient {
   /// Entries
   ///
 
-  Future<ResponseModel<EntryModel>> fetchEntry(
+  Future<ResponseModel<EntryDataModel>> fetchEntry(
     String entryId,
   );
 
@@ -88,7 +88,7 @@ abstract class CVClient {
   /// Profiles
   ///
 
-  Future<ResponseModelWithArray<ProfileModel>> fetchProfiles({
+  Future<ResponseModelWithArray<ProfileDataModel>> fetchProfiles({
     String profileTitle,
     int offset,
     int limit,
@@ -160,7 +160,7 @@ class CVClientImpl extends CVClient {
   /// Account
   ///
 
-  Future<ResponseModel<UserModel>> fetchAccount() async {
+  Future<ResponseModel<UserDataModel>> fetchAccount() async {
     print("$_TAG:fetchAccountDetails");
     return client
         .get(
@@ -172,11 +172,11 @@ class CVClientImpl extends CVClient {
       ),
     )
         .then((Response response) {
-      return ResponseModel<UserModel>.fromJson(response.data);
+      return ResponseModel<UserDataModel>.fromJson(response.data);
     });
   }
 
-  Future<ResponseModelWithArray<ProfileModel>> fetchAccountProfiles({
+  Future<ResponseModelWithArray<ProfileDataModel>> fetchAccountProfiles({
     int offset = 0,
     int limit = 5,
   }) async {
@@ -198,7 +198,7 @@ class CVClientImpl extends CVClient {
         case HttpStatus.notFound:
           throw BaseError("Profiles from account not found");
       }
-      return ResponseModelWithArray<ProfileModel>.fromJson(response.data);
+      return ResponseModelWithArray<ProfileDataModel>.fromJson(response.data);
     });
   }
 
@@ -206,7 +206,7 @@ class CVClientImpl extends CVClient {
   /// Profiles
   ///
 
-  Future<ResponseModel<ProfileModel>> fetchProfile(
+  Future<ResponseModel<ProfileDataModel>> fetchProfile(
     String profileId,
   ) async {
     return client
@@ -219,11 +219,11 @@ class CVClientImpl extends CVClient {
       ),
     )
         .then((Response response) {
-      return ResponseModel<ProfileModel>.fromJson(response.data);
+      return ResponseModel<ProfileDataModel>.fromJson(response.data);
     });
   }
 
-  Future<ResponseModelWithArray<PartModel>> fetchProfileParts({
+  Future<ResponseModelWithArray<PartDataModel>> fetchProfileParts({
     String profileId,
     int offset = 0,
     int limit = 5,
@@ -253,7 +253,7 @@ class CVClientImpl extends CVClient {
       ),
     )
         .then((Response response) {
-      return ResponseModelWithArray<PartModel>.fromJson(response.data);
+      return ResponseModelWithArray<PartDataModel>.fromJson(response.data);
     });
   }
 
@@ -261,7 +261,7 @@ class CVClientImpl extends CVClient {
   /// Parts
   ///
 
-  Future<ResponseModel<PartModel>> fetchPart(
+  Future<ResponseModel<PartDataModel>> fetchPart(
     String partId,
   ) async {
     return client
@@ -274,11 +274,11 @@ class CVClientImpl extends CVClient {
       ),
     )
         .then((Response response) {
-      return ResponseModel<PartModel>.fromJson(response.data);
+      return ResponseModel<PartDataModel>.fromJson(response.data);
     });
   }
 
-  Future<ResponseModelWithArray<GroupModel>> fetchPartGroups({
+  Future<ResponseModelWithArray<GroupDataModel>> fetchPartGroups({
     String partId,
     int offset = 0,
     int limit = 5,
@@ -298,7 +298,7 @@ class CVClientImpl extends CVClient {
       ),
     )
         .then((response) {
-      return ResponseModelWithArray<GroupModel>.fromJson(response.data);
+      return ResponseModelWithArray<GroupDataModel>.fromJson(response.data);
     });
   }
 
@@ -306,7 +306,7 @@ class CVClientImpl extends CVClient {
   /// Groups
   ///
 
-  Future<ResponseModel<GroupModel>> fetchGroup(
+  Future<ResponseModel<GroupDataModel>> fetchGroup(
     String groupId,
   ) async {
     return client
@@ -319,11 +319,11 @@ class CVClientImpl extends CVClient {
       ),
     )
         .then((response) {
-      return ResponseModel<GroupModel>.fromJson(response.data);
+      return ResponseModel<GroupDataModel>.fromJson(response.data);
     });
   }
 
-  Future<ResponseModelWithArray<EntryModel>> fetchGroupEntries({
+  Future<ResponseModelWithArray<EntryDataModel>> fetchGroupEntries({
     String groupId,
     int offset = 0,
     int limit = 5,
@@ -341,7 +341,7 @@ class CVClientImpl extends CVClient {
         "sort": "+order",
       },
     ).then((response) {
-      return ResponseModelWithArray<EntryModel>.fromJson(response.data);
+      return ResponseModelWithArray<EntryDataModel>.fromJson(response.data);
     });
   }
 
@@ -349,7 +349,7 @@ class CVClientImpl extends CVClient {
   /// Entries
   ///
 
-  Future<ResponseModel<EntryModel>> fetchEntry(
+  Future<ResponseModel<EntryDataModel>> fetchEntry(
     String entryId,
   ) async {
     return client
@@ -362,7 +362,7 @@ class CVClientImpl extends CVClient {
       ),
     )
         .then((Response response) {
-      return ResponseModel<EntryModel>.fromJson(response.data);
+      return ResponseModel<EntryDataModel>.fromJson(response.data);
     });
   }
 
@@ -370,7 +370,7 @@ class CVClientImpl extends CVClient {
   /// Profiles
   ///
 
-  Future<ResponseModelWithArray<ProfileModel>> fetchProfiles({
+  Future<ResponseModelWithArray<ProfileDataModel>> fetchProfiles({
     String profileTitle,
     int offset = 0,
     int limit = 10,
@@ -395,7 +395,7 @@ class CVClientImpl extends CVClient {
         case HttpStatus.notFound:
           throw ApiErrorProfileNotFoundError();
       }
-      return ResponseModelWithArray<ProfileModel>.fromJson(response.data);
+      return ResponseModelWithArray<ProfileDataModel>.fromJson(response.data);
     });
   }
 }
