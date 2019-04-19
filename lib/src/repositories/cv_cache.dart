@@ -6,8 +6,6 @@ import 'package:social_cv_client_dart_common/src/models/part_data_model.dart';
 import 'package:social_cv_client_dart_common/src/models/profile_data_model.dart';
 import 'package:social_cv_client_dart_common/src/models/user_data_model.dart';
 
-const String _TAG = "CVCache";
-
 /// Interface for CVCache (depends on the platform flutter/angular/...)
 abstract class CVCache {
   ///
@@ -62,8 +60,10 @@ abstract class CVCache {
 ///
 /// Default implementation of [CVCache]
 ///
-class CVCacheImpl implements CVCache {
-  CVCacheImpl();
+class DefaultCVCache implements CVCache {
+  final String _TAG = "DefaultCVCache";
+
+  DefaultCVCache();
 
   final _users = <String, _CacheModel<UserDataModel>>{};
   final _profiles = <String, _CacheModel<ProfileDataModel>>{};
@@ -103,7 +103,7 @@ class CVCacheImpl implements CVCache {
   void setUser(UserDataModel userModel) async {
     DateTime expiration = _generateExpirationDateTime(Duration(minutes: 1));
     final cacheModel =
-    _CacheModel<UserDataModel>(model: userModel, expiration: expiration);
+        _CacheModel<UserDataModel>(model: userModel, expiration: expiration);
     _users[userModel.id] = cacheModel;
   }
 
@@ -120,8 +120,8 @@ class CVCacheImpl implements CVCache {
 
   void setProfile(ProfileDataModel profileModel) async {
     DateTime expiration = _generateExpirationDateTime(Duration(minutes: 1));
-    final cacheModel =
-    _CacheModel<ProfileDataModel>(model: profileModel, expiration: expiration);
+    final cacheModel = _CacheModel<ProfileDataModel>(
+        model: profileModel, expiration: expiration);
     _profiles[profileModel.id] = cacheModel;
   }
 
@@ -139,7 +139,7 @@ class CVCacheImpl implements CVCache {
   void setPart(PartDataModel partModel) async {
     DateTime expiration = _generateExpirationDateTime(Duration(minutes: 1));
     final cacheModel =
-    _CacheModel<PartDataModel>(model: partModel, expiration: expiration);
+        _CacheModel<PartDataModel>(model: partModel, expiration: expiration);
     _parts[partModel.id] = cacheModel;
   }
 
@@ -157,7 +157,7 @@ class CVCacheImpl implements CVCache {
   void setGroup(GroupDataModel groupModel) async {
     DateTime expiration = _generateExpirationDateTime(Duration(minutes: 1));
     final cacheModel =
-    _CacheModel<GroupDataModel>(model: groupModel, expiration: expiration);
+        _CacheModel<GroupDataModel>(model: groupModel, expiration: expiration);
     _groups[groupModel.id] = cacheModel;
   }
 
@@ -175,7 +175,7 @@ class CVCacheImpl implements CVCache {
   void setEntry(EntryDataModel entryModel) async {
     DateTime expiration = _generateExpirationDateTime(Duration(minutes: 1));
     final cacheModel =
-    _CacheModel<EntryDataModel>(model: entryModel, expiration: expiration);
+        _CacheModel<EntryDataModel>(model: entryModel, expiration: expiration);
     _entries[entryModel.id] = cacheModel;
   }
 
@@ -188,8 +188,7 @@ class _CacheModel<T> {
   _CacheModel({
     this.model,
     this.expiration,
-  })
-      : assert(model != null),
+  })  : assert(model != null),
         assert(model != null);
 
   T model;

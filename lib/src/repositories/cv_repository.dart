@@ -9,8 +9,6 @@ import 'package:social_cv_client_dart_common/src/models/user_data_model.dart';
 import 'package:social_cv_client_dart_common/src/repositories/cv_cache.dart';
 import 'package:social_cv_client_dart_common/src/repositories/cv_client.dart';
 
-const String _TAG = "CVRepository";
-
 abstract class CVRepository {
   Future<OAuthAccessTokenResponseModel> fetchToken({
     OAuthTokenModel oauthTokenModel,
@@ -89,10 +87,15 @@ abstract class CVRepository {
 }
 
 /// Default Implementation of [CVRepository]
-class CVRepositoryImpl extends CVRepository {
-   CVRepositoryImpl({this.client, this.cache});
+class DefaultCVRepository extends CVRepository {
+  final String _TAG = "DefaultCVRepository";
 
-  final CVClientImpl client;
+  DefaultCVRepository({
+    this.client,
+    this.cache,
+  });
+
+  final CVClient client;
   final CVCache cache;
 
   ///

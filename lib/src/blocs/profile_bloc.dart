@@ -1,21 +1,23 @@
+import 'dart:async';
+
+import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:social_cv_client_dart_common/src/blocs/bloc_base.dart';
 import 'package:social_cv_client_dart_common/src/models/profile_data_model.dart';
 import 'package:social_cv_client_dart_common/src/repositories/cv_repository.dart';
 
-const String _TAG = "ProfileBloc";
-
 /// Business Logic Component for Profile Fetch
 class ProfileBloc extends BlocBase {
+  final String _TAG = "ProfileBloc";
+
   ProfileBloc({
-    this.cvRepository,
-  })
-      : assert(cvRepository != null),
+    @required this.cvRepository,
+  })  : assert(cvRepository != null),
         super() {
     _isFetchingProfileController.add(false);
   }
 
-  final CVRepositoryImpl cvRepository;
+  final CVRepository cvRepository;
 
   // Reactive variables
   final _isFetchingProfileController = BehaviorSubject<bool>();
@@ -27,7 +29,7 @@ class ProfileBloc extends BlocBase {
 
   Observable<ProfileDataModel> get profileStream => _profileController.stream;
 
-  void fetchProfileDetails(String profileId) async {
+  Future<void> fetchProfileDetails(String profileId) async {
     print('$_TAG:fetchProfileDetails');
     if (!_isFetchingProfileController.value) {
       _isFetchingProfileController.add(true);

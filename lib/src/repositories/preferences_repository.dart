@@ -1,3 +1,5 @@
+import 'dart:async';
+
 /// Interface for Preferences
 abstract class PreferencesRepository {
   /// ----------------------------------------------------------
@@ -49,7 +51,7 @@ abstract class PreferencesRepository {
   Future<bool> deleteUserId();
 
   /// ----------------------------------------------------------
-  /// ------------------------- Theme --------------------------
+  /// -------------------------- App ---------------------------
   /// ----------------------------------------------------------
 
   Future<String> getAppTheme();

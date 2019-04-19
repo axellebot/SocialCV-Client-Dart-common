@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:social_cv_client_dart_common/src/blocs/bloc_base.dart';
 import 'package:social_cv_client_dart_common/src/config/values.dart';
@@ -5,22 +8,21 @@ import 'package:social_cv_client_dart_common/src/models/part_data_model.dart';
 import 'package:social_cv_client_dart_common/src/repositories/cv_repository.dart';
 import 'package:social_cv_client_dart_common/src/repositories/preferences_repository.dart';
 
-const String _TAG = "PartListBloc";
-
 /// Business Logic Component for Part List Fetch
 class PartListBloc extends BlocBase {
+  final String _TAG = "PartListBloc";
+
   PartListBloc({
-    this.cvRepository,
-    this.preferencesRepository,
-  })
-      : assert(cvRepository != null),
+    @required this.cvRepository,
+    @required this.preferencesRepository,
+  })  : assert(cvRepository != null),
         assert(preferencesRepository != null),
         super() {
     _isFetchingPartsController.add(false);
     _partPerPage.add(kCVItemsPerPageDefault);
   }
 
-  final CVRepositoryImpl cvRepository;
+  final CVRepository cvRepository;
   final PreferencesRepository preferencesRepository;
 
   // Reactive variables
@@ -37,11 +39,11 @@ class PartListBloc extends BlocBase {
   Observable<String> get partPerPage => _partPerPage.stream;
 
   // Human functions
-  void setItemsPerPage(String partPerPage) async {
+  Future<void> setItemsPerPage(String partPerPage) async {
     _partPerPage.add(partPerPage);
   }
 
-  void fetchProfileParts(String profileId) async {
+  Future<void> fetchProfileParts(String profileId) async {
     print('$_TAG:fetchProfileParts');
     if (!_isFetchingPartsController.value) {
       _isFetchingPartsController.add(true);

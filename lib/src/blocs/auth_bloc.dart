@@ -1,42 +1,47 @@
+import 'dart:async';
+
+import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:social_cv_client_dart_common/repositories.dart';
 import 'package:social_cv_client_dart_common/src/blocs/bloc_base.dart';
 import 'package:social_cv_client_dart_common/src/models/api_data_models.dart';
 import 'package:social_cv_client_dart_common/src/models/user_data_model.dart';
+import 'package:social_cv_client_dart_common/src/repositories/config_repository.dart';
 import 'package:social_cv_client_dart_common/src/repositories/cv_repository.dart';
-import 'package:social_cv_client_dart_common/src/repositories/secrets_repository.dart';
 
-const String _TAG = "AccountBloc";
+/// Business Logic Component for Authentication
+class AuthBloc extends BlocBase {
+  final String _TAG = "AuthBloc";
 
-class AccountBloc extends BlocBase {
-  AccountBloc({
-    this.cvRepository,
-    this.preferencesRepository,
-    this.secretRepository,
+  AuthBloc({
+    @required this.cvRepository,
+    @required this.preferencesRepository,
+    @required this.secretRepository,
   })  : assert(preferencesRepository != null),
         assert(cvRepository != null),
         assert(secretRepository != null),
         super() {
+    _isAuthenticatingController.add(false);
     _isAuthenticatedController.add(false);
-    _isLoggingController.add(false);
     _isFetchingAccountDetailsController.add(false);
   }
 
-  CVRepositoryImpl cvRepository;
+  CVRepository cvRepository;
   PreferencesRepository preferencesRepository;
-  SecretsRepository secretRepository;
+  ConfigRepository secretRepository;
 
   // Reactive variables
+  final _isAuthenticatingController = BehaviorSubject<bool>();
   final _isAuthenticatedController = BehaviorSubject<bool>();
-  final _isLoggingController = BehaviorSubject<bool>();
   final _isFetchingAccountDetailsController = BehaviorSubject<bool>();
   final _accountDetailsController = BehaviorSubject<UserDataModel>();
 
   // Streams
+  Observable<bool> get isAuthenticatingStream =>
+      _isAuthenticatingController.stream;
+
   Observable<bool> get isAuthenticatedStream =>
       _isAuthenticatedController.stream;
-
-  Observable<bool> get isLoggingStream => _isLoggingController.stream;
 
   Observable<bool> get isFetchingAccountDetailsStream =>
       _isFetchingAccountDetailsController.stream;
@@ -44,14 +49,14 @@ class AccountBloc extends BlocBase {
   Observable<UserDataModel> get accountDetailsStream =>
       _accountDetailsController.stream;
 
-  /* Functions */
-  void login(String username, String password) async {
+  /// Functions
+  Future<void> login(String username, String password) async {
     print('$_TAG:login');
-    if (!_isLoggingController.value) {
-      _isLoggingController.add(true);
+    if (!_isAuthenticatingController.value) {
+      _isAuthenticatingController.add(true);
 
-      String clientId = await secretRepository.loadclientId();
-      String clientSecret = await secretRepository.loadclientSecret();
+      String clientId = await secretRepository.getClientId();
+      String clientSecret = await secretRepository.getClientSecret();
 
       OAuthTokenModel oauthModel = OAuthTokenModel(
         username: username,
@@ -75,14 +80,14 @@ class AccountBloc extends BlocBase {
         await this.fetchAccountDetails();
       }).catchError(_accountDetailsController.addError);
 
-      _isLoggingController.add(false);
+      _isAuthenticatingController.add(false);
     }
   }
 
-  void logout() async {
+  Future<void> logout() async {
     print('$_TAG:logout');
-    if (!_isLoggingController.value) {
-      _isLoggingController.add(true);
+    if (!_isAuthenticatingController.value) {
+      _isAuthenticatingController.add(true);
 
       await preferencesRepository.deleteAccessToken();
       await preferencesRepository.deleteAccessTokenExpiration();
@@ -93,11 +98,11 @@ class AccountBloc extends BlocBase {
       _accountDetailsController.add(null);
       _isAuthenticatedController.add(false);
 
-      _isLoggingController.add(false);
+      _isAuthenticatingController.add(false);
     }
   }
 
-  void fetchAccountDetails() async {
+  Future<void> fetchAccountDetails() async {
     print('$_TAG:fetchAccountDetails');
     if (!_isFetchingAccountDetailsController.value) {
       _isFetchingAccountDetailsController.add(true);
@@ -113,8 +118,8 @@ class AccountBloc extends BlocBase {
 
   @override
   void dispose() {
+    _isAuthenticatingController.close();
     _isAuthenticatedController.close();
-    _isLoggingController.close();
     _isFetchingAccountDetailsController.close();
     _accountDetailsController.close();
   }

@@ -1,21 +1,23 @@
+import 'dart:async';
+
+import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:social_cv_client_dart_common/src/blocs/bloc_base.dart';
 import 'package:social_cv_client_dart_common/src/models/entry_data_model.dart';
 import 'package:social_cv_client_dart_common/src/repositories/cv_repository.dart';
 
-const String _TAG = "EntryBloc";
-
 /// Business Logic Component for Entry Fetch
 class EntryBloc extends BlocBase {
+  final String _TAG = "EntryBloc";
+
   EntryBloc({
-    this.cvRepository,
-  })
-      : assert(cvRepository != null),
+    @required this.cvRepository,
+  })  : assert(cvRepository != null),
         super() {
     _isFetchingEntryController.add(false);
   }
 
-  final CVRepositoryImpl cvRepository;
+  final CVRepository cvRepository;
 
   // Reactive variables
   final _isFetchingEntryController = BehaviorSubject<bool>();
@@ -27,7 +29,7 @@ class EntryBloc extends BlocBase {
 
   Observable<EntryDataModel> get entryStream => _entryController.stream;
 
-  void fetchEntry(String profileEntryId) async {
+  Future<void> fetchEntry(String profileEntryId) async {
     print('$_TAG:fetchEntry');
     if (!_isFetchingEntryController.value) {
       _isFetchingEntryController.add(true);

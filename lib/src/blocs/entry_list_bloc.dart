@@ -1,23 +1,25 @@
+import 'dart:async';
+
+import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:social_cv_client_dart_common/src/blocs/bloc_base.dart';
 import 'package:social_cv_client_dart_common/src/config/values.dart';
 import 'package:social_cv_client_dart_common/src/models/entry_data_model.dart';
 import 'package:social_cv_client_dart_common/src/repositories/cv_repository.dart';
 
-const String _TAG = "EntryListBloc";
-
 /// Business Logic Component for Entry List Fetch
 class EntryListBloc extends BlocBase {
+  final String _TAG = "EntryListBloc";
+
   EntryListBloc({
-    this.cvRepository,
-  })
-      : assert(cvRepository != null),
+    @required this.cvRepository,
+  })  : assert(cvRepository != null),
         super() {
     _isFetchingEntriesController.add(false);
     _entryPerPage.add(kCVItemsPerPageDefault);
   }
 
-  final CVRepositoryImpl cvRepository;
+  final CVRepository cvRepository;
 
   // Reactive variables
   final _isFetchingEntriesController = BehaviorSubject<bool>();
@@ -28,24 +30,25 @@ class EntryListBloc extends BlocBase {
   Observable<bool> get isFetchingGroupEntriesStream =>
       _isFetchingEntriesController.stream;
 
-  Observable<List<EntryDataModel>> get entriesStream => _entriesController.stream;
+  Observable<List<EntryDataModel>> get entriesStream =>
+      _entriesController.stream;
 
   Observable<String> get entryPerPage => _entryPerPage.stream;
 
   // Human functions
-  void setItemsPerPage(String partPerPage) async {
+  Future<void> setItemsPerPage(String partPerPage) async {
     _entryPerPage.add(partPerPage);
   }
 
-  void fetchGroupEntries(String groupId) async {
+  Future<void> fetchGroupEntries(String groupId) async {
     print('$_TAG:fetchGroupEntries');
     if (!_isFetchingEntriesController.value) {
       _isFetchingEntriesController.add(true);
 
       await cvRepository
           .fetchGroupEntries(
-        groupId: groupId,
-      )
+            groupId: groupId,
+          )
           .then(_entriesController.add)
           .catchError(_entriesController.addError);
 

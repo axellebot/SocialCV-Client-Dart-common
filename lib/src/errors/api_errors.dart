@@ -1,7 +1,7 @@
 import 'package:social_cv_client_dart_common/src/errors/base_errors.dart';
 
 /// ---------------------------------
-/// ------------- Login -------------
+/// -------------- Auth -------------
 /// ---------------------------------
 
 class ApiErrorWrongPasswordError extends BaseError {

@@ -1,21 +1,23 @@
+import 'dart:async';
+
+import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:social_cv_client_dart_common/src/blocs/bloc_base.dart';
 import 'package:social_cv_client_dart_common/src/models/group_data_model.dart';
 import 'package:social_cv_client_dart_common/src/repositories/cv_repository.dart';
 
-const String _TAG = "GroupBloc";
-
 /// Business Logic Component for Group Fetch
 class GroupBloc extends BlocBase {
+  final String _TAG = "GroupBloc";
+
   GroupBloc({
-    this.cvRepository,
-  })
-      : assert(cvRepository != null),
+    @required this.cvRepository,
+  })  : assert(cvRepository != null),
         super() {
     _isFetchingGroupController.add(false);
   }
 
-  final CVRepositoryImpl cvRepository;
+  final CVRepository cvRepository;
 
   // Reactive variables
   final _isFetchingGroupController = BehaviorSubject<bool>();
@@ -27,7 +29,7 @@ class GroupBloc extends BlocBase {
 
   Observable<GroupDataModel> get groupStream => _groupController.stream;
 
-  void fetchGroup(String groupId) async {
+  Future<void> fetchGroup(String groupId) async {
     print('$_TAG:fetchGroup');
     if (!_isFetchingGroupController.value) {
       _isFetchingGroupController.add(true);

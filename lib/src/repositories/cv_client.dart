@@ -12,8 +12,6 @@ import 'package:social_cv_client_dart_common/src/models/part_data_model.dart';
 import 'package:social_cv_client_dart_common/src/models/profile_data_model.dart';
 import 'package:social_cv_client_dart_common/src/models/user_data_model.dart';
 
-const String _TAG = "CVClient";
-
 abstract class CVClient {
   ///
   /// OAuth
@@ -96,8 +94,10 @@ abstract class CVClient {
 }
 
 /// Default Implementation of [CVClient]
-class CVClientImpl extends CVClient {
-  CVClientImpl({
+class DefaultCVClient implements CVClient {
+  final String _TAG = "DefaultCVClient";
+
+  DefaultCVClient({
     this.accessToken,
     this.refreshToken,
   });
@@ -105,7 +105,7 @@ class CVClientImpl extends CVClient {
   String accessToken;
   String refreshToken;
 
-  static final Dio client = Dio(Options(
+  final Dio _dio = Dio(Options(
     baseUrl: _apiBaseUrl,
     connectTimeout: 3000,
     responseType: ResponseType.JSON,
@@ -133,7 +133,7 @@ class CVClientImpl extends CVClient {
   }) async {
     assert(oauthTokenModel != null);
 
-    return client
+    return _dio
         .post(
       _pathOauthToken,
       options: Options(
@@ -162,10 +162,11 @@ class CVClientImpl extends CVClient {
 
   Future<ResponseModel<UserDataModel>> fetchAccount() async {
     print("$_TAG:fetchAccountDetails");
-    return client
+    return _dio
         .get(
       _pathMe,
       options: Options(
+        contentType: ContentType.json,
         headers: {
           "Authorization": "Bearer $accessToken",
         },
@@ -180,7 +181,7 @@ class CVClientImpl extends CVClient {
     int offset = 0,
     int limit = 5,
   }) async {
-    return client
+    return _dio
         .get(
       _pathMeProfiles,
       data: {
@@ -209,7 +210,7 @@ class CVClientImpl extends CVClient {
   Future<ResponseModel<ProfileDataModel>> fetchProfile(
     String profileId,
   ) async {
-    return client
+    return _dio
         .get(
       _pathProfiles + "/$profileId",
       options: Options(
@@ -238,7 +239,7 @@ class CVClientImpl extends CVClient {
       },
     );
 
-    return client
+    return _dio
         .get(
       _pathProfiles + "/$profileId" + _pathParts,
       data: {
@@ -264,7 +265,7 @@ class CVClientImpl extends CVClient {
   Future<ResponseModel<PartDataModel>> fetchPart(
     String partId,
   ) async {
-    return client
+    return _dio
         .get(
       _pathParts + "/$partId",
       options: Options(
@@ -283,7 +284,7 @@ class CVClientImpl extends CVClient {
     int offset = 0,
     int limit = 5,
   }) async {
-    return client
+    return _dio
         .get(
       _pathParts + "/$partId" + _pathGroups,
       data: {
@@ -309,7 +310,7 @@ class CVClientImpl extends CVClient {
   Future<ResponseModel<GroupDataModel>> fetchGroup(
     String groupId,
   ) async {
-    return client
+    return _dio
         .get(
       _pathGroups + "/$groupId",
       options: Options(
@@ -328,7 +329,7 @@ class CVClientImpl extends CVClient {
     int offset = 0,
     int limit = 5,
   }) async {
-    return client.get(
+    return _dio.get(
       _pathGroups + "/$groupId" + _pathEntries,
       options: Options(
         headers: {
@@ -352,7 +353,7 @@ class CVClientImpl extends CVClient {
   Future<ResponseModel<EntryDataModel>> fetchEntry(
     String entryId,
   ) async {
-    return client
+    return _dio
         .get(
       _pathEntries + "/$entryId",
       options: Options(
@@ -375,7 +376,7 @@ class CVClientImpl extends CVClient {
     int offset = 0,
     int limit = 10,
   }) async {
-    return client.get(
+    return _dio.get(
       _pathProfiles,
       options: Options(
         baseUrl: _apiBaseUrl,

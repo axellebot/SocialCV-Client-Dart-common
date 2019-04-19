@@ -1,23 +1,25 @@
+import 'dart:async';
+
+import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:social_cv_client_dart_common/src/blocs/bloc_base.dart';
 import 'package:social_cv_client_dart_common/src/config/values.dart';
 import 'package:social_cv_client_dart_common/src/models/group_data_model.dart';
 import 'package:social_cv_client_dart_common/src/repositories/cv_repository.dart';
 
-const String _TAG = "GroupListBloc";
-
 /// Business Logic Component for Group List Fetch
 class GroupListBloc extends BlocBase {
+  final String _TAG = "GroupListBloc";
+
   GroupListBloc({
-    this.cvRepository,
-  })
-      : assert(cvRepository != null),
+    @required this.cvRepository,
+  })  : assert(cvRepository != null),
         super() {
     _isFetchingGroupsController.add(false);
     _groupPerPage.add(kCVItemsPerPageDefault);
   }
 
-  final CVRepositoryImpl cvRepository;
+  final CVRepository cvRepository;
 
   // Reactive variables
   final _isFetchingGroupsController = BehaviorSubject<bool>();
@@ -34,11 +36,11 @@ class GroupListBloc extends BlocBase {
   Observable<String> get groupPerPage => _groupPerPage.stream;
 
   // Human functions
-  void setItemsPerPage(String partPerPage) async {
+  Future<void> setItemsPerPage(String partPerPage) async {
     _groupPerPage.add(partPerPage);
   }
 
-  void fetchPartGroups(String partId) async {
+  Future<void> fetchPartGroups(String partId) async {
     print('$_TAG:fetchPartGroups');
     if (!_isFetchingGroupsController.value) {
       _isFetchingGroupsController.add(true);

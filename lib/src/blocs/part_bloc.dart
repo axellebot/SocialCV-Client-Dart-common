@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:social_cv_client_dart_common/src/blocs/bloc_base.dart';
 import 'package:social_cv_client_dart_common/src/models/part_data_model.dart';
@@ -8,14 +11,13 @@ const String _TAG = "PartBloc";
 /// Business Logic Component for Profile Part Fetch
 class PartBloc extends BlocBase {
   PartBloc({
-    this.cvRepository,
-  })
-      : assert(cvRepository != null),
+    @required this.cvRepository,
+  })  : assert(cvRepository != null),
         super() {
     _isFetchingPartController.add(false);
   }
 
-  final CVRepositoryImpl cvRepository;
+  final CVRepository cvRepository;
 
   // Reactive variables
   final _isFetchingPartController = BehaviorSubject<bool>();
@@ -26,7 +28,7 @@ class PartBloc extends BlocBase {
 
   Observable<PartDataModel> get partStream => _partController.stream;
 
-  void fetchPart(String partId) async {
+  Future<void> fetchPart(String partId) async {
     print('$_TAG:fetchPart');
     if (!_isFetchingPartController.value) {
       _isFetchingPartController.add(true);

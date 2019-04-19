@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:social_cv_client_dart_common/src/blocs/bloc_base.dart';
 import 'package:social_cv_client_dart_common/src/config/values.dart';
@@ -5,21 +8,21 @@ import 'package:social_cv_client_dart_common/src/models/profile_data_model.dart'
 import 'package:social_cv_client_dart_common/src/repositories/cv_repository.dart';
 import 'package:social_cv_client_dart_common/src/repositories/preferences_repository.dart';
 
-const String _TAG = "ProfileListBloc";
-
+/// Business Logic Component for Profile List Fetch
 class ProfileListBloc extends BlocBase {
+  final String _TAG = "ProfileListBloc";
+
   ProfileListBloc({
-    this.cvRepository,
-    this.preferencesRepository,
-  })
-      : assert(cvRepository != null),
+    @required this.cvRepository,
+    @required this.preferencesRepository,
+  })  : assert(cvRepository != null),
         assert(preferencesRepository != null),
         super() {
     _isFetchingProfilesController.add(false);
     _profilePerPage.add(kCVItemsPerPageDefault);
   }
 
-  final CVRepositoryImpl cvRepository;
+  final CVRepository cvRepository;
   final PreferencesRepository preferencesRepository;
 
   // Reactive variables
@@ -37,11 +40,11 @@ class ProfileListBloc extends BlocBase {
   Observable<String> get profilePerPage => _profilePerPage.stream;
 
   // Human functions
-  void setItemsPerPage(String partPerPage) async {
+  Future<void> setItemsPerPage(String partPerPage) async {
     _profilePerPage.add(partPerPage);
   }
 
-  void fetchAccountProfiles() async {
+  Future<void> fetchAccountProfiles() async {
     print('$_TAG:fetchAccountProfiles');
     if (!_isFetchingProfilesController.value) {
       _isFetchingProfilesController.add(true);
@@ -55,7 +58,7 @@ class ProfileListBloc extends BlocBase {
     }
   }
 
-  void fetchProfiles(String profileTitle) async {
+  Future<void> fetchProfiles(String profileTitle) async {
     print("$_TAG:fetchProfiles->$profileTitle");
     if (!_isFetchingProfilesController.value) {
       _isFetchingProfilesController.add(true);
