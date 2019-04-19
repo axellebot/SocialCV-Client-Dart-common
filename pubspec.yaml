@@ -6,7 +6,7 @@ environment:
   sdk: '>=2.0.0-dev <3.0.0'
 
 dependencies:
-  meta: ^1.1.7
+  meta: 1.1.6 # Fixed version for flutter
 
   # Web Client
   http : ^0.12.0
