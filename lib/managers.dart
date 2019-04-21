@@ -1,7 +1,7 @@
-library social_cv_client_dart_common.managers;
+library social_cv_client_dart_common;
 
-export 'package:social_cv_client_dart_common/src/managers/api_interceptor.dart';
-export 'package:social_cv_client_dart_common/src/managers/cache_manager.dart';
-export 'package:social_cv_client_dart_common/src/managers/cv_api_manager.dart';
-export 'package:social_cv_client_dart_common/src/managers/default_cache_manager.dart';
-export 'package:social_cv_client_dart_common/src/managers/default_cv_api_manager.dart';
+export './src/managers/api_interceptor.dart';
+export './src/managers/cache_manager.dart';
+export './src/managers/cv_api_manager.dart';
+export './src/managers/default_cache_manager.dart';
+export './src/managers/default_cv_api_manager.dart';
