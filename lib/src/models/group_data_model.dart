@@ -1,26 +1,35 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:social_cv_client_dart_common/src/models/api_data_models.dart';
-import 'package:social_cv_client_dart_common/src/models/base_data_model.dart';
+import 'package:social_cv_client_dart_common/src/models/element_data_model.dart';
 
 part 'group_data_model.g.dart';
 
 @JsonSerializable()
-class GroupDataModel extends BaseDataModel {
+class GroupDataModel extends ElementDataModel {
   GroupDataModel({
     String id,
     this.name,
     this.type,
     this.entryIds,
     this.owner,
-  }) : super(id: id);
+    DateTime createdAt,
+    DateTime updatedAt,
+    int version,
+  }) : super(
+    id: id,
+    createdAt: createdAt,
+    updatedAt: updatedAt,
+    version: version,
+  );
 
+  @JsonKey(name: 'name')
   String name;
+  @JsonKey(name: 'type')
   String type;
   @JsonKey(name: 'entries')
   List<String> entryIds;
+  @JsonKey(name: 'owner')
   String owner;
 
-  @JsonKey(name: 'profile')
   factory GroupDataModel.fromJson(Map<String, dynamic> json) =>
       _$GroupDataModelFromJson(json);
 
@@ -28,6 +37,6 @@ class GroupDataModel extends BaseDataModel {
 
   @override
   String toString() {
-    return 'GroupDataModel{name: $name, type: $type, entryIds: $entryIds, owner: $owner}';
+    return 'GroupDataModel { id: $id, name: $name, type: $type, entryIds: $entryIds, owner: $owner}';
   }
 }

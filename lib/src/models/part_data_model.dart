@@ -1,25 +1,37 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:social_cv_client_dart_common/src/models/api_data_models.dart';
-import 'package:social_cv_client_dart_common/src/models/base_data_model.dart';
+import 'package:social_cv_client_dart_common/src/models/element_data_model.dart';
 
 part 'part_data_model.g.dart';
 
 @JsonSerializable()
-class PartDataModel extends BaseDataModel {
+class PartDataModel extends ElementDataModel {
   PartDataModel({
     String id,
     this.name,
     this.groupIds,
     this.owner,
-  }) : super(id: id);
+    this.profileId,
+    this.type,
+    DateTime createdAt,
+    DateTime updatedAt,
+    int version,
+  }) : super(
+          id: id,
+          createdAt: createdAt,
+          updatedAt: updatedAt,
+          version: version,
+        );
 
+  @JsonKey(name: 'name')
   String name;
   @JsonKey(name: 'groups')
   List<String> groupIds;
-  String owner;
   @JsonKey(name: 'profile')
   String profileId;
+  @JsonKey(name: 'type')
   String type;
+  @JsonKey(name: 'owner')
+  String owner;
 
   factory PartDataModel.fromJson(Map<String, dynamic> json) =>
       _$PartDataModelFromJson(json);
@@ -28,6 +40,6 @@ class PartDataModel extends BaseDataModel {
 
   @override
   String toString() {
-    return 'PartDataModel{name: $name, groupIds: $groupIds, owner: $owner, profileId: $profileId, type: $type}';
+    return 'PartDataModel{ id: $id, name: $name, groupIds: $groupIds, profileId: $profileId, type: $type, owner: $owner}';
   }
 }

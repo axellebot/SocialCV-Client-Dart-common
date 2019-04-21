@@ -11,16 +11,16 @@ PartDataModel _$PartDataModelFromJson(Map<String, dynamic> json) {
       id: json['_id'] as String,
       name: json['name'] as String,
       groupIds: (json['groups'] as List)?.map((e) => e as String)?.toList(),
-      owner: json['owner'] as String)
-    ..createdAt = json['createdAt'] == null
-        ? null
-        : DateTime.parse(json['createdAt'] as String)
-    ..updatedAt = json['updatedAt'] == null
-        ? null
-        : DateTime.parse(json['updatedAt'] as String)
-    ..v = json['__v'] as int
-    ..profileId = json['profile'] as String
-    ..type = json['type'] as String;
+      owner: json['owner'] as String,
+      profileId: json['profile'] as String,
+      type: json['type'] as String,
+      createdAt: json['createdAt'] == null
+          ? null
+          : DateTime.parse(json['createdAt'] as String),
+      updatedAt: json['updatedAt'] == null
+          ? null
+          : DateTime.parse(json['updatedAt'] as String),
+      version: json['__v'] as int);
 }
 
 Map<String, dynamic> _$PartDataModelToJson(PartDataModel instance) =>
@@ -28,10 +28,10 @@ Map<String, dynamic> _$PartDataModelToJson(PartDataModel instance) =>
       '_id': instance.id,
       'createdAt': instance.createdAt?.toIso8601String(),
       'updatedAt': instance.updatedAt?.toIso8601String(),
-      '__v': instance.v,
+      '__v': instance.version,
       'name': instance.name,
       'groups': instance.groupIds,
-      'owner': instance.owner,
       'profile': instance.profileId,
-      'type': instance.type
+      'type': instance.type,
+      'owner': instance.owner
     };

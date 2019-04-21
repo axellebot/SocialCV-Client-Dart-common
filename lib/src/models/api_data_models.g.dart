@@ -48,21 +48,13 @@ Map<String, dynamic> _$ResponseModelWithArrayToJson<T>(
 OAuthTokenModel _$OAuthTokenModelFromJson(Map<String, dynamic> json) {
   return OAuthTokenModel(
       username: json['username'] as String,
-      password: json['password'] as String,
-      refreshToken: json['refresh_token'] as String,
-      clientId: json['client_id'] as String,
-      clientSecret: json['client_secret'] as String,
-      grantType: json['grant_type'] as String);
+      password: json['password'] as String);
 }
 
 Map<String, dynamic> _$OAuthTokenModelToJson(OAuthTokenModel instance) =>
     <String, dynamic>{
       'username': instance.username,
-      'password': instance.password,
-      'refresh_token': instance.refreshToken,
-      'client_id': instance.clientId,
-      'client_secret': instance.clientSecret,
-      'grant_type': instance.grantType
+      'password': instance.password
     };
 
 OAuthAccessTokenResponseModel _$OAuthAccessTokenResponseModelFromJson(

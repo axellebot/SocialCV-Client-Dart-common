@@ -1,18 +1,20 @@
 import 'dart:async';
 
+import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:social_cv_client_dart_common/src/blocs/bloc_base.dart';
+import 'package:social_cv_client_dart_common/src/events/app_event.dart';
 import 'package:social_cv_client_dart_common/src/repositories/preferences_repository.dart';
+import 'package:social_cv_client_dart_common/src/states/app_state.dart';
 
 class ThemeType {
-  static const String LIGHT = "THEME_LIGHT";
-  static const String DARK = "THEME_DARK";
+  static const String LIGHT = 'THEME_LIGHT';
+  static const String DARK = 'THEME_DARK';
 }
 
 /// Business Logic Component for Application behavior and configurations
-class AppBloc extends BlocBase {
-  final String _TAG = "AppBloc";
+class AppBloc extends Bloc<AppEvent, AppState> {
+  final String _TAG = 'AppBloc';
 
   AppBloc({
     @required this.preferencesRepository,
@@ -38,7 +40,15 @@ class AppBloc extends BlocBase {
   }
 
   @override
-  void dispose() {
-    _themeController.close();
+  AppState get initialState => AppUninitialized();
+
+  @override
+  Stream<AppState> mapEventToState(AppEvent event) async* {
+    if (event is AppThemeChanged) {
+      yield AppLoading();
+      preferencesRepository.setAppTheme(event.theme);
+      yield AppInitialized();
+    }
+    yield null;
   }
 }
