@@ -49,6 +49,5 @@ class AppBloc extends Bloc<AppEvent, AppState> {
       preferencesRepository.setAppTheme(event.theme);
       yield AppInitialized();
     }
-    yield null;
   }
 }

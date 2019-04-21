@@ -33,6 +33,8 @@ class ElementLoaded<T extends ElementDataModel> extends ElementState<T> {
 }
 
 class ElementFailure<T extends ElementDataModel> extends ElementState<T> {
+  ElementFailure({@required this.error}) : super([error]);
+
   Error error;
 
   @override

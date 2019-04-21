@@ -27,11 +27,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   @override
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
     print('$_TAG:mapEventToState($event)');
+    try {
+      if (event is LoginButtonPressed) {
+        yield LoginLoading();
 
-    if (event is LoginButtonPressed) {
-      yield LoginLoading();
-
-      try {
         final OAuthAccessTokenResponseModel response =
             await cvRepository.authenticate(
           email: event.email,
@@ -46,9 +45,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         ));
 
         yield LoginInitial();
-      } catch (error) {
-        yield LoginFailure(error: error);
       }
+    } catch (error) {
+      yield LoginFailure(error: error);
     }
   }
 }

@@ -32,7 +32,6 @@ class AuthenticationBloc
   Stream<AuthenticationState> mapEventToState(
       AuthenticationEvent event) async* {
     print('$_TAG:mapEventToState($event)');
-
     if (event is AppStarted) {
       final String token = await preferencesRepository.getAccessToken();
 

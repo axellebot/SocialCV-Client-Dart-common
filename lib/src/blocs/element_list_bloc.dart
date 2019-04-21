@@ -26,65 +26,68 @@ class ElementListBloc<T extends ElementDataModel>
   @override
   Stream<ElementListState> mapEventToState(ElementListEvent event) async* {
     print('$_TAG:mapEventToState($event)');
+    try {
+      if (event is CVElementListFetch<T>) {
+        yield ElementListLoading();
 
-    if (event is CVElementListFetch<T>) {
-      yield ElementListLoading();
+        dynamic response;
 
-      dynamic response;
+        if (T == UserDataModel) {
+          // TODO : Add fetching Users
+        } else if (T == ProfileDataModel) {
+          response = await cvRepository.fetchProfiles(
+            limit: event.limit,
+            offset: event.offset,
+          );
+        } else if (T == PartDataModel) {
+          response = await cvRepository.fetchParts(
+            limit: event.limit,
+            offset: event.offset,
+          );
+        } else if (T == GroupDataModel) {
+          response = await cvRepository.fetchGroups(
+            limit: event.limit,
+            offset: event.offset,
+          );
+        } else if (T == EntryDataModel) {
+          response = await cvRepository.fetchEntries(
+            limit: event.limit,
+            offset: event.offset,
+          );
+        }
 
-      if (T == UserDataModel) {
-        // TODO : Add fetching Users
-      } else if (T == ProfileDataModel) {
-        response = await cvRepository.fetchProfiles(
-          limit: event.limit,
-          offset: event.offset,
-        );
-      } else if (T == PartDataModel) {
-        response = await cvRepository.fetchParts(
-          limit: event.limit,
-          offset: event.offset,
-        );
-      } else if (T == GroupDataModel) {
-        response = await cvRepository.fetchGroups(
-          limit: event.limit,
-          offset: event.offset,
-        );
-      } else if (T == EntryDataModel) {
-        response = await cvRepository.fetchEntries(
-          limit: event.limit,
-          offset: event.offset,
-        );
+        yield ElementListLoaded(elements: response as List<T>);
+      } else if (event is ElementListFetchFromParent) {
+        yield ElementListLoading();
+
+        dynamic response;
+
+        if (T == ProfileDataModel) {
+          // TODO : Add fetching Profiles from User
+        } else if (T == PartDataModel) {
+          response = await cvRepository.fetchPartsFromProfile(
+            profileId: event.parentId,
+            limit: event.limit,
+            offset: event.offset,
+          );
+        } else if (T == GroupDataModel) {
+          response = await cvRepository.fetchGroupsFromPart(
+            partId: event.parentId,
+            limit: event.limit,
+            offset: event.offset,
+          );
+        } else if (T == EntryDataModel) {
+          response = await cvRepository.fetchEntriesFromGroup(
+            groupId: event.parentId,
+            limit: event.limit,
+            offset: event.offset,
+          );
+        }
+
+        yield ElementListLoaded(elements: response as List<T>);
       }
-
-      yield ElementListLoaded(elements: response as List<T>);
-    } else if (event is ElementListFetchFromParent) {
-      yield ElementListLoading();
-
-      dynamic response;
-
-      if (T == ProfileDataModel) {
-        // TODO : Add fetching Profiles from User
-      } else if (T == PartDataModel) {
-        response = await cvRepository.fetchPartsFromProfile(
-          profileId: event.parentId,
-          limit: event.limit,
-          offset: event.offset,
-        );
-      } else if (T == GroupDataModel) {
-        response = await cvRepository.fetchGroupsFromPart(
-          partId: event.parentId,
-          limit: event.limit,
-          offset: event.offset,
-        );
-      } else if (T == EntryDataModel) {
-        response = await cvRepository.fetchEntriesFromGroup(
-          groupId: event.parentId,
-          limit: event.limit,
-          offset: event.offset,
-        );
-      }
-
-      yield ElementListLoaded(elements: response as List<T>);
+    } catch (error) {
+      yield ElementListFailure(error: error);
     }
   }
 }

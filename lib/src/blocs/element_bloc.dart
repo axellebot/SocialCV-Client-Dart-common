@@ -26,26 +26,29 @@ class ElementBloc<T extends ElementDataModel>
   @override
   Stream<ElementState> mapEventToState(ElementEvent event) async* {
     print('$_TAG:mapEventToState($event)');
+    try {
+      if (event is ElementFetch<T>) {
+        yield ElementLoading();
 
-    if (event is ElementFetch<T>) {
-      yield ElementLoading();
+        T response;
 
-      T response;
-
-      if (T == UserDataModel) {
-//      response = await cvRepository.fetchUser(event.id) as T;
-      } else if (T == ProfileDataModel) {
-        response = (await cvRepository.fetchProfile(event.id)) as T;
-      } else if (T == PartDataModel) {
-        response = (await cvRepository.fetchPart(event.id)) as T;
-      } else if (T == GroupDataModel) {
-        response = (await cvRepository.fetchGroup(event.id)) as T;
-      } else if (T == EntryDataModel) {
-        response = (await cvRepository.fetchEntry(event.id)) as T;
+        if (T == UserDataModel) {
+          //response = await cvRepository.fetchUser(event.id) as T;
+        } else if (T == ProfileDataModel) {
+          response = (await cvRepository.fetchProfile(event.id)) as T;
+        } else if (T == PartDataModel) {
+          response = (await cvRepository.fetchPart(event.id)) as T;
+        } else if (T == GroupDataModel) {
+          response = (await cvRepository.fetchGroup(event.id)) as T;
+        } else if (T == EntryDataModel) {
+          response = (await cvRepository.fetchEntry(event.id)) as T;
+        }
+        // TODO : Remove delay
+        Future.delayed(Duration(seconds: 5));
+        yield ElementLoaded<T>(element: response);
       }
-      // TODO : Remove delay
-      Future.delayed(Duration(seconds: 5));
-      yield ElementLoaded<T>(element: response);
+    } catch (error) {
+      yield ElementFailure(error: error);
     }
   }
 }

@@ -18,10 +18,15 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   @override
   Stream<RegisterState> mapEventToState(RegisterEvent event) async* {
     print('$_TAG:mapEventToState($event)');
-    if (event is RegisterButtonPressed) {
-      yield RegisterLoading();
-      await Future.delayed(Duration(seconds: 2));
-      yield RegisterInitial();
+
+    try {
+      if (event is RegisterButtonPressed) {
+        yield RegisterLoading();
+        await Future.delayed(Duration(seconds: 2));
+        yield RegisterInitial();
+      }
+    } catch (error) {
+      yield RegisterFailure(error: error);
     }
   }
 }
