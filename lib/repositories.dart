@@ -1,4 +1,4 @@
-library social_cv_client_dart_common;
+library social_cv_client_dart_common.repositories;
 
 export './src/repositories/config_repository.dart';
 export './src/repositories/cv_repository.dart';

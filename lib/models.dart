@@ -1,4 +1,4 @@
-library social_cv_client_dart_common;
+library social_cv_client_dart_common.models;
 
 export './src/models/api_data_models.dart';
 export './src/models/base_data_model.dart';

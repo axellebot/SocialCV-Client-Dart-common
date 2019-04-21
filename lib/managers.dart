@@ -1,4 +1,4 @@
-library social_cv_client_dart_common;
+library social_cv_client_dart_common.managers;
 
 export './src/managers/api_interceptor.dart';
 export './src/managers/cache_manager.dart';

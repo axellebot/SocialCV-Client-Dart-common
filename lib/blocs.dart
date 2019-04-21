@@ -1,4 +1,4 @@
-library social_cv_client_dart_common;
+library social_cv_client_dart_common.blocs;
 
 /// Blocs
 export './src/blocs/account_bloc.dart';
