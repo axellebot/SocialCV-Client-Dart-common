@@ -18,7 +18,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }) : super();
 
   final CVRepository cvRepository;
-
   final AuthenticationBloc authBloc;
 
   @override

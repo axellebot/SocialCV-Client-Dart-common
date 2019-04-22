@@ -18,7 +18,8 @@ class AppBloc extends Bloc<AppEvent, AppState> {
 
   AppBloc({
     @required this.preferencesRepository,
-  })  : assert(preferencesRepository != null),
+  })
+      : assert(preferencesRepository != null),
         super() {
     preferencesRepository.getAppTheme().then(_themeController.add);
   }
@@ -44,10 +45,14 @@ class AppBloc extends Bloc<AppEvent, AppState> {
 
   @override
   Stream<AppState> mapEventToState(AppEvent event) async* {
-    if (event is AppThemeChanged) {
-      yield AppLoading();
-      preferencesRepository.setAppTheme(event.theme);
-      yield AppInitialized();
+    try {
+      if (event is AppThemeChanged) {
+        yield AppLoading();
+        preferencesRepository.setAppTheme(event.theme);
+        yield AppInitialized(theme: event.theme);
+      }
+    }catch(error){
+      yield AppFailure(error:error);
     }
   }
 }
