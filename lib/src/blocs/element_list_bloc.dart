@@ -27,7 +27,7 @@ class ElementListBloc<T extends ElementDataModel>
   Stream<ElementListState> mapEventToState(ElementListEvent event) async* {
     print('$_TAG:mapEventToState($event)');
     try {
-      if (event is CVElementListFetch<T>) {
+      if (event is ElementListFetch<T>) {
         yield ElementListLoading();
 
         dynamic response;

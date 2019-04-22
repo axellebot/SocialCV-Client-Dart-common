@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
+import 'package:social_cv_client_dart_common/src/blocs/app_bloc.dart';
 
 abstract class AppState extends Equatable {
   AppState([List props = const []]) : super(props);
@@ -7,6 +8,8 @@ abstract class AppState extends Equatable {
 
 class AppUninitialized extends AppState {
   AppUninitialized() : super();
+
+  String theme = ThemeType.LIGHT;
 
   @override
   String toString() => 'AppUninitialized';

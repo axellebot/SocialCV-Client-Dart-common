@@ -9,9 +9,8 @@ abstract class ElementListEvent<T extends ElementDataModel> extends Equatable {
   String toString() => 'CVElementListEvent<$T>';
 }
 
-class CVElementListFetch<T extends ElementDataModel>
-    extends ElementListEvent<T> {
-  CVElementListFetch({@required this.limit, @required this.offset})
+class ElementListFetch<T extends ElementDataModel> extends ElementListEvent<T> {
+  ElementListFetch({@required this.limit, @required this.offset})
       : super([limit, offset]);
 
   final int limit;
