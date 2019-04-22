@@ -1,1 +1,1 @@
-const String kCVItemsPerPageDefault = "5";
+const String kCVItemsPerPageDefault = '5';

@@ -8,19 +8,12 @@ import 'package:social_cv_client_dart_common/src/models/part_data_model.dart';
 import 'package:social_cv_client_dart_common/src/models/profile_data_model.dart';
 import 'package:social_cv_client_dart_common/src/models/user_data_model.dart';
 
-abstract class CVRepository {
+abstract class CVApiManager {
   ///
   /// OAuth
   ///
 
-  Future<OAuthAccessTokenResponseModel> authenticate({
-    @required String email,
-    @required String password,
-  });
-
-  Future<OAuthAccessTokenResponseModel> register({
-    @required String fName,
-    @required String lName,
+  Future<OAuthAccessTokenResponseModel> fetchToken({
     @required String email,
     @required String password,
   });
@@ -29,9 +22,9 @@ abstract class CVRepository {
   /// Account
   ///
 
-  Future<UserDataModel> fetchAccount();
+  Future<ResponseModel<UserDataModel>> fetchAccount();
 
-  Future<List<ProfileDataModel>> fetchProfilesFromAccount({
+  Future<ResponseModelWithArray<ProfileDataModel>> fetchProfilesFromAccount({
     int offset = 0,
     int limit = 5,
   });
@@ -40,15 +33,15 @@ abstract class CVRepository {
   /// Profiles
   ///
 
-  Future<ProfileDataModel> fetchProfile(String profileId);
+  Future<ResponseModel<ProfileDataModel>> fetchProfile(String profileId);
 
-  Future<List<ProfileDataModel>> fetchProfiles({
+  Future<ResponseModelWithArray<ProfileDataModel>> fetchProfiles({
     String profileTitle,
     int offset = 0,
     int limit = 5,
   });
 
-  Future<List<ProfileDataModel>> fetchProfilesFromUser({
+  Future<ResponseModelWithArray<ProfileDataModel>> fetchProfilesFromUser({
     @required String userId,
     int offset = 0,
     int limit = 5,
@@ -58,20 +51,20 @@ abstract class CVRepository {
   /// Parts
   ///
 
-  Future<PartDataModel> fetchPart(String partId);
+  Future<ResponseModel<PartDataModel>> fetchPart(String partId);
 
-  Future<List<PartDataModel>> fetchParts({
+  Future<ResponseModelWithArray<PartDataModel>> fetchParts({
     int offset = 0,
     int limit = 5,
   });
 
-  Future<List<PartDataModel>> fetchPartsFromUser({
+  Future<ResponseModelWithArray<PartDataModel>> fetchPartsFromUser({
     @required String userId,
     int offset = 0,
     int limit = 5,
   });
 
-  Future<List<PartDataModel>> fetchPartsFromProfile({
+  Future<ResponseModelWithArray<PartDataModel>> fetchPartsFromProfile({
     @required String profileId,
     int offset = 0,
     int limit = 5,
@@ -81,20 +74,20 @@ abstract class CVRepository {
   /// Groups
   ///
 
-  Future<GroupDataModel> fetchGroup(String groupId);
+  Future<ResponseModel<GroupDataModel>> fetchGroup(String groupId);
 
-  Future<List<GroupDataModel>> fetchGroups({
+  Future<ResponseModelWithArray<GroupDataModel>> fetchGroups({
     int offset = 0,
     int limit = 5,
   });
 
-  Future<List<GroupDataModel>> fetchGroupsFromUser({
+  Future<ResponseModelWithArray<GroupDataModel>> fetchGroupsFromUser({
     @required String userId,
     int offset = 0,
     int limit = 5,
   });
 
-  Future<List<GroupDataModel>> fetchGroupsFromPart({
+  Future<ResponseModelWithArray<GroupDataModel>> fetchGroupsFromPart({
     @required String partId,
     int offset = 0,
     int limit = 5,
@@ -104,20 +97,20 @@ abstract class CVRepository {
   /// Entries
   ///
 
-  Future<EntryDataModel> fetchEntry(String entryId);
+  Future<ResponseModel<EntryDataModel>> fetchEntry(String entryId);
 
-  Future<List<EntryDataModel>> fetchEntries({
+  Future<ResponseModelWithArray<EntryDataModel>> fetchEntries({
     int offset = 0,
     int limit = 5,
   });
 
-  Future<List<EntryDataModel>> fetchEntriesFromUser({
+  Future<ResponseModelWithArray<EntryDataModel>> fetchEntriesFromUser({
     @required String userId,
     int offset = 0,
     int limit = 5,
   });
 
-  Future<List<EntryDataModel>> fetchEntriesFromGroup({
+  Future<ResponseModelWithArray<EntryDataModel>> fetchEntriesFromGroup({
     @required String groupId,
     int offset = 0,
     int limit = 5,

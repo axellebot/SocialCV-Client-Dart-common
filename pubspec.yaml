@@ -7,14 +7,18 @@ environment:
 
 dependencies:
   meta: 1.1.6 # Fixed version for flutter
+  equatable: ^0.1.6
 
   # Web Client
-  http : ^0.12.0
-  dio : ^1.0.13
+  http: ^0.12.0
+  dio: ^1.0.13
 
   # Rx
   async: ^2.0.8
-  rxdart: ^0.20.0
+  rxdart: ^0.21.0
+
+  # Bloc Pattern
+  bloc: ^0.12.0
 
   # Parsing
   json_annotation: ^2.0.0

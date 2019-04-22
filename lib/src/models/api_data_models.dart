@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:meta/meta.dart';
 import 'package:social_cv_client_dart_common/src/models/entry_data_model.dart';
 import 'package:social_cv_client_dart_common/src/models/group_data_model.dart';
 import 'package:social_cv_client_dart_common/src/models/part_data_model.dart';
@@ -15,10 +16,11 @@ class ResponseModel<T> extends Object {
     this.data,
   });
 
+  @JsonKey(name: 'error')
   bool error;
+  @JsonKey(name: 'message')
   String message;
-
-  @JsonKey(fromJson: _dataFromJson, toJson: _dataToJson)
+  @JsonKey(name: 'data', fromJson: _dataFromJson, toJson: _dataToJson)
   T data;
 
   factory ResponseModel.fromJson(Map<String, dynamic> json) =>
@@ -29,7 +31,7 @@ class ResponseModel<T> extends Object {
 
 // TODO : Add model if needed
 T _dataFromJson<T>(Map<String, dynamic> input) {
-  print("_dataFromJson $T");
+  print('_dataFromJson $T');
 
   if (T == UserDataModel)
     return UserDataModel.fromJson(input) as T;
@@ -42,12 +44,12 @@ T _dataFromJson<T>(Map<String, dynamic> input) {
   else if (T == EntryDataModel)
     return EntryDataModel.fromJson(input) as T;
   else
-    throw Exception("Unknown type $T in ._dataFromJson");
+    throw Exception('Unknown type $T in ._dataFromJson');
 }
 
 // TODO : Add model if needed
 Map<String, dynamic> _dataToJson<T>(Object json) {
-  print("_dataToJson $T");
+  print('_dataToJson $T');
   return json;
 }
 
@@ -107,36 +109,25 @@ class _ResponseDataConverter<T> implements JsonConverter<T, Object> {
 
 @JsonSerializable()
 class OAuthTokenModel extends Object {
-  const OAuthTokenModel({
-    this.username,
-    this.password,
-    this.refreshToken,
-    this.clientId,
-    this.clientSecret,
-    this.grantType = "password",
-  })  : assert((username != null && password != null) || refreshToken != null),
-        assert(clientId != null),
-        assert(clientSecret != null),
-        assert(grantType != null),
+  OAuthTokenModel({
+    @required this.username,
+    @required this.password,
+  })  : assert(username != null && password != null),
         super();
 
   @JsonKey(name: 'username')
   final String username;
   @JsonKey(name: 'password')
   final String password;
-  @JsonKey(name: 'refresh_token')
-  final String refreshToken;
-  @JsonKey(name: 'client_id')
-  final String clientId;
-  @JsonKey(name: 'client_secret')
-  final String clientSecret;
-  @JsonKey(name: 'grant_type')
-  final String grantType;
 
   factory OAuthTokenModel.fromJson(Map<String, dynamic> json) =>
       _$OAuthTokenModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$OAuthTokenModelToJson(this);
+
+  @override
+  String toString() =>
+      'OAuthTokenModel{username: $username, password: HIDDEN } ';
 }
 
 @JsonSerializable()
@@ -161,4 +152,8 @@ class OAuthAccessTokenResponseModel extends Object {
       _$OAuthAccessTokenResponseModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$OAuthAccessTokenResponseModelToJson(this);
+
+  @override
+  String toString() =>
+      'OAuthAccessTokenResponseModel{accessToken: $accessToken, refreshToken: $refreshToken, accessTokenExpiresAt: $accessTokenExpiresAt, tokenType: $tokenType}';
 }

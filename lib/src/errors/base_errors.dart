@@ -1,4 +1,4 @@
-class BaseError {
+class BaseError extends Error {
   BaseError(this.message);
 
   String message;

@@ -1,10 +1,10 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:social_cv_client_dart_common/src/models/base_data_model.dart';
+import 'package:social_cv_client_dart_common/src/models/element_data_model.dart';
 
 part 'entry_data_model.g.dart';
 
 @JsonSerializable()
-class EntryDataModel extends BaseDataModel {
+class EntryDataModel extends ElementDataModel {
   EntryDataModel({
     String id,
     this.name,
@@ -13,15 +13,30 @@ class EntryDataModel extends BaseDataModel {
     this.location,
     this.owner,
     this.type,
-  }) : super(id: id);
+    DateTime createdAt,
+    DateTime updatedAt,
+    int version,
+  }) : super(
+    id: id,
+    createdAt: createdAt,
+    updatedAt: updatedAt,
+    version: version,
+  );
 
+  @JsonKey(name: 'name')
   String name;
+  @JsonKey(name: 'content')
   dynamic content;
+  @JsonKey(name: 'startDate')
   String startDate;
+  @JsonKey(name: 'endDate')
   String endDate;
+  @JsonKey(name: 'location')
   String location;
-  String owner;
+  @JsonKey(name: 'type')
   String type;
+  @JsonKey(name: 'owner')
+  String owner;
 
   factory EntryDataModel.fromJson(Map<String, dynamic> json) =>
       _$EntryDataModelFromJson(json);
@@ -30,6 +45,6 @@ class EntryDataModel extends BaseDataModel {
 
   @override
   String toString() {
-    return 'EntryDataModel{name: $name, content: $content, startDate: $startDate, endDate: $endDate, location: $location, owner: $owner, type: $type}';
+    return 'EntryDataModel { id: $id, name: $name, content: $content, startDate: $startDate, endDate: $endDate, location: $location, owner: $owner, type: $type}';
   }
 }

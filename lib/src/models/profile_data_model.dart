@@ -1,10 +1,10 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:social_cv_client_dart_common/src/models/base_data_model.dart';
+import 'package:social_cv_client_dart_common/src/models/element_data_model.dart';
 
 part 'profile_data_model.g.dart';
 
 @JsonSerializable()
-class ProfileDataModel extends BaseDataModel {
+class ProfileDataModel extends ElementDataModel {
   ProfileDataModel({
     String id,
     this.title,
@@ -14,17 +14,29 @@ class ProfileDataModel extends BaseDataModel {
     this.type,
     this.parts,
     this.owner,
-  }) : super(id: id);
+    DateTime createdAt,
+    DateTime updatedAt,
+    int version,
+  }) : super(
+          id: id,
+          createdAt: createdAt,
+          updatedAt: updatedAt,
+          version: version,
+        );
 
+  @JsonKey(name: 'title')
   String title;
+  @JsonKey(name: 'subtitle')
   String subtitle;
-  String picture;
-  String cover;
+  @JsonKey(name: 'picture')
+  Uri picture;
+  @JsonKey(name: 'cover')
+  Uri cover;
+  @JsonKey(name: 'type')
   String type;
-
   @JsonKey(name: 'parts')
   dynamic parts;
-
+  @JsonKey(name: 'owner')
   String owner;
 
   factory ProfileDataModel.fromJson(Map<String, dynamic> json) =>
@@ -33,8 +45,6 @@ class ProfileDataModel extends BaseDataModel {
   Map<String, dynamic> toJson() => _$ProfileDataModelToJson(this);
 
   @override
-  String toString() {
-    return 'ProfileDataModel{title: $title, subtitle: $subtitle, picture: '
-        '$picture, cover: $cover, type: $type, parts: $parts, owner: $owner}';
-  }
+  String toString() =>
+      'ProfileDataModel { id: $id, title: $title, subtitle: $subtitle, picture: $picture, cover: $cover, type: $type, parts: $parts, owner: $owner }';
 }

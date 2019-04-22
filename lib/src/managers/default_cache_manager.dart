@@ -1,69 +1,20 @@
 import 'dart:async';
 
+import 'package:meta/meta.dart';
+import 'package:social_cv_client_dart_common/src/managers/cache_manager.dart';
 import 'package:social_cv_client_dart_common/src/models/entry_data_model.dart';
 import 'package:social_cv_client_dart_common/src/models/group_data_model.dart';
 import 'package:social_cv_client_dart_common/src/models/part_data_model.dart';
 import 'package:social_cv_client_dart_common/src/models/profile_data_model.dart';
 import 'package:social_cv_client_dart_common/src/models/user_data_model.dart';
 
-/// Interface for CVCache (depends on the platform flutter/angular/...)
-abstract class CVCache {
-  ///
-  /// Account
-  ///
-
-  Future<UserDataModel> getAccount();
-
-  void setAccount(UserDataModel userModel);
-
-  ///
-  /// Users
-  ///
-
-  Future<UserDataModel> getUser(String userId);
-
-  void setUser(UserDataModel userModel);
-
-  ///
-  /// Profiles
-  ///
-
-  Future<ProfileDataModel> getProfile(String profileId);
-
-  void setProfile(ProfileDataModel profileModel);
-
-  ///
-  /// Parts
-  ///
-
-  Future<PartDataModel> getPart(String partId);
-
-  void setPart(PartDataModel partModel);
-
-  ///
-  /// Groups
-  ///
-
-  Future<GroupDataModel> getGroup(String groupId);
-
-  void setGroup(GroupDataModel groupModel);
-
-  ///
-  /// Entries
-  ///
-
-  Future<EntryDataModel> getEntry(String entryId);
-
-  void setEntry(EntryDataModel entryModel);
-}
-
 ///
-/// Default implementation of [CVCache]
+/// Default implementation of [CVCacheManager]
 ///
-class DefaultCVCache implements CVCache {
-  final String _TAG = "DefaultCVCache";
+class DefaultCVCacheManager implements CVCacheManager {
+  final String _TAG = 'DefaultCVCacheManager';
 
-  DefaultCVCache();
+  DefaultCVCacheManager();
 
   final _users = <String, _CacheModel<UserDataModel>>{};
   final _profiles = <String, _CacheModel<ProfileDataModel>>{};
@@ -78,12 +29,16 @@ class DefaultCVCache implements CVCache {
   ///
 
   Future<UserDataModel> getAccount() async {
+    print('$_TAG:getAccount');
+
     return (accountCache != null && !accountCache.isExpired())
         ? accountCache.model
         : null;
   }
 
   void setAccount(UserDataModel userModel) async {
+    print('$_TAG:setAccount($userModel)');
+
     DateTime expiration = _generateExpirationDateTime(Duration(minutes: 1));
     this.accountCache =
         _CacheModel<UserDataModel>(model: userModel, expiration: expiration);
@@ -94,6 +49,8 @@ class DefaultCVCache implements CVCache {
   ///
 
   Future<UserDataModel> getUser(String userId) async {
+    print('$_TAG:getUser($userId)');
+
     _CacheModel<UserDataModel> cacheModel = _users[userId];
     return (cacheModel != null && !cacheModel.isExpired())
         ? cacheModel.model
@@ -112,6 +69,8 @@ class DefaultCVCache implements CVCache {
   ///
 
   Future<ProfileDataModel> getProfile(String profileId) async {
+    print('$_TAG:getProfile($profileId)');
+
     _CacheModel<ProfileDataModel> cacheModel = _profiles[profileId];
     return (cacheModel != null && !cacheModel.isExpired())
         ? cacheModel.model
@@ -119,6 +78,8 @@ class DefaultCVCache implements CVCache {
   }
 
   void setProfile(ProfileDataModel profileModel) async {
+    print('$_TAG:setProfile($profileModel)');
+
     DateTime expiration = _generateExpirationDateTime(Duration(minutes: 1));
     final cacheModel = _CacheModel<ProfileDataModel>(
         model: profileModel, expiration: expiration);
@@ -130,6 +91,8 @@ class DefaultCVCache implements CVCache {
   ///
 
   Future<PartDataModel> getPart(String partId) async {
+    print('$_TAG:getPart($partId)');
+
     _CacheModel<PartDataModel> cacheModel = _parts[partId];
     return (cacheModel != null && !cacheModel.isExpired())
         ? cacheModel.model
@@ -137,6 +100,8 @@ class DefaultCVCache implements CVCache {
   }
 
   void setPart(PartDataModel partModel) async {
+    print('$_TAG:setPart($partModel)');
+
     DateTime expiration = _generateExpirationDateTime(Duration(minutes: 1));
     final cacheModel =
         _CacheModel<PartDataModel>(model: partModel, expiration: expiration);
@@ -148,6 +113,8 @@ class DefaultCVCache implements CVCache {
   ///
 
   Future<GroupDataModel> getGroup(String groupId) async {
+    print('$_TAG:getGroup($groupId)');
+
     _CacheModel<GroupDataModel> cacheModel = _groups[groupId];
     return (cacheModel != null && !cacheModel.isExpired())
         ? cacheModel.model
@@ -155,6 +122,8 @@ class DefaultCVCache implements CVCache {
   }
 
   void setGroup(GroupDataModel groupModel) async {
+    print('$_TAG:setGroup($groupModel)');
+
     DateTime expiration = _generateExpirationDateTime(Duration(minutes: 1));
     final cacheModel =
         _CacheModel<GroupDataModel>(model: groupModel, expiration: expiration);
@@ -166,6 +135,8 @@ class DefaultCVCache implements CVCache {
   ///
 
   Future<EntryDataModel> getEntry(String entryId) async {
+    print('$_TAG:getEntry($entryId)');
+
     _CacheModel<EntryDataModel> cacheModel = _entries[entryId];
     return (cacheModel != null && !cacheModel.isExpired())
         ? cacheModel.model
@@ -173,6 +144,8 @@ class DefaultCVCache implements CVCache {
   }
 
   void setEntry(EntryDataModel entryModel) async {
+    print('$_TAG:setEntry($entryModel)');
+
     DateTime expiration = _generateExpirationDateTime(Duration(minutes: 1));
     final cacheModel =
         _CacheModel<EntryDataModel>(model: entryModel, expiration: expiration);
@@ -180,14 +153,14 @@ class DefaultCVCache implements CVCache {
   }
 
   DateTime _generateExpirationDateTime(Duration duration) {
-    DateTime.now().add(duration);
+    return DateTime.now().add(duration);
   }
 }
 
 class _CacheModel<T> {
   _CacheModel({
-    this.model,
-    this.expiration,
+    @required this.model,
+    @required this.expiration,
   })  : assert(model != null),
         assert(model != null);
 

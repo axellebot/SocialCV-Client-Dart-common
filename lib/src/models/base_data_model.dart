@@ -1,21 +1,24 @@
 import 'package:json_annotation/json_annotation.dart';
-part 'base_data_model.g.dart';
+import 'package:meta/meta.dart';
 
-@JsonSerializable()
-class BaseDataModel extends Object {
-  BaseDataModel({this.id}) : super();
+abstract class BaseDataModel extends Object {
+  BaseDataModel({
+    @required this.id,
+    this.createdAt,
+    this.updatedAt,
+    this.version,
+  }) : super();
 
   @JsonKey(name: '_id')
   String id;
-
+  @JsonKey(name: 'createdAt')
   DateTime createdAt;
+  @JsonKey(name: 'updatedAt')
   DateTime updatedAt;
-
   @JsonKey(name: '__v')
-  int v;
+  int version;
 
-  factory BaseDataModel.fromJson(Map<String, dynamic> json) =>
-      _$BaseDataModelFromJson(json);
-
-  Map<String, dynamic> toJson() => _$BaseDataModelToJson(this);
+  @override
+  String toString() =>
+      'BaseDataModel { id: $id, createdAt: $createdAt, updatedAt: $updatedAt, version: $version }';
 }
