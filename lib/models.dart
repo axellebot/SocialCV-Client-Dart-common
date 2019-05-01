@@ -1,10 +1,22 @@
 library social_cv_client_dart_common.models;
 
-export './src/models/api_data_models.dart';
-export './src/models/base_data_model.dart';
-export './src/models/element_data_model.dart';
-export './src/models/entry_data_model.dart';
-export './src/models/group_data_model.dart';
-export './src/models/part_data_model.dart';
-export './src/models/profile_data_model.dart';
-export './src/models/user_data_model.dart';
+/// Data Mappers
+export './src/data/mappers/model_mapper.dart';
+
+/// Data Models
+export './src/data/models/api_models.dart';
+export './src/data/models/element_model.dart';
+export './src/data/models/entry_model.dart';
+export './src/data/models/group_model.dart';
+export './src/data/models/part_model.dart';
+export './src/data/models/profile_model.dart';
+export './src/data/models/user_model.dart';
+
+/// View Models
+export './src/ui/models/api_models.dart';
+export './src/ui/models/element_model.dart';
+export './src/ui/models/entry_model.dart';
+export './src/ui/models/group_model.dart';
+export './src/ui/models/part_model.dart';
+export './src/ui/models/profile_model.dart';
+export './src/ui/models/user_model.dart';
