@@ -5,19 +5,20 @@ import 'package:social_cv_client_dart_common/errors.dart';
 import 'package:social_cv_client_dart_common/managers.dart';
 import 'package:social_cv_client_dart_common/models.dart';
 import 'package:social_cv_client_dart_common/repositories.dart';
+import 'package:social_cv_client_dart_common/src/ui/models/cursor_model.dart';
 
 /// Default Implementation of [CVRepository]
 class DefaultCloudCVRepository extends CVRepository {
-  final String _TAG = 'DefaultCloudCVRepository';
+  final String _tag = '$DefaultCloudCVRepository';
 
-  final CVApiManager apiManager;
-  final CVCacheManager cacheManager;
+  final CVApiManager cvApiManager;
+  final CVCacheManager cvCacheManager;
 
   DefaultCloudCVRepository({
-    @required this.apiManager,
-    @required this.cacheManager,
-  })  : assert(apiManager != null, 'Missing API Manager'),
-        assert(cacheManager != null, 'Missing Cache Manager');
+    @required this.cvApiManager,
+    @required this.cvCacheManager,
+  })  : assert(cvApiManager != null, 'Missing $CVApiManager'),
+        assert(cvCacheManager != null, 'Missing $CVCacheManager');
 
   ///
   /// OAuth
@@ -28,9 +29,12 @@ class DefaultCloudCVRepository extends CVRepository {
     @required String email,
     @required String password,
   }) async {
-    print('$_TAG:authenticate');
-    var reponse = await apiManager.fetchToken(email: email, password: password);
-    return ModelMapper.instance.fromOAuthAccessToken(reponse);
+    print('$_tag:$authenticate');
+    assert(email != null && password != null);
+
+    var response =
+        await cvApiManager.fetchToken(email: email, password: password);
+    return ModelMapper.instance.fromOAuthAccessToken(response);
   }
 
   Future<AccessTokenViewModelModel> register({
@@ -39,7 +43,9 @@ class DefaultCloudCVRepository extends CVRepository {
     @required String email,
     @required String password,
   }) async {
-    print('$_TAG:register');
+    print('$_tag:$register');
+    assert(fName != null && lName != null && email != null && password != null);
+
     throw NotImplementedYetError();
 //    return ModelMapper.instance.fromOAuthAccessToken(reponse);
   }
@@ -50,14 +56,14 @@ class DefaultCloudCVRepository extends CVRepository {
 
   @override
   Future<UserViewModel> fetchAccount() async {
-    print('$_TAG:fetchAccount');
+    print('$_tag:$fetchAccount');
 
-    var dataModel = await cacheManager.getAccount();
+    var dataModel = await cvCacheManager.getAccount();
 
     if (dataModel == null) {
-      var response = await apiManager.fetchAccount();
+      var response = await cvApiManager.fetchAccount();
       var model = response.data;
-      cacheManager.setAccount(model);
+      cvCacheManager.setAccount(model);
     }
 
     return ModelMapper.instance.fromUserDataModel(dataModel);
@@ -65,14 +71,15 @@ class DefaultCloudCVRepository extends CVRepository {
 
   @override
   Future<List<ProfileViewModel>> fetchProfilesFromAccount({
-    int offset = 0,
-    int limit = 5,
+    /// TODO: Add filters
+    /// TODO: Add sort
+    Cursor cursor = const Cursor(),
   }) async {
-    print('$_TAG:fetchProfilesFromAccount');
+    print('$_tag:$fetchProfilesFromAccount');
 
-    var response = await apiManager.fetchProfilesFromAccount(
-      offset: offset,
-      limit: limit,
+    var response = await cvApiManager.fetchProfilesFromAccount(
+      offset: cursor.offset,
+      limit: cursor.limit,
     );
 
     var dataModels = response.data;
@@ -84,19 +91,61 @@ class DefaultCloudCVRepository extends CVRepository {
   }
 
   ///
+  /// Users
+  ///
+
+  @override
+  Future<UserViewModel> fetchUser(String userId) async {
+    print('$_tag:$fetchUser($userId)');
+    assert(userId != null);
+
+    var dataModel = await cvCacheManager.getUser(userId);
+
+    if (dataModel == null) {
+      var response = await cvApiManager.fetchUser(userId);
+      dataModel = response.data;
+      cvCacheManager.setUser(dataModel);
+    }
+
+    return ModelMapper.instance.fromUserDataModel(dataModel);
+  }
+
+  @override
+  Future<List<UserViewModel>> fetchUsers({
+    /// TODO: Add filters
+    /// TODO: Add sort
+    Cursor cursor = const Cursor(),
+  }) async {
+    print('$_tag:$fetchUsers');
+
+    var response = await cvApiManager.fetchUsers(
+      offset: cursor.offset,
+      limit: cursor.limit,
+    );
+
+    var dataModels = response.data;
+
+    _setCaches(dataModels);
+
+    return dataModels
+        .map((dataModel) => ModelMapper.instance.fromUserDataModel(dataModel));
+  }
+
+  ///
   /// Profiles
   ///
 
   @override
   Future<ProfileViewModel> fetchProfile(String profileId) async {
-    print('$_TAG:fetchProfile($profileId)');
+    print('$_tag:$fetchProfile($profileId)');
+    assert(profileId != null);
 
-    var dataModel = await cacheManager.getProfile(profileId);
+    var dataModel = await cvCacheManager.getProfile(profileId);
 
     if (dataModel == null) {
-      var response = await apiManager.fetchProfile(profileId);
+      var response = await cvApiManager.fetchProfile(profileId);
       dataModel = response.data;
-      cacheManager.setProfile(dataModel);
+      cvCacheManager.setProfile(dataModel);
     }
 
     return ModelMapper.instance.fromProfileDataModel(dataModel);
@@ -104,16 +153,15 @@ class DefaultCloudCVRepository extends CVRepository {
 
   @override
   Future<List<ProfileViewModel>> fetchProfiles({
-    String profileTitle,
-    int offset = 0,
-    int limit = 5,
+    /// TODO: Add filters
+    /// TODO: Add sort
+    Cursor cursor = const Cursor(),
   }) async {
-    print('$_TAG:fetchProfiles');
+    print('$_tag:$fetchProfiles');
 
-    var response = await apiManager.fetchProfiles(
-      profileTitle: profileTitle,
-      offset: offset,
-      limit: limit,
+    var response = await cvApiManager.fetchProfiles(
+      offset: cursor.offset,
+      limit: cursor.limit,
     );
 
     var dataModels = response.data;
@@ -127,15 +175,18 @@ class DefaultCloudCVRepository extends CVRepository {
   @override
   Future<List<ProfileViewModel>> fetchProfilesFromUser({
     @required String userId,
-    int offset = 0,
-    int limit = 5,
-  }) async {
-    print('$_TAG:fetchProfilesFromUser($userId)');
 
-    var response = await apiManager.fetchProfilesFromUser(
+    /// TODO: Add filters
+    /// TODO: Add sort
+    Cursor cursor = const Cursor(),
+  }) async {
+    print('$_tag:$fetchProfilesFromUser($userId)');
+    assert(userId != null);
+
+    var response = await cvApiManager.fetchProfilesFromUser(
       userId: userId,
-      offset: offset,
-      limit: limit,
+      offset: cursor.offset,
+      limit: cursor.limit,
     );
 
     var dataModels = response.data;
@@ -152,14 +203,14 @@ class DefaultCloudCVRepository extends CVRepository {
 
   @override
   Future<PartViewModel> fetchPart(String partId) async {
-    print('$_TAG:fetchPart($partId)');
+    print('$_tag:$fetchPart($partId)');
 
-    var dataModel = await cacheManager.getPart(partId);
+    var dataModel = await cvCacheManager.getPart(partId);
 
     if (dataModel == null) {
-      var response = await apiManager.fetchPart(partId);
+      var response = await cvApiManager.fetchPart(partId);
       dataModel = response.data;
-      cacheManager.setPart(dataModel);
+      cvCacheManager.setPart(dataModel);
     }
 
     return ModelMapper.instance.fromPartDataModel(dataModel);
@@ -167,12 +218,16 @@ class DefaultCloudCVRepository extends CVRepository {
 
   @override
   Future<List<PartViewModel>> fetchParts({
-    int offset = 0,
-    int limit = 5,
+    /// TODO: Add filters
+    /// TODO: Add sort
+    Cursor cursor = const Cursor(),
   }) async {
-    print('$_TAG:fetchParts');
+    print('$_tag:$fetchParts');
 
-    var response = await apiManager.fetchParts(offset: offset, limit: limit);
+    var response = await cvApiManager.fetchParts(
+      offset: cursor.offset,
+      limit: cursor.limit,
+    );
 
     var dataModels = response.data;
 
@@ -185,15 +240,18 @@ class DefaultCloudCVRepository extends CVRepository {
   @override
   Future<List<PartViewModel>> fetchPartsFromUser({
     @required String userId,
-    int offset = 0,
-    int limit = 5,
-  }) async {
-    print('$_TAG:fetchPartsFromUser($userId)');
 
-    var response = await apiManager.fetchPartsFromUser(
+    /// TODO: Add filters
+    /// TODO: Add sort
+    Cursor cursor = const Cursor(),
+  }) async {
+    print('$_tag:$fetchPartsFromUser($userId)');
+    assert(userId != null);
+
+    var response = await cvApiManager.fetchPartsFromUser(
       userId: userId,
-      offset: offset,
-      limit: limit,
+      offset: cursor.offset,
+      limit: cursor.limit,
     );
 
     var dataModels = response.data;
@@ -207,15 +265,18 @@ class DefaultCloudCVRepository extends CVRepository {
   @override
   Future<List<PartViewModel>> fetchPartsFromProfile({
     @required String profileId,
-    int offset = 0,
-    int limit = 5,
-  }) async {
-    print('$_TAG:fetchPartsFromProfile');
 
-    var response = await apiManager.fetchPartsFromProfile(
+    /// TODO: Add filters
+    /// TODO: Add sort
+    Cursor cursor = const Cursor(),
+  }) async {
+    print('$_tag:$fetchPartsFromProfile');
+    assert(profileId != null);
+
+    var response = await cvApiManager.fetchPartsFromProfile(
       profileId: profileId,
-      offset: offset,
-      limit: limit,
+      offset: cursor.offset,
+      limit: cursor.limit,
     );
 
     var dataModels = response.data;
@@ -232,25 +293,30 @@ class DefaultCloudCVRepository extends CVRepository {
 
   @override
   Future<GroupViewModel> fetchGroup(String groupId) async {
-    print('$_TAG:fetchGroup($groupId)');
+    print('$_tag:$fetchGroup($groupId)');
+    assert(groupId != null);
 
-    var dataModel = await cacheManager.getGroup(groupId);
+    var dataModel = await cvCacheManager.getGroup(groupId);
     if (dataModel == null) {
-      var response = await apiManager.fetchGroup(groupId);
+      var response = await cvApiManager.fetchGroup(groupId);
       dataModel = response.data;
-      cacheManager.setGroup(dataModel);
+      cvCacheManager.setGroup(dataModel);
     }
     return ModelMapper.instance.fromGroupDataModel(dataModel);
   }
 
   @override
   Future<List<GroupViewModel>> fetchGroups({
-    int offset = 0,
-    int limit = 5,
+    /// TODO: Add filters
+    /// TODO: Add sort
+    Cursor cursor = const Cursor(),
   }) async {
-    print('$_TAG:fetchGroups');
+    print('$_tag:$fetchGroups');
 
-    var response = await apiManager.fetchGroups(offset: offset, limit: limit);
+    var response = await cvApiManager.fetchGroups(
+      offset: cursor.offset,
+      limit: cursor.limit,
+    );
 
     var dataModels = response.data;
 
@@ -262,16 +328,19 @@ class DefaultCloudCVRepository extends CVRepository {
 
   @override
   Future<List<GroupViewModel>> fetchGroupsFromUser({
-    String userId,
-    int offset = 0,
-    int limit = 5,
-  }) async {
-    print('$_TAG:fetchGroupsFromUser($userId)');
+    @required String userId,
 
-    var response = await apiManager.fetchGroupsFromUser(
+    /// TODO: Add filters
+    /// TODO: Add sort
+    Cursor cursor = const Cursor(),
+  }) async {
+    print('$_tag:$fetchGroupsFromUser($userId)');
+    assert(userId != null);
+
+    var response = await cvApiManager.fetchGroupsFromUser(
       userId: userId,
-      offset: offset,
-      limit: limit,
+      offset: cursor.offset,
+      limit: cursor.limit,
     );
 
     var dataModels = response.data;
@@ -284,16 +353,19 @@ class DefaultCloudCVRepository extends CVRepository {
 
   @override
   Future<List<GroupViewModel>> fetchGroupsFromPart({
-    String partId,
-    int offset = 0,
-    int limit = 5,
-  }) async {
-    print('$_TAG:fetchGroupsFromPart($partId)');
+    @required String partId,
 
-    var response = await apiManager.fetchGroupsFromPart(
+    /// TODO: Add filters
+    /// TODO: Add sort
+    Cursor cursor = const Cursor(),
+  }) async {
+    print('$_tag:$fetchGroupsFromPart($partId)');
+    assert(partId != null);
+
+    var response = await cvApiManager.fetchGroupsFromPart(
       partId: partId,
-      offset: offset,
-      limit: limit,
+      offset: cursor.offset,
+      limit: cursor.limit,
     );
 
     var dataModels = response.data;
@@ -310,24 +382,32 @@ class DefaultCloudCVRepository extends CVRepository {
 
   @override
   Future<EntryViewModel> fetchEntry(String entryId) async {
-    print('$_TAG:fetchEntry($entryId)');
+    print('$_tag:$fetchEntry($entryId)');
+    assert(entryId != null);
 
-    var dataModel = await cacheManager.getEntry(entryId);
+    var dataModel = await cvCacheManager.getEntry(entryId);
+
     if (dataModel == null) {
-      var response = await apiManager.fetchEntry(entryId);
+      var response = await cvApiManager.fetchEntry(entryId);
       dataModel = response.data;
-      cacheManager.setEntry(dataModel);
+      cvCacheManager.setEntry(dataModel);
     }
+
     return ModelMapper.instance.fromEntryDataModel(dataModel);
   }
 
   @override
   Future<List<EntryViewModel>> fetchEntries({
-    int offset = 0,
-    int limit = 5,
+    /// TODO: Add filters
+    /// TODO: Add sort
+    Cursor cursor = const Cursor(),
   }) async {
-    print('$_TAG:fetchEntries');
-    var response = await apiManager.fetchEntries(offset: offset, limit: limit);
+    print('$_tag:$fetchEntries');
+
+    var response = await cvApiManager.fetchEntries(
+      offset: cursor.offset,
+      limit: cursor.limit,
+    );
 
     var dataModels = response.data;
 
@@ -339,16 +419,19 @@ class DefaultCloudCVRepository extends CVRepository {
 
   @override
   Future<List<EntryViewModel>> fetchEntriesFromUser({
-    String userId,
-    int offset = 0,
-    int limit = 5,
-  }) async {
-    print('$_TAG:fetchEntriesFromUser($userId)');
+    @required String userId,
 
-    var response = await apiManager.fetchEntriesFromUser(
+    /// TODO: Add filters
+    /// TODO: Add sort
+    Cursor cursor = const Cursor(),
+  }) async {
+    print('$_tag:$fetchEntriesFromUser($userId)');
+    assert(userId != null);
+
+    var response = await cvApiManager.fetchEntriesFromUser(
       userId: userId,
-      offset: offset,
-      limit: limit,
+      offset: cursor.offset,
+      limit: cursor.limit,
     );
 
     var dataModels = response.data;
@@ -361,16 +444,19 @@ class DefaultCloudCVRepository extends CVRepository {
 
   @override
   Future<List<EntryViewModel>> fetchEntriesFromGroup({
-    String groupId,
-    int offset = 0,
-    int limit = 5,
-  }) async {
-    print('$_TAG:fetchEntriesFromGroup($groupId)');
+    @required String groupId,
 
-    var response = await apiManager.fetchEntriesFromGroup(
+    /// TODO: Add filters
+    /// TODO: Add sort
+    Cursor cursor = const Cursor(),
+  }) async {
+    print('$_tag:$fetchEntriesFromGroup($groupId)');
+    assert(groupId != null);
+
+    var response = await cvApiManager.fetchEntriesFromGroup(
       groupId: groupId,
-      offset: offset,
-      limit: limit,
+      offset: cursor.offset,
+      limit: cursor.limit,
     );
 
     var dataModels = response.data;
@@ -388,16 +474,23 @@ class DefaultCloudCVRepository extends CVRepository {
   void _setCaches(List dataModels) {
     for (var model in dataModels) {
       if (model is UserDataModel) {
-        cacheManager.setUser(model);
+        cvCacheManager.setUser(model);
       } else if (model is ProfileDataModel) {
-        cacheManager.setProfile(model);
+        cvCacheManager.setProfile(model);
       } else if (model is PartDataModel) {
-        cacheManager.setPart(model);
+        cvCacheManager.setPart(model);
       } else if (model is GroupDataModel) {
-        cacheManager.setGroup(model);
+        cvCacheManager.setGroup(model);
       } else if (model is EntryDataModel) {
-        cacheManager.setEntry(model);
+        cvCacheManager.setEntry(model);
       }
     }
+  }
+
+  Cursor _checkCursor(Cursor cursor) {
+    if (cursor == null) {
+      cursor = Cursor();
+    }
+    return cursor;
   }
 }

@@ -28,5 +28,5 @@ class UserViewModel extends ElementViewModel {
 
   @override
   String toString() =>
-      'UserViewModel { id: $id, disabled: $disabled, email: $email, username: $username, picture: $picture, profileIds: $profileIds, permission: $permission, createdAt: $createdAt, updatedAt: $updatedAt, version: $version }';
+      '$UserViewModel { id: $id, disabled: $disabled, email: $email, username: $username, picture: $picture, profileIds: $profileIds, permission: $permission, createdAt: $createdAt, updatedAt: $updatedAt, version: $version }';
 }

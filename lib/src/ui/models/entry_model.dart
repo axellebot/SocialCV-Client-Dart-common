@@ -7,8 +7,7 @@ class EntryViewModel extends ElementViewModel {
   String startDate;
   String endDate;
   String location;
-  String groupId;
-  String owner;
+  String ownerId;
 
   EntryViewModel({
     String id,
@@ -18,8 +17,7 @@ class EntryViewModel extends ElementViewModel {
     this.startDate,
     this.endDate,
     this.location,
-    this.groupId,
-    this.owner,
+    this.ownerId,
     DateTime createdAt,
     DateTime updatedAt,
     int version,
@@ -30,7 +28,36 @@ class EntryViewModel extends ElementViewModel {
           version: version,
         );
 
+  EntryViewModel copyWith({
+    String id,
+    String name,
+    String type,
+    dynamic content,
+    String startDate,
+    String endDate,
+    String location,
+    String groupId,
+    String ownerId,
+    DateTime createdAt,
+    DateTime updatedAt,
+    int version,
+  }) {
+    return EntryViewModel(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      type: type ?? this.type,
+      content: content ?? this.content,
+      startDate: startDate ?? this.startDate,
+      endDate: endDate ?? this.endDate,
+      location: location ?? this.location,
+      ownerId: ownerId ?? this.ownerId,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      version: version ?? this.version,
+    );
+  }
+
   @override
   String toString() =>
-      'EntryViewModel { id: $id, name: $name, type: $type, content: $content, startDate: $startDate, endDate: $endDate, location: $location, owner: $owner, createdAt: $createdAt, updatedAt: $updatedAt, version: $version }';
+      '$EntryViewModel { id: $id, name: $name, type: $type, content: $content, startDate: $startDate, endDate: $endDate, location: $location, owner: $ownerId, createdAt: $createdAt, updatedAt: $updatedAt, version: $version }';
 }

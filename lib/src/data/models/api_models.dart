@@ -9,7 +9,7 @@ import 'package:social_cv_client_dart_common/src/data/models/user_model.dart';
 part 'api_models.g.dart';
 
 @JsonSerializable()
-class ResponseModel<T> extends Object {
+class ResponseEnvelop<T> extends Object {
   @JsonKey(name: 'error')
   final bool error;
   @JsonKey(name: 'message')
@@ -17,21 +17,21 @@ class ResponseModel<T> extends Object {
   @JsonKey(name: 'data', fromJson: _dataFromJson, toJson: _dataToJson)
   final T data;
 
-  ResponseModel({
+  ResponseEnvelop({
     this.error,
     this.message,
     this.data,
   });
 
-  factory ResponseModel.fromJson(Map<String, dynamic> json) =>
-      _$ResponseModelFromJson<T>(json);
+  factory ResponseEnvelop.fromJson(Map<String, dynamic> json) =>
+      _$ResponseEnvelopFromJson<T>(json);
 
-  Map<String, dynamic> toJson() => _$ResponseModelToJson<T>(this);
+  Map<String, dynamic> toJson() => _$ResponseEnvelopToJson<T>(this);
 }
 
 // TODO : Add model if needed
 T _dataFromJson<T>(Map<String, dynamic> input) {
-  print('_dataFromJson $T');
+  print('$_dataFromJson<$T>');
 
   if (T == UserDataModel)
     return UserDataModel.fromJson(input) as T;
@@ -49,13 +49,13 @@ T _dataFromJson<T>(Map<String, dynamic> input) {
 
 // TODO : Add model if needed
 Map<String, dynamic> _dataToJson<T>(Object json) {
-  print('_dataToJson $T');
+  print('$_dataToJson<$T>');
   return json;
 }
 
 /// Model with GenericCollection https://github.com/dart-lang/json_serializable/blob/ee2c5c788279af01860624303abe16811850b82c/example/lib/json_converter_example.dart
 @JsonSerializable()
-class ResponseModelWithArray<T> extends Object {
+class ResponseEnvelopWithArray<T> extends Object {
   @JsonKey(name: 'error')
   final bool error;
   @JsonKey(name: 'message')
@@ -63,7 +63,7 @@ class ResponseModelWithArray<T> extends Object {
   @_ResponseDataConverter()
   final List<T> data;
 
-  ResponseModelWithArray({
+  ResponseEnvelopWithArray({
     this.error,
     this.message,
     this.data,
@@ -71,10 +71,10 @@ class ResponseModelWithArray<T> extends Object {
 
   int total;
 
-  factory ResponseModelWithArray.fromJson(Map<String, dynamic> json) =>
-      _$ResponseModelWithArrayFromJson<T>(json);
+  factory ResponseEnvelopWithArray.fromJson(Map<String, dynamic> json) =>
+      _$ResponseEnvelopWithArrayFromJson<T>(json);
 
-  Map<String, dynamic> toJson() => _$ResponseModelWithArrayToJson<T>(this);
+  Map<String, dynamic> toJson() => _$ResponseEnvelopWithArrayToJson<T>(this);
 }
 
 class _ResponseDataConverter<T> implements JsonConverter<T, Object> {
@@ -109,30 +109,30 @@ class _ResponseDataConverter<T> implements JsonConverter<T, Object> {
 }
 
 @JsonSerializable()
-class OAuthAccessTokenRequestModel extends Object {
+class RequestEnvelopOAuthAccessToken extends Object {
   @JsonKey(name: 'username')
   final String username;
   @JsonKey(name: 'password')
   final String password;
 
-  OAuthAccessTokenRequestModel({
+  RequestEnvelopOAuthAccessToken({
     @required this.username,
     @required this.password,
   })  : assert(username != null && password != null),
         super();
 
-  factory OAuthAccessTokenRequestModel.fromJson(Map<String, dynamic> json) =>
-      _$OAuthAccessTokenRequestModelFromJson(json);
+  factory RequestEnvelopOAuthAccessToken.fromJson(Map<String, dynamic> json) =>
+      _$RequestEnvelopOAuthAccessTokenFromJson(json);
 
-  Map<String, dynamic> toJson() => _$OAuthAccessTokenRequestModelToJson(this);
+  Map<String, dynamic> toJson() => _$RequestEnvelopOAuthAccessTokenToJson(this);
 
   @override
   String toString() =>
-      'OAuthAccessTokenRequestModel { username: $username, password: HIDDEN }';
+      '$RequestEnvelopOAuthAccessToken { username: $username, password: HIDDEN }';
 }
 
 @JsonSerializable()
-class OAuthAccessTokenResponseModel extends Object {
+class ResponseEnvelopOAuthAccessToken extends Object {
   @JsonKey(name: 'access_token')
   final String accessToken;
   @JsonKey(name: 'refresh_token')
@@ -142,19 +142,19 @@ class OAuthAccessTokenResponseModel extends Object {
   @JsonKey(name: 'token_type')
   final String tokenType;
 
-  OAuthAccessTokenResponseModel({
+  ResponseEnvelopOAuthAccessToken({
     this.accessToken,
     this.refreshToken,
     this.accessTokenExpiresAt,
     this.tokenType,
   }) : super();
 
-  factory OAuthAccessTokenResponseModel.fromJson(Map<String, dynamic> json) =>
-      _$OAuthAccessTokenResponseModelFromJson(json);
+  factory ResponseEnvelopOAuthAccessToken.fromJson(Map<String, dynamic> json) =>
+      _$ResponseEnvelopOAuthAccessTokenFromJson(json);
 
-  Map<String, dynamic> toJson() => _$OAuthAccessTokenResponseModelToJson(this);
+  Map<String, dynamic> toJson() => _$ResponseEnvelopOAuthAccessTokenToJson(this);
 
   @override
   String toString() =>
-      'OAuthAccessTokenResponseModel { accessToken: $accessToken, refreshToken: $refreshToken, accessTokenExpiresAt: $accessTokenExpiresAt, tokenType: $tokenType }';
+      '$ResponseEnvelopOAuthAccessToken { accessToken: $accessToken, refreshToken: $refreshToken, accessTokenExpiresAt: $accessTokenExpiresAt, tokenType: $tokenType }';
 }

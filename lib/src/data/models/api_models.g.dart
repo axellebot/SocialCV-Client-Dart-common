@@ -6,8 +6,8 @@ part of 'api_models.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ResponseModel<T> _$ResponseModelFromJson<T>(Map<String, dynamic> json) {
-  return ResponseModel<T>(
+ResponseEnvelop<T> _$ResponseEnvelopFromJson<T>(Map<String, dynamic> json) {
+  return ResponseEnvelop<T>(
       error: json['error'] as bool,
       message: json['message'] as String,
       data: json['data'] == null
@@ -15,16 +15,16 @@ ResponseModel<T> _$ResponseModelFromJson<T>(Map<String, dynamic> json) {
           : _dataFromJson(json['data'] as Map<String, dynamic>));
 }
 
-Map<String, dynamic> _$ResponseModelToJson<T>(ResponseModel<T> instance) =>
+Map<String, dynamic> _$ResponseEnvelopToJson<T>(ResponseEnvelop<T> instance) =>
     <String, dynamic>{
       'error': instance.error,
       'message': instance.message,
       'data': instance.data == null ? null : _dataToJson(instance.data)
     };
 
-ResponseModelWithArray<T> _$ResponseModelWithArrayFromJson<T>(
+ResponseEnvelopWithArray<T> _$ResponseEnvelopWithArrayFromJson<T>(
     Map<String, dynamic> json) {
-  return ResponseModelWithArray<T>(
+  return ResponseEnvelopWithArray<T>(
       error: json['error'] as bool,
       message: json['message'] as String,
       data: (json['data'] as List)
@@ -34,8 +34,8 @@ ResponseModelWithArray<T> _$ResponseModelWithArrayFromJson<T>(
     ..total = json['total'] as int;
 }
 
-Map<String, dynamic> _$ResponseModelWithArrayToJson<T>(
-        ResponseModelWithArray<T> instance) =>
+Map<String, dynamic> _$ResponseEnvelopWithArrayToJson<T>(
+        ResponseEnvelopWithArray<T> instance) =>
     <String, dynamic>{
       'error': instance.error,
       'message': instance.message,
@@ -45,31 +45,31 @@ Map<String, dynamic> _$ResponseModelWithArrayToJson<T>(
       'total': instance.total
     };
 
-OAuthAccessTokenRequestModel _$OAuthAccessTokenRequestModelFromJson(
+RequestEnvelopOAuthAccessToken _$RequestEnvelopOAuthAccessTokenFromJson(
     Map<String, dynamic> json) {
-  return OAuthAccessTokenRequestModel(
+  return RequestEnvelopOAuthAccessToken(
       username: json['username'] as String,
       password: json['password'] as String);
 }
 
-Map<String, dynamic> _$OAuthAccessTokenRequestModelToJson(
-        OAuthAccessTokenRequestModel instance) =>
+Map<String, dynamic> _$RequestEnvelopOAuthAccessTokenToJson(
+        RequestEnvelopOAuthAccessToken instance) =>
     <String, dynamic>{
       'username': instance.username,
       'password': instance.password
     };
 
-OAuthAccessTokenResponseModel _$OAuthAccessTokenResponseModelFromJson(
+ResponseEnvelopOAuthAccessToken _$ResponseEnvelopOAuthAccessTokenFromJson(
     Map<String, dynamic> json) {
-  return OAuthAccessTokenResponseModel(
+  return ResponseEnvelopOAuthAccessToken(
       accessToken: json['access_token'] as String,
       refreshToken: json['refresh_token'] as String,
       accessTokenExpiresAt: json['expires_in'] as int,
       tokenType: json['token_type'] as String);
 }
 
-Map<String, dynamic> _$OAuthAccessTokenResponseModelToJson(
-        OAuthAccessTokenResponseModel instance) =>
+Map<String, dynamic> _$ResponseEnvelopOAuthAccessTokenToJson(
+        ResponseEnvelopOAuthAccessToken instance) =>
     <String, dynamic>{
       'access_token': instance.accessToken,
       'refresh_token': instance.refreshToken,

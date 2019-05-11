@@ -7,7 +7,7 @@ class ProfileViewModel extends ElementViewModel {
   Uri cover;
   String type;
   List<String> partIds;
-  String owner;
+  String ownerId;
 
   ProfileViewModel({
     String id,
@@ -15,9 +15,9 @@ class ProfileViewModel extends ElementViewModel {
     this.subtitle,
     this.picture,
     this.cover,
-    this.type,
     this.partIds,
-    this.owner,
+    this.type,
+    this.ownerId,
     DateTime createdAt,
     DateTime updatedAt,
     int version,
@@ -28,7 +28,35 @@ class ProfileViewModel extends ElementViewModel {
           version: version,
         );
 
+  ProfileViewModel copyWith({
+    String id,
+    String title,
+    String subtitle,
+    Uri picture,
+    Uri cover,
+    List<String> partIds,
+    String type,
+    String ownerId,
+    DateTime createdAt,
+    DateTime updatedAt,
+    int version,
+  }) {
+    return ProfileViewModel(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      subtitle: subtitle ?? this.subtitle,
+      picture: picture ?? this.picture,
+      cover: cover ?? this.cover,
+      partIds: partIds ?? this.partIds,
+      type: type ?? this.type,
+      ownerId: ownerId ?? this.ownerId,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      version: version ?? this.version,
+    );
+  }
+
   @override
   String toString() =>
-      'ProfileViewModel { id: $id, title: $title, subtitle: $subtitle, picture: $picture, cover: $cover, type: $type, partIds: $partIds, owner: $owner, createdAt: $createdAt, updatedAt: $updatedAt, version: $version }';
+      '$ProfileViewModel { id: $id, title: $title, subtitle: $subtitle, picture: $picture, cover: $cover, type: $type, partIds: $partIds, owner: $ownerId, createdAt: $createdAt, updatedAt: $updatedAt, version: $version }';
 }

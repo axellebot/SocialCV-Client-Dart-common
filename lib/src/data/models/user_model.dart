@@ -6,6 +6,19 @@ part 'user_model.g.dart';
 
 @JsonSerializable()
 class UserDataModel extends ElementDataModel {
+  @JsonKey(name: 'disabled')
+  bool disabled;
+  @JsonKey(name: 'email')
+  String email;
+  @JsonKey(name: 'username')
+  String username;
+  @JsonKey(name: 'picture')
+  String picture;
+  @JsonKey(name: 'profiles')
+  List<String> profileIds;
+  @JsonKey(name: 'permission')
+  dynamic permission;
+
   UserDataModel({
     @required String id,
     this.disabled,
@@ -24,19 +37,6 @@ class UserDataModel extends ElementDataModel {
           version: version,
         );
 
-  @JsonKey(name: 'disabled')
-  bool disabled;
-  @JsonKey(name: 'email')
-  String email;
-  @JsonKey(name: 'username')
-  String username;
-  @JsonKey(name: 'picture')
-  String picture;
-  @JsonKey(name: 'profiles')
-  List<String> profileIds;
-  @JsonKey(name: 'permission')
-  dynamic permission;
-
   factory UserDataModel.fromJson(Map<String, dynamic> json) =>
       _$UserDataModelFromJson(json);
 
@@ -44,5 +44,5 @@ class UserDataModel extends ElementDataModel {
 
   @override
   String toString() =>
-      'UserDataModel { id: $id, disabled: $disabled, email: $email, username: $username, picture: $picture, profileIds: $profileIds, permission: $permission}';
+      '$UserDataModel { id: $id, disabled: $disabled, email: $email, username: $username, picture: $picture, profileIds: $profileIds, permission: $permission}';
 }

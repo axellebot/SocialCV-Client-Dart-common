@@ -8,22 +8,19 @@ part 'group_model.g.dart';
 class GroupDataModel extends ElementDataModel {
   @JsonKey(name: 'name')
   String name;
-  @JsonKey(name: 'type')
-  String type;
   @JsonKey(name: 'entries')
   List<String> entryIds;
-  @JsonKey(name: 'partId')
-  String partId;
+  @JsonKey(name: 'type')
+  String type;
   @JsonKey(name: 'owner')
-  String owner;
+  String ownerId;
 
   GroupDataModel({
     @required String id,
     this.name,
     this.type,
     this.entryIds,
-    this.partId,
-    this.owner,
+    this.ownerId,
     DateTime createdAt,
     DateTime updatedAt,
     int version,
@@ -41,5 +38,5 @@ class GroupDataModel extends ElementDataModel {
 
   @override
   String toString() =>
-      'GroupDataModel { id: $id, name: $name, type: $type, entryIds: $entryIds, partId: $partId, owner: $owner, createdAt: $createdAt, updatedAt: $updatedAt, version: $version }';
+      '$GroupDataModel { id: $id, name: $name, type: $type, entryIds: $entryIds, owner: $ownerId, createdAt: $createdAt, updatedAt: $updatedAt, version: $version }';
 }

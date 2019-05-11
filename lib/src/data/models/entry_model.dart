@@ -18,10 +18,8 @@ class EntryDataModel extends ElementDataModel {
   String endDate;
   @JsonKey(name: 'location')
   String location;
-  @JsonKey(name: 'groupId')
-  String groupId;
   @JsonKey(name: 'owner')
-  String owner;
+  String ownerId;
 
   EntryDataModel({
     @required String id,
@@ -31,8 +29,7 @@ class EntryDataModel extends ElementDataModel {
     this.startDate,
     this.endDate,
     this.location,
-    this.groupId,
-    this.owner,
+    this.ownerId,
     DateTime createdAt,
     DateTime updatedAt,
     int version,
@@ -50,5 +47,5 @@ class EntryDataModel extends ElementDataModel {
 
   @override
   String toString() =>
-      'EntryDataModel { id: $id, name: $name, type: $type, content: $content, startDate: $startDate, endDate: $endDate, location: $location, owner: $owner, createdAt: $createdAt, updatedAt: $updatedAt, version: $version }';
+      '$EntryDataModel { id: $id, name: $name, type: $type, content: $content, startDate: $startDate, endDate: $endDate, location: $location, owner: $ownerId, createdAt: $createdAt, updatedAt: $updatedAt, version: $version }';
 }

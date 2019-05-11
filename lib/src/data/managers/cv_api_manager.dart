@@ -8,7 +8,7 @@ abstract class CVApiManager {
   /// OAuth
   ///
 
-  Future<OAuthAccessTokenResponseModel> fetchToken({
+  Future<ResponseEnvelopOAuthAccessToken> fetchToken({
     @required String email,
     @required String password,
   });
@@ -17,9 +17,20 @@ abstract class CVApiManager {
   /// Account
   ///
 
-  Future<ResponseModel<UserDataModel>> fetchAccount();
+  Future<ResponseEnvelop<UserDataModel>> fetchAccount();
 
-  Future<ResponseModelWithArray<ProfileDataModel>> fetchProfilesFromAccount({
+  Future<ResponseEnvelopWithArray<ProfileDataModel>> fetchProfilesFromAccount({
+    int offset = 0,
+    int limit = 5,
+  });
+
+  ///
+  /// Users
+  ///
+
+  Future<ResponseEnvelop<UserDataModel>> fetchUser(String userId);
+
+  Future<ResponseEnvelopWithArray<UserDataModel>> fetchUsers({
     int offset = 0,
     int limit = 5,
   });
@@ -28,15 +39,14 @@ abstract class CVApiManager {
   /// Profiles
   ///
 
-  Future<ResponseModel<ProfileDataModel>> fetchProfile(String profileId);
+  Future<ResponseEnvelop<ProfileDataModel>> fetchProfile(String profileId);
 
-  Future<ResponseModelWithArray<ProfileDataModel>> fetchProfiles({
-    String profileTitle,
+  Future<ResponseEnvelopWithArray<ProfileDataModel>> fetchProfiles({
     int offset = 0,
     int limit = 5,
   });
 
-  Future<ResponseModelWithArray<ProfileDataModel>> fetchProfilesFromUser({
+  Future<ResponseEnvelopWithArray<ProfileDataModel>> fetchProfilesFromUser({
     @required String userId,
     int offset = 0,
     int limit = 5,
@@ -46,20 +56,20 @@ abstract class CVApiManager {
   /// Parts
   ///
 
-  Future<ResponseModel<PartDataModel>> fetchPart(String partId);
+  Future<ResponseEnvelop<PartDataModel>> fetchPart(String partId);
 
-  Future<ResponseModelWithArray<PartDataModel>> fetchParts({
+  Future<ResponseEnvelopWithArray<PartDataModel>> fetchParts({
     int offset = 0,
     int limit = 5,
   });
 
-  Future<ResponseModelWithArray<PartDataModel>> fetchPartsFromUser({
+  Future<ResponseEnvelopWithArray<PartDataModel>> fetchPartsFromUser({
     @required String userId,
     int offset = 0,
     int limit = 5,
   });
 
-  Future<ResponseModelWithArray<PartDataModel>> fetchPartsFromProfile({
+  Future<ResponseEnvelopWithArray<PartDataModel>> fetchPartsFromProfile({
     @required String profileId,
     int offset = 0,
     int limit = 5,
@@ -69,20 +79,20 @@ abstract class CVApiManager {
   /// Groups
   ///
 
-  Future<ResponseModel<GroupDataModel>> fetchGroup(String groupId);
+  Future<ResponseEnvelop<GroupDataModel>> fetchGroup(String groupId);
 
-  Future<ResponseModelWithArray<GroupDataModel>> fetchGroups({
+  Future<ResponseEnvelopWithArray<GroupDataModel>> fetchGroups({
     int offset = 0,
     int limit = 5,
   });
 
-  Future<ResponseModelWithArray<GroupDataModel>> fetchGroupsFromUser({
+  Future<ResponseEnvelopWithArray<GroupDataModel>> fetchGroupsFromUser({
     @required String userId,
     int offset = 0,
     int limit = 5,
   });
 
-  Future<ResponseModelWithArray<GroupDataModel>> fetchGroupsFromPart({
+  Future<ResponseEnvelopWithArray<GroupDataModel>> fetchGroupsFromPart({
     @required String partId,
     int offset = 0,
     int limit = 5,
@@ -92,20 +102,20 @@ abstract class CVApiManager {
   /// Entries
   ///
 
-  Future<ResponseModel<EntryDataModel>> fetchEntry(String entryId);
+  Future<ResponseEnvelop<EntryDataModel>> fetchEntry(String entryId);
 
-  Future<ResponseModelWithArray<EntryDataModel>> fetchEntries({
+  Future<ResponseEnvelopWithArray<EntryDataModel>> fetchEntries({
     int offset = 0,
     int limit = 5,
   });
 
-  Future<ResponseModelWithArray<EntryDataModel>> fetchEntriesFromUser({
+  Future<ResponseEnvelopWithArray<EntryDataModel>> fetchEntriesFromUser({
     @required String userId,
     int offset = 0,
     int limit = 5,
   });
 
-  Future<ResponseModelWithArray<EntryDataModel>> fetchEntriesFromGroup({
+  Future<ResponseEnvelopWithArray<EntryDataModel>> fetchEntriesFromGroup({
     @required String groupId,
     int offset = 0,
     int limit = 5,

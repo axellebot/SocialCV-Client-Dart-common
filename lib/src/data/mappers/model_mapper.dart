@@ -2,6 +2,8 @@ import 'package:social_cv_client_dart_common/models.dart';
 
 /// [ModelMapper] for MVVM pattern
 class ModelMapper {
+  final String _tag = '$ModelMapper';
+
   static ModelMapper _instance;
 
   static _initState() {
@@ -15,8 +17,9 @@ class ModelMapper {
     return _instance;
   }
 
+  /// [ResponseEnvelopOAuthAccessToken] to [AccessTokenViewModelModel]
   AccessTokenViewModelModel fromOAuthAccessToken(
-      OAuthAccessTokenResponseModel dataModel) {
+      ResponseEnvelopOAuthAccessToken dataModel) {
     return AccessTokenViewModelModel(
       accessToken: dataModel.accessToken,
       refreshToken: dataModel.refreshToken,
@@ -50,9 +53,9 @@ class ModelMapper {
       subtitle: dataModel.subtitle,
       picture: dataModel.picture,
       cover: dataModel.cover,
+      partIds: dataModel.partIds,
       type: dataModel.type,
-      partIds: dataModel.parts,
-      owner: dataModel.owner,
+      ownerId: dataModel.ownerId,
       createdAt: dataModel.createdAt,
       updatedAt: dataModel.updatedAt,
       version: dataModel.version,
@@ -65,10 +68,9 @@ class ModelMapper {
     return PartViewModel(
       id: dataModel.id,
       name: dataModel.name,
-      type: dataModel.type,
       groupIds: dataModel.groupIds,
-      profileId: dataModel.profileId,
-      owner: dataModel.owner,
+      type: dataModel.type,
+      ownerId: dataModel.ownerId,
       createdAt: dataModel.createdAt,
       updatedAt: dataModel.updatedAt,
       version: dataModel.version,
@@ -81,10 +83,9 @@ class ModelMapper {
     return GroupViewModel(
       id: dataModel.id,
       name: dataModel.name,
-      type: dataModel.type,
       entryIds: dataModel.entryIds,
-      partId: dataModel.partId,
-      owner: dataModel.owner,
+      type: dataModel.type,
+      ownerId: dataModel.ownerId,
       createdAt: dataModel.createdAt,
       updatedAt: dataModel.updatedAt,
       version: dataModel.version,
@@ -97,13 +98,12 @@ class ModelMapper {
     return EntryViewModel(
       id: dataModel.id,
       name: dataModel.name,
-      type: dataModel.type,
       content: dataModel.content,
       startDate: dataModel.startDate,
       endDate: dataModel.endDate,
       location: dataModel.location,
-      groupId: dataModel.groupId,
-      owner: dataModel.owner,
+      type: dataModel.type,
+      ownerId: dataModel.ownerId,
       createdAt: dataModel.createdAt,
       updatedAt: dataModel.updatedAt,
       version: dataModel.version,

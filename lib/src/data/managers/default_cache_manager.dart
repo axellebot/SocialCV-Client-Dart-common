@@ -8,7 +8,7 @@ import 'package:social_cv_client_dart_common/models.dart';
 /// Default implementation of [CVCacheManager]
 ///
 class DefaultCVCacheManager implements CVCacheManager {
-  final String _TAG = 'DefaultCVCacheManager';
+  final String _tag = '$DefaultCVCacheManager';
 
   DefaultCVCacheManager();
 
@@ -25,7 +25,7 @@ class DefaultCVCacheManager implements CVCacheManager {
   ///
 
   Future<UserDataModel> getAccount() async {
-    print('$_TAG:getAccount');
+    print('$_tag:$getAccount');
 
     return (accountCache != null && !accountCache.isExpired())
         ? accountCache.model
@@ -33,7 +33,7 @@ class DefaultCVCacheManager implements CVCacheManager {
   }
 
   void setAccount(UserDataModel userModel) async {
-    print('$_TAG:setAccount($userModel)');
+    print('$_tag:$setAccount($userModel)');
 
     DateTime expiration = _generateExpirationDateTime(Duration(minutes: 1));
     this.accountCache =
@@ -45,7 +45,7 @@ class DefaultCVCacheManager implements CVCacheManager {
   ///
 
   Future<UserDataModel> getUser(String userId) async {
-    print('$_TAG:getUser($userId)');
+    print('$_tag:$getUser($userId)');
 
     _CacheModel<UserDataModel> cacheModel = _users[userId];
     return (cacheModel != null && !cacheModel.isExpired())
@@ -54,6 +54,8 @@ class DefaultCVCacheManager implements CVCacheManager {
   }
 
   void setUser(UserDataModel userModel) async {
+    print('$_tag:$setUser($userModel)');
+
     DateTime expiration = _generateExpirationDateTime(Duration(minutes: 1));
     final cacheModel =
         _CacheModel<UserDataModel>(model: userModel, expiration: expiration);
@@ -65,7 +67,7 @@ class DefaultCVCacheManager implements CVCacheManager {
   ///
 
   Future<ProfileDataModel> getProfile(String profileId) async {
-    print('$_TAG:getProfile($profileId)');
+    print('$_tag:$getProfile($profileId)');
 
     _CacheModel<ProfileDataModel> cacheModel = _profiles[profileId];
     return (cacheModel != null && !cacheModel.isExpired())
@@ -74,7 +76,7 @@ class DefaultCVCacheManager implements CVCacheManager {
   }
 
   void setProfile(ProfileDataModel profileModel) async {
-    print('$_TAG:setProfile($profileModel)');
+    print('$_tag:$setProfile($profileModel)');
 
     DateTime expiration = _generateExpirationDateTime(Duration(minutes: 1));
     final cacheModel = _CacheModel<ProfileDataModel>(
@@ -87,7 +89,7 @@ class DefaultCVCacheManager implements CVCacheManager {
   ///
 
   Future<PartDataModel> getPart(String partId) async {
-    print('$_TAG:getPart($partId)');
+    print('$_tag:$getPart($partId)');
 
     _CacheModel<PartDataModel> cacheModel = _parts[partId];
     return (cacheModel != null && !cacheModel.isExpired())
@@ -96,7 +98,7 @@ class DefaultCVCacheManager implements CVCacheManager {
   }
 
   void setPart(PartDataModel partModel) async {
-    print('$_TAG:setPart($partModel)');
+    print('$_tag:$setPart($partModel)');
 
     DateTime expiration = _generateExpirationDateTime(Duration(minutes: 1));
     final cacheModel =
@@ -109,7 +111,7 @@ class DefaultCVCacheManager implements CVCacheManager {
   ///
 
   Future<GroupDataModel> getGroup(String groupId) async {
-    print('$_TAG:getGroup($groupId)');
+    print('$_tag:$getGroup($groupId)');
 
     _CacheModel<GroupDataModel> cacheModel = _groups[groupId];
     return (cacheModel != null && !cacheModel.isExpired())
@@ -118,7 +120,7 @@ class DefaultCVCacheManager implements CVCacheManager {
   }
 
   void setGroup(GroupDataModel groupModel) async {
-    print('$_TAG:setGroup($groupModel)');
+    print('$_tag:$setGroup($groupModel)');
 
     DateTime expiration = _generateExpirationDateTime(Duration(minutes: 1));
     final cacheModel =
@@ -131,7 +133,7 @@ class DefaultCVCacheManager implements CVCacheManager {
   ///
 
   Future<EntryDataModel> getEntry(String entryId) async {
-    print('$_TAG:getEntry($entryId)');
+    print('$_tag:$getEntry($entryId)');
 
     _CacheModel<EntryDataModel> cacheModel = _entries[entryId];
     return (cacheModel != null && !cacheModel.isExpired())
@@ -140,7 +142,7 @@ class DefaultCVCacheManager implements CVCacheManager {
   }
 
   void setEntry(EntryDataModel entryModel) async {
-    print('$_TAG:setEntry($entryModel)');
+    print('$_tag:$setEntry($entryModel)');
 
     DateTime expiration = _generateExpirationDateTime(Duration(minutes: 1));
     final cacheModel =

@@ -8,22 +8,19 @@ part 'part_model.g.dart';
 class PartDataModel extends ElementDataModel {
   @JsonKey(name: 'name')
   String name;
-  @JsonKey(name: 'type')
-  String type;
   @JsonKey(name: 'groups')
   List<String> groupIds;
-  @JsonKey(name: 'profile')
-  String profileId;
+  @JsonKey(name: 'type')
+  String type;
   @JsonKey(name: 'owner')
-  String owner;
+  String ownerId;
 
   PartDataModel({
     @required String id,
     this.name,
-    this.type,
     this.groupIds,
-    this.owner,
-    this.profileId,
+    this.type,
+    this.ownerId,
     DateTime createdAt,
     DateTime updatedAt,
     int version,
@@ -40,7 +37,6 @@ class PartDataModel extends ElementDataModel {
   Map<String, dynamic> toJson() => _$PartDataModelToJson(this);
 
   @override
-  String toString() {
-    return 'PartDataModel{ id: $id, name: $name, groupIds: $groupIds, profileId: $profileId, type: $type, owner: $owner}';
-  }
+  String toString() =>
+      '$PartDataModel{ id: $id, name: $name, groupIds: $groupIds, type: $type, owner: $ownerId}';
 }

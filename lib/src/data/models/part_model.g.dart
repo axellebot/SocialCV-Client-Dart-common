@@ -10,10 +10,9 @@ PartDataModel _$PartDataModelFromJson(Map<String, dynamic> json) {
   return PartDataModel(
       id: json['_id'] as String,
       name: json['name'] as String,
-      type: json['type'] as String,
       groupIds: (json['groups'] as List)?.map((e) => e as String)?.toList(),
-      owner: json['owner'] as String,
-      profileId: json['profile'] as String,
+      type: json['type'] as String,
+      ownerId: json['owner'] as String,
       createdAt: json['createdAt'] == null
           ? null
           : DateTime.parse(json['createdAt'] as String),
@@ -30,8 +29,7 @@ Map<String, dynamic> _$PartDataModelToJson(PartDataModel instance) =>
       'updatedAt': instance.updatedAt?.toIso8601String(),
       '__v': instance.version,
       'name': instance.name,
-      'type': instance.type,
       'groups': instance.groupIds,
-      'profile': instance.profileId,
-      'owner': instance.owner
+      'type': instance.type,
+      'owner': instance.ownerId
     };

@@ -14,12 +14,12 @@ class ProfileDataModel extends ElementDataModel {
   Uri picture;
   @JsonKey(name: 'cover')
   Uri cover;
+  @JsonKey(name: 'parts')
+  dynamic partIds;
   @JsonKey(name: 'type')
   String type;
-  @JsonKey(name: 'parts')
-  dynamic parts;
   @JsonKey(name: 'owner')
-  String owner;
+  String ownerId;
 
   ProfileDataModel({
     @required String id,
@@ -27,9 +27,9 @@ class ProfileDataModel extends ElementDataModel {
     this.subtitle,
     this.picture,
     this.cover,
+    this.partIds,
     this.type,
-    this.parts,
-    this.owner,
+    this.ownerId,
     DateTime createdAt,
     DateTime updatedAt,
     int version,
@@ -47,5 +47,5 @@ class ProfileDataModel extends ElementDataModel {
 
   @override
   String toString() =>
-      'ProfileDataModel { id: $id, title: $title, subtitle: $subtitle, picture: $picture, cover: $cover, type: $type, parts: $parts, owner: $owner }';
+      '$ProfileDataModel { id: $id, title: $title, subtitle: $subtitle, picture: $picture, cover: $cover, parts: $partIds, type: $type, owner: $ownerId }';
 }

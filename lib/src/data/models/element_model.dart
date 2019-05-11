@@ -13,4 +13,8 @@ abstract class ElementDataModel extends BaseDataModel {
           updatedAt: updatedAt,
           version: version,
         );
+
+  @override
+  String toString() =>
+      '$ElementDataModel { id: $id, createdAt: $createdAt, updatedAt: $updatedAt, version: $version }';
 }

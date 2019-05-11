@@ -15,8 +15,7 @@ EntryDataModel _$EntryDataModelFromJson(Map<String, dynamic> json) {
       startDate: json['startDate'] as String,
       endDate: json['endDate'] as String,
       location: json['location'] as String,
-      groupId: json['groupId'] as String,
-      owner: json['owner'] as String,
+      ownerId: json['owner'] as String,
       createdAt: json['createdAt'] == null
           ? null
           : DateTime.parse(json['createdAt'] as String),
@@ -38,6 +37,5 @@ Map<String, dynamic> _$EntryDataModelToJson(EntryDataModel instance) =>
       'startDate': instance.startDate,
       'endDate': instance.endDate,
       'location': instance.location,
-      'groupId': instance.groupId,
-      'owner': instance.owner
+      'owner': instance.ownerId
     };

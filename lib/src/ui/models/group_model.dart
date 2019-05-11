@@ -2,18 +2,16 @@ import 'package:social_cv_client_dart_common/models.dart';
 
 class GroupViewModel extends ElementViewModel {
   String name;
-  String type;
   List<String> entryIds;
-  String partId;
-  String owner;
+  String type;
+  String ownerId;
 
   GroupViewModel({
     String id,
     this.name,
-    this.type,
     this.entryIds,
-    this.partId,
-    this.owner,
+    this.type,
+    this.ownerId,
     DateTime createdAt,
     DateTime updatedAt,
     int version,
@@ -24,7 +22,29 @@ class GroupViewModel extends ElementViewModel {
           version: version,
         );
 
+  GroupViewModel copyWith({
+    String id,
+    String name,
+    String entryIds,
+    String type,
+    String ownerId,
+    DateTime createdAt,
+    DateTime updatedAt,
+    int version,
+  }) {
+    return GroupViewModel(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      entryIds: entryIds ?? this.entryIds,
+      type: type ?? this.type,
+      ownerId: ownerId ?? this.ownerId,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      version: version ?? this.version,
+    );
+  }
+
   @override
   String toString() =>
-      'GroupViewModel { id: $id, name: $name, type: $type, entryIds: $entryIds, partId: $partId, owner: $owner, createdAt: $createdAt, updatedAt: $updatedAt, version: $version }';
+      '$GroupViewModel { id: $id, name: $name, type: $type, entryIds: $entryIds, owner: $ownerId, createdAt: $createdAt, updatedAt: $updatedAt, version: $version }';
 }
