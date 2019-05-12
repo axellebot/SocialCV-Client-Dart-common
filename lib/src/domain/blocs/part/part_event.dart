@@ -8,8 +8,10 @@ abstract class PartEvent extends Equatable {
 
 class PartInitialized extends PartEvent with ElementInitialized<PartViewModel> {
   PartInitialized({String withId, PartViewModel withPart})
-      : assert(withId != null || withPart != null,
-            '$PartInitialized must be created with a $String ID or a $PartViewModel'),
+      : assert(
+            (withId != null && withPart == null) ||
+                (withId == null && withPart != null),
+            '$PartInitialized must be created with an $PartViewModel or its ID'),
         super([withId, withPart]) {
     this.elementId = withId;
     this.element = withPart;

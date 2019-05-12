@@ -17,41 +17,53 @@ class ProfileBloc
   Stream<ProfileState> mapEventToState(ProfileEvent event) async* {
     print('$_tag:$mapEventToState($event)');
     try {
-      if (event is ProfileInitialized && event.elementId != null) {
-        yield* _mapInitializedEventWithElementToState(event);
-      } else if (event is ProfileInitialized && event.element != null) {
-        yield* _mapInitializedEventWithIdToState(event);
+      if (event is ProfileInitialized) {
+        yield* _mapInitializedEventToState(event);
+      } else if (event is ProfileRefresh) {
+        yield* _mapRefreshEventToState(event);
       }
     } catch (error) {
       yield ProfileFailure(error: error);
     }
   }
 
-  Stream<ProfileState> _mapInitializedEventWithElementToState(
+  Stream<ProfileState> _mapInitializedEventToState(
       ProfileInitialized event) async* {
+    print('$_tag:$_mapInitializedEventToState($event)');
     try {
       yield ProfileLoading();
 
-      elementId = event.elementId;
-      elementViewModel = event.element;
+      if (event.elementId != null) {
+        element = await _fetchProfile(event.elementId);
+      } else if (event.element != null) {
+        element = event.element;
+      }
 
-      yield ProfileLoaded(profile: elementViewModel);
+      yield ProfileLoaded(profile: element);
     } catch (error) {
       yield ProfileFailure(error: error);
     }
   }
 
-  Stream<ProfileState> _mapInitializedEventWithIdToState(
-      ProfileInitialized event) async* {
+  Stream<ProfileState> _mapRefreshEventToState(ProfileRefresh event) async* {
     try {
       yield ProfileLoading();
 
-      elementId = event.elementId;
-      elementViewModel = await cvRepository.fetchProfile(elementId);
+      element = await _fetchProfile(element?.id);
 
-      yield ProfileLoaded(profile: elementViewModel);
+      yield ProfileLoaded(profile: element);
     } catch (error) {
       yield ProfileFailure(error: error);
     }
+  }
+
+  /// [_fallBackId] is used if [element] is never assigned and
+  /// an [ProfileRefresh] is dispatched
+  String _fallBackId;
+
+  Future<ProfileViewModel> _fetchProfile(String profileId) async {
+    if (profileId == null) profileId = _fallBackId;
+    _fallBackId = profileId;
+    return await cvRepository.fetchProfile(profileId);
   }
 }

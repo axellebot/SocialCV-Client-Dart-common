@@ -15,44 +15,51 @@ class EntryBloc extends ElementBloc<EntryViewModel, EntryEvent, EntryState> {
   @override
   Stream<EntryState> mapEventToState(EntryEvent event) async* {
     print('$_tag:$mapEventToState($event)');
+    if (event is EntryInitialized) {
+      yield* _mapInitializedEventToState(event);
+    } else if (event is EntryRefresh) {
+      yield* _mapRefreshEventToState(event);
+    }
+  }
+
+  Stream<EntryState> _mapInitializedEventToState(
+      EntryInitialized event) async* {
+    print('$_tag:$_mapInitializedEventToState($event)');
     try {
-      if (event is EntryInitialized && event.elementId != null) {
-        yield* _mapInitializedEventWithElementToState(event);
-      } else if (event is EntryInitialized && event.element != null) {
-        yield* _mapInitializedEventWithIdToState(event);
+      yield EntryLoading();
+
+      if (event.elementId != null) {
+        element = await _fetchEntry(event.elementId);
+      } else if (event.element != null) {
+        element = event.element;
       }
+
+      yield EntryLoaded(entry: element);
     } catch (error) {
       yield EntryFailure(error: error);
     }
   }
 
-  Stream<EntryState> _mapInitializedEventWithElementToState(
-      EntryInitialized event) async* {
-    print('$_tag:$_mapInitializedEventWithElementToState($event)');
+  Stream<EntryState> _mapRefreshEventToState(EntryRefresh event) async* {
+    print('$_tag:$_mapRefreshEventToState($event)');
     try {
       yield EntryLoading();
 
-      elementId = event.elementId;
-      elementViewModel = event.element;
+      element = await _fetchEntry(element?.id);
 
-      yield EntryLoaded(entry: elementViewModel);
+      yield EntryLoaded(entry: element);
     } catch (error) {
       yield EntryFailure(error: error);
     }
   }
 
-  Stream<EntryState> _mapInitializedEventWithIdToState(
-      EntryInitialized event) async* {
-    print('$_tag:$_mapInitializedEventWithIdToState($event)');
-    try {
-      yield EntryLoading();
+  /// [_fallBackId] is used if [element] is never assigned and
+  /// an [EntryRefresh] is dispatched
+  String _fallBackId;
 
-      elementId = event.elementId;
-      elementViewModel = await cvRepository.fetchEntry(elementId);
-
-      yield EntryLoaded(entry: elementViewModel);
-    } catch (error) {
-      yield EntryFailure(error: error);
-    }
+  Future<EntryViewModel> _fetchEntry(String entryId) async {
+    if (entryId == null) entryId = _fallBackId;
+    _fallBackId = entryId;
+    return await cvRepository.fetchEntry(entryId);
   }
 }

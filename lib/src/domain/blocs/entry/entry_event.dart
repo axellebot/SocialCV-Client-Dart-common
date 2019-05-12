@@ -9,8 +9,11 @@ abstract class EntryEvent extends Equatable {
 class EntryInitialized extends EntryEvent
     with ElementInitialized<EntryViewModel> {
   EntryInitialized({String withId, EntryViewModel withEntry})
-      : assert(withId != null || withEntry != null,
-            '$EntryInitialized must be created with a ID or a $EntryViewModel'),
+      : assert(
+          (withId != null && withEntry == null) ||
+              (withId == null && withEntry != null),
+          '$EntryInitialized must be created with an $EntryViewModel or its ID',
+        ),
         super([withId, withEntry]) {
     this.elementId = withId;
     this.element = withEntry;

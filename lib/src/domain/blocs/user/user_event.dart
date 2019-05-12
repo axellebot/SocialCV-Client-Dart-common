@@ -8,8 +8,10 @@ abstract class UserEvent extends Equatable {
 
 class UserInitialized extends UserEvent with ElementInitialized<UserViewModel> {
   UserInitialized({String withId, UserViewModel withUser})
-      : assert(withId != null || withUser != null,
-            '$UserInitialized must be created with a $String ID or a $UserViewModel'),
+      : assert(
+            (withId != null && withUser == null) ||
+                (withId == null && withUser != null),
+            '$UserInitialized must be created with an $UserViewModel or its ID'),
         super([withId, withUser]) {
     this.elementId = withId;
     this.element = withUser;

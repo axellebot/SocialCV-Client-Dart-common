@@ -9,8 +9,7 @@ abstract class ElementBloc<T extends ElementViewModel, E, S>
 
   final CVRepository cvRepository;
 
-  String elementId;
-  T elementViewModel;
+  T element;
 
   ElementBloc({@required this.cvRepository})
       : assert(cvRepository != null, 'No $CVRepository given'),

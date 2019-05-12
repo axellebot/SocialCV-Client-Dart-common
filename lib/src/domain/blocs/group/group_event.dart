@@ -9,8 +9,11 @@ abstract class GroupEvent extends Equatable {
 class GroupInitialized extends GroupEvent
     with ElementInitialized<GroupViewModel> {
   GroupInitialized({String withId, GroupViewModel withGroup})
-      : assert(withId != null || withGroup != null,
-            '$GroupInitialized must be created with a $String ID or a $GroupViewModel'),
+      : assert(
+          (withId != null && withGroup == null) ||
+              (withId == null && withGroup != null),
+          '$GroupInitialized must be created with an $GroupViewModel or its ID',
+        ),
         super([withId, withGroup]) {
     this.elementId = withId;
     this.element = withGroup;

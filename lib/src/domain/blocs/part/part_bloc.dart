@@ -16,41 +16,52 @@ class PartBloc extends ElementBloc<PartViewModel, PartEvent, PartState> {
   Stream<PartState> mapEventToState(PartEvent event) async* {
     print('$_tag:$mapEventToState($event)');
     try {
-      if (event is PartInitialized && event.elementId != null) {
-        yield* _mapInitializedEventWithElementToState(event);
-      } else if (event is PartInitialized && event.element != null) {
-        yield* _mapInitializedEventWithIdToState(event);
+      if (event is PartInitialized) {
+        yield* _mapInitializedEventToState(event);
+      } else if (event is PartRefresh) {
+        yield* _mapRefreshEventToState(event);
       }
     } catch (error) {
       yield PartFailure(error: error);
     }
   }
 
-  Stream<PartState> _mapInitializedEventWithElementToState(
-      PartInitialized event) async* {
+  Stream<PartState> _mapInitializedEventToState(PartInitialized event) async* {
+    print('$_tag:$_mapInitializedEventToState($event)');
     try {
       yield PartLoading();
 
-      elementId = event.elementId;
-      elementViewModel = event.element;
+      if (event.elementId != null) {
+        element = await _fetchPart(event.elementId);
+      } else if (event.element != null) {
+        element = event.element;
+      }
 
-      yield PartLoaded(part: elementViewModel);
+      yield PartLoaded(part: element);
     } catch (error) {
       yield PartFailure(error: error);
     }
   }
 
-  Stream<PartState> _mapInitializedEventWithIdToState(
-      PartInitialized event) async* {
+  Stream<PartState> _mapRefreshEventToState(PartRefresh event) async* {
     try {
       yield PartLoading();
 
-      elementId = event.elementId;
-      elementViewModel = await cvRepository.fetchPart(elementId);
+      element = await _fetchPart(element?.id);
 
-      yield PartLoaded(part: elementViewModel);
+      yield PartLoaded(part: element);
     } catch (error) {
       yield PartFailure(error: error);
     }
+  }
+
+  /// [_fallBackId] is used if [element] is never assigned and
+  /// an [PartRefresh] is dispatched
+  String _fallBackId;
+
+  Future<PartViewModel> _fetchPart(String partId) async {
+    if (partId == null) partId = _fallBackId;
+    _fallBackId = partId;
+    return await cvRepository.fetchPart(partId);
   }
 }
