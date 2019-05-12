@@ -9,6 +9,10 @@ class EntryBloc extends ElementBloc<EntryViewModel, EntryEvent, EntryState> {
   EntryBloc({@required CVRepository cvRepository})
       : super(cvRepository: cvRepository);
 
+  /// [_fallBackId] is used if [element] is never assigned and
+  /// an [EntryRefresh] is dispatched
+  String _fallBackId;
+
   @override
   get initialState => EntryUninitialized();
 
@@ -29,8 +33,10 @@ class EntryBloc extends ElementBloc<EntryViewModel, EntryEvent, EntryState> {
       yield EntryLoading();
 
       if (event.elementId != null) {
-        element = await _fetchEntry(event.elementId);
+        _fallBackId = event.elementId;
+        element = await await cvRepository.fetchEntry(event.elementId);
       } else if (event.element != null) {
+        _fallBackId = event.element.id;
         element = event.element;
       }
 
@@ -45,21 +51,16 @@ class EntryBloc extends ElementBloc<EntryViewModel, EntryEvent, EntryState> {
     try {
       yield EntryLoading();
 
-      element = await _fetchEntry(element?.id);
+      element = await cvRepository.fetchEntry(
+        element?.id ?? _fallBackId,
+        force: true,
+      );
+
+      _fallBackId = element.id;
 
       yield EntryLoaded(entry: element);
     } catch (error) {
       yield EntryFailure(error: error);
     }
-  }
-
-  /// [_fallBackId] is used if [element] is never assigned and
-  /// an [EntryRefresh] is dispatched
-  String _fallBackId;
-
-  Future<EntryViewModel> _fetchEntry(String entryId) async {
-    if (entryId == null) entryId = _fallBackId;
-    _fallBackId = entryId;
-    return await cvRepository.fetchEntry(entryId);
   }
 }

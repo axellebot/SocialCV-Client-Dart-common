@@ -95,11 +95,16 @@ class DefaultCloudCVRepository extends CVRepository {
   ///
 
   @override
-  Future<UserViewModel> fetchUser(String userId) async {
+  Future<UserViewModel> fetchUser(
+    String userId, {
+    force = false,
+  }) async {
     print('$_tag:$fetchUser($userId)');
     assert(userId != null);
 
-    var dataModel = await cvCacheManager.getUser(userId);
+    var dataModel;
+
+    if (!force) dataModel = await cvCacheManager.getUser(userId);
 
     if (dataModel == null) {
       var response = await cvApiManager.fetchUser(userId);
@@ -136,11 +141,16 @@ class DefaultCloudCVRepository extends CVRepository {
   ///
 
   @override
-  Future<ProfileViewModel> fetchProfile(String profileId) async {
+  Future<ProfileViewModel> fetchProfile(
+    String profileId, {
+    force = false,
+  }) async {
     print('$_tag:$fetchProfile($profileId)');
     assert(profileId != null);
 
-    var dataModel = await cvCacheManager.getProfile(profileId);
+    var dataModel;
+
+    if (!force) dataModel = await cvCacheManager.getProfile(profileId);
 
     if (dataModel == null) {
       var response = await cvApiManager.fetchProfile(profileId);
@@ -202,10 +212,12 @@ class DefaultCloudCVRepository extends CVRepository {
   ///
 
   @override
-  Future<PartViewModel> fetchPart(String partId) async {
+  Future<PartViewModel> fetchPart(String partId, {force = false}) async {
     print('$_tag:$fetchPart($partId)');
 
-    var dataModel = await cvCacheManager.getPart(partId);
+    var dataModel;
+
+    if (!force) dataModel = await cvCacheManager.getPart(partId);
 
     if (dataModel == null) {
       var response = await cvApiManager.fetchPart(partId);
@@ -292,11 +304,17 @@ class DefaultCloudCVRepository extends CVRepository {
   ///
 
   @override
-  Future<GroupViewModel> fetchGroup(String groupId) async {
+  Future<GroupViewModel> fetchGroup(
+    String groupId, {
+    force = false,
+  }) async {
     print('$_tag:$fetchGroup($groupId)');
     assert(groupId != null);
 
-    var dataModel = await cvCacheManager.getGroup(groupId);
+    var dataModel;
+
+    if (!force) dataModel = await cvCacheManager.getGroup(groupId);
+
     if (dataModel == null) {
       var response = await cvApiManager.fetchGroup(groupId);
       dataModel = response.data;
@@ -381,11 +399,16 @@ class DefaultCloudCVRepository extends CVRepository {
   ///
 
   @override
-  Future<EntryViewModel> fetchEntry(String entryId) async {
+  Future<EntryViewModel> fetchEntry(
+    String entryId, {
+    force = false,
+  }) async {
     print('$_tag:$fetchEntry($entryId)');
     assert(entryId != null);
 
-    var dataModel = await cvCacheManager.getEntry(entryId);
+    var dataModel;
+
+    if (!force) dataModel = await cvCacheManager.getEntry(entryId);
 
     if (dataModel == null) {
       var response = await cvApiManager.fetchEntry(entryId);

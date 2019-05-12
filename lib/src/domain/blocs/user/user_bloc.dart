@@ -3,12 +3,15 @@ import 'package:social_cv_client_dart_common/blocs.dart';
 import 'package:social_cv_client_dart_common/models.dart';
 import 'package:social_cv_client_dart_common/repositories.dart';
 
-class UserBloc
-    extends ElementBloc<UserViewModel, UserEvent, UserState> {
+class UserBloc extends ElementBloc<UserViewModel, UserEvent, UserState> {
   final String _tag = '$UserBloc';
 
   UserBloc({@required CVRepository cvRepository})
       : super(cvRepository: cvRepository);
+
+  /// [_fallBackId] is used if [element] is never assigned and
+  /// an [UserRefresh] is dispatched
+  String _fallBackId;
 
   @override
   get initialState => UserUninitialized();
@@ -16,26 +19,23 @@ class UserBloc
   @override
   Stream<UserState> mapEventToState(UserEvent event) async* {
     print('$_tag:$mapEventToState($event)');
-    try {
-      if (event is UserInitialized) {
-        yield* _mapInitializedEventToState(event);
-      } else if (event is UserRefresh) {
-        yield* _mapRefreshEventToState(event);
-      }
-    } catch (error) {
-      yield UserFailure(error: error);
+    if (event is UserInitialized) {
+      yield* _mapInitializedEventToState(event);
+    } else if (event is UserRefresh) {
+      yield* _mapRefreshEventToState(event);
     }
   }
 
-  Stream<UserState> _mapInitializedEventToState(
-      UserInitialized event) async* {
+  Stream<UserState> _mapInitializedEventToState(UserInitialized event) async* {
     print('$_tag:$_mapInitializedEventToState($event)');
     try {
       yield UserLoading();
 
       if (event.elementId != null) {
-        element = await _fetchUser(event.elementId);
+        _fallBackId = event.elementId;
+        element = await await cvRepository.fetchUser(event.elementId);
       } else if (event.element != null) {
+        _fallBackId = event.element.id;
         element = event.element;
       }
 
@@ -46,24 +46,20 @@ class UserBloc
   }
 
   Stream<UserState> _mapRefreshEventToState(UserRefresh event) async* {
+    print('$_tag:$_mapRefreshEventToState($event)');
     try {
       yield UserLoading();
 
-      element = await _fetchUser(element?.id);
+      element = await cvRepository.fetchUser(
+        element?.id ?? _fallBackId,
+        force: true,
+      );
+
+      _fallBackId = element.id;
 
       yield UserLoaded(user: element);
     } catch (error) {
       yield UserFailure(error: error);
     }
-  }
-
-  /// [_fallBackId] is used if [element] is never assigned and
-  /// an [UserRefresh] is dispatched
-  String _fallBackId;
-
-  Future<UserViewModel> _fetchUser(String userId) async {
-    if (userId == null) userId = _fallBackId;
-    _fallBackId = userId;
-    return await cvRepository.fetchUser(userId);
   }
 }

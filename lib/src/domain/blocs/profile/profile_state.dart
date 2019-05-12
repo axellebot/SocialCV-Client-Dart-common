@@ -14,7 +14,8 @@ class ProfileUninitialized extends ProfileState
   String toString() => '$ProfileUninitialized {}';
 }
 
-class ProfileLoading extends ProfileState with ElementLoading<ProfileViewModel> {
+class ProfileLoading extends ProfileState
+    with ElementLoading<ProfileViewModel> {
   ProfileLoading() : super([]);
 
   @override
@@ -32,7 +33,8 @@ class ProfileLoaded extends ProfileState with ElementLoaded<ProfileViewModel> {
   }
 }
 
-class ProfileFailure extends ProfileState with ElementFailure<ProfileViewModel> {
+class ProfileFailure extends ProfileState
+    with ElementFailure<ProfileViewModel> {
   ProfileFailure({Error error}) : super([error]) {
     this.error = error;
   }

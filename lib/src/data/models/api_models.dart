@@ -152,7 +152,8 @@ class ResponseEnvelopOAuthAccessToken extends Object {
   factory ResponseEnvelopOAuthAccessToken.fromJson(Map<String, dynamic> json) =>
       _$ResponseEnvelopOAuthAccessTokenFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ResponseEnvelopOAuthAccessTokenToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$ResponseEnvelopOAuthAccessTokenToJson(this);
 
   @override
   String toString() =>

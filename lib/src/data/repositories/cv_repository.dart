@@ -37,7 +37,7 @@ abstract class CVRepository {
   /// Users
   ///
 
-  Future<UserViewModel> fetchUser(String userId);
+  Future<UserViewModel> fetchUser(String userId, {force = false});
 
   Future<List<UserViewModel>> fetchUsers({
     /// TODO: Add filters
@@ -49,7 +49,10 @@ abstract class CVRepository {
   /// Profiles
   ///
 
-  Future<ProfileViewModel> fetchProfile(String profileId);
+  Future<ProfileViewModel> fetchProfile(
+    String profileId, {
+    force = false,
+  });
 
   Future<List<ProfileViewModel>> fetchProfiles({
     /// TODO: Add filters
@@ -69,7 +72,10 @@ abstract class CVRepository {
   /// Parts
   ///
 
-  Future<PartViewModel> fetchPart(String partId);
+  Future<PartViewModel> fetchPart(
+    String partId, {
+    force = false,
+  });
 
   Future<List<PartViewModel>> fetchParts({
     /// TODO: Add filters
@@ -97,7 +103,10 @@ abstract class CVRepository {
   /// Groups
   ///
 
-  Future<GroupViewModel> fetchGroup(String groupId);
+  Future<GroupViewModel> fetchGroup(
+    String groupId, {
+    force = false,
+  });
 
   Future<List<GroupViewModel>> fetchGroups({
     /// TODO: Add filters
@@ -125,7 +134,10 @@ abstract class CVRepository {
   /// Entries
   ///
 
-  Future<EntryViewModel> fetchEntry(String entryId);
+  Future<EntryViewModel> fetchEntry(
+    String entryId, {
+    force = false,
+  });
 
   Future<List<EntryViewModel>> fetchEntries({
     /// TODO: Add filters

@@ -10,20 +10,20 @@ class ProfileBloc
   ProfileBloc({@required CVRepository cvRepository})
       : super(cvRepository: cvRepository);
 
+  /// [_fallBackId] is used if [element] is never assigned and
+  /// an [ProfileRefresh] is dispatched
+  String _fallBackId;
+
   @override
   get initialState => ProfileUninitialized();
 
   @override
   Stream<ProfileState> mapEventToState(ProfileEvent event) async* {
     print('$_tag:$mapEventToState($event)');
-    try {
-      if (event is ProfileInitialized) {
-        yield* _mapInitializedEventToState(event);
-      } else if (event is ProfileRefresh) {
-        yield* _mapRefreshEventToState(event);
-      }
-    } catch (error) {
-      yield ProfileFailure(error: error);
+    if (event is ProfileInitialized) {
+      yield* _mapInitializedEventToState(event);
+    } else if (event is ProfileRefresh) {
+      yield* _mapRefreshEventToState(event);
     }
   }
 
@@ -34,8 +34,10 @@ class ProfileBloc
       yield ProfileLoading();
 
       if (event.elementId != null) {
-        element = await _fetchProfile(event.elementId);
+        _fallBackId = event.elementId;
+        element = await await cvRepository.fetchProfile(event.elementId);
       } else if (event.element != null) {
+        _fallBackId = event.element.id;
         element = event.element;
       }
 
@@ -46,24 +48,20 @@ class ProfileBloc
   }
 
   Stream<ProfileState> _mapRefreshEventToState(ProfileRefresh event) async* {
+    print('$_tag:$_mapRefreshEventToState($event)');
     try {
       yield ProfileLoading();
 
-      element = await _fetchProfile(element?.id);
+      element = await cvRepository.fetchProfile(
+        element?.id ?? _fallBackId,
+        force: true,
+      );
+
+      _fallBackId = element.id;
 
       yield ProfileLoaded(profile: element);
     } catch (error) {
       yield ProfileFailure(error: error);
     }
-  }
-
-  /// [_fallBackId] is used if [element] is never assigned and
-  /// an [ProfileRefresh] is dispatched
-  String _fallBackId;
-
-  Future<ProfileViewModel> _fetchProfile(String profileId) async {
-    if (profileId == null) profileId = _fallBackId;
-    _fallBackId = profileId;
-    return await cvRepository.fetchProfile(profileId);
   }
 }
