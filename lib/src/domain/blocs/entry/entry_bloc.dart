@@ -1,8 +1,13 @@
+import 'package:meta/meta.dart';
 import 'package:social_cv_client_dart_common/blocs.dart';
 import 'package:social_cv_client_dart_common/models.dart';
+import 'package:social_cv_client_dart_common/repositories.dart';
 
 class EntryBloc extends ElementBloc<EntryViewModel, EntryEvent, EntryState> {
   final String _tag = '$EntryBloc';
+
+  EntryBloc({@required CVRepository cvRepository})
+      : super(cvRepository: cvRepository);
 
   @override
   get initialState => EntryUninitialized();

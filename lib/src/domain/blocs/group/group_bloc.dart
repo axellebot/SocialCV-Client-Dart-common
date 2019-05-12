@@ -1,8 +1,13 @@
+import 'package:meta/meta.dart';
 import 'package:social_cv_client_dart_common/blocs.dart';
 import 'package:social_cv_client_dart_common/models.dart';
+import 'package:social_cv_client_dart_common/repositories.dart';
 
 class GroupBloc extends ElementBloc<GroupViewModel, GroupEvent, GroupState> {
   final String _tag = '$PartBloc';
+
+  GroupBloc({@required CVRepository cvRepository})
+      : super(cvRepository: cvRepository);
 
   @override
   get initialState => GroupUninitialized();

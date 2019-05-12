@@ -1,9 +1,14 @@
+import 'package:meta/meta.dart';
 import 'package:social_cv_client_dart_common/blocs.dart';
 import 'package:social_cv_client_dart_common/models.dart';
+import 'package:social_cv_client_dart_common/repositories.dart';
 
 class ProfileBloc
     extends ElementBloc<ProfileViewModel, ProfileEvent, ProfileState> {
   final String _tag = '$ProfileBloc';
+
+  ProfileBloc({@required CVRepository cvRepository})
+      : super(cvRepository: cvRepository);
 
   @override
   get initialState => ProfileUninitialized();

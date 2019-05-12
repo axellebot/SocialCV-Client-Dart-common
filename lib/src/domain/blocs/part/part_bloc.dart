@@ -1,8 +1,13 @@
+import 'package:meta/meta.dart';
 import 'package:social_cv_client_dart_common/blocs.dart';
 import 'package:social_cv_client_dart_common/models.dart';
+import 'package:social_cv_client_dart_common/repositories.dart';
 
 class PartBloc extends ElementBloc<PartViewModel, PartEvent, PartState> {
   final String _tag = '$PartBloc';
+
+  PartBloc({@required CVRepository cvRepository})
+      : super(cvRepository: cvRepository);
 
   @override
   get initialState => PartUninitialized();
