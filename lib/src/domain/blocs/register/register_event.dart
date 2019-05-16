@@ -20,5 +20,5 @@ class RegisterButtonPressed extends RegisterEvent {
 
   @override
   String toString() =>
-      '$RegisterButtonPressed { fName: $fName, lName: $lName, email: $email, password: $password }';
+      '$runtimeType{ fName: $fName, lName: $lName, email: $email, password: HIDDEN }';
 }

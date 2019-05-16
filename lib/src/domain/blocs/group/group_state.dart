@@ -4,22 +4,15 @@ import 'package:social_cv_client_dart_common/models.dart';
 
 abstract class GroupState extends Equatable {
   GroupState([List props = const []]) : super(props);
+
+  @override
+  String toString() => '$runtimeType{}';
 }
 
 class GroupUninitialized extends GroupState
-    with ElementUninitialized<GroupViewModel> {
-  GroupUninitialized() : super([]);
+    with ElementUninitialized<GroupViewModel> {}
 
-  @override
-  String toString() => '$GroupUninitialized { }';
-}
-
-class GroupLoading extends GroupState with ElementLoading<GroupViewModel> {
-  GroupLoading() : super([]);
-
-  @override
-  String toString() => '$GroupLoading { }';
-}
+class GroupLoading extends GroupState with ElementLoading<GroupViewModel> {}
 
 class GroupLoaded extends GroupState with ElementLoaded<GroupViewModel> {
   GroupLoaded({GroupViewModel group}) : super([group]) {
@@ -28,7 +21,7 @@ class GroupLoaded extends GroupState with ElementLoaded<GroupViewModel> {
 
   @override
   String toString() {
-    return '$GroupLoaded { element: $element }';
+    return '$runtimeType{ element: $element }';
   }
 }
 
@@ -38,5 +31,5 @@ class GroupFailure extends GroupState with ElementFailure<GroupViewModel> {
   }
 
   @override
-  String toString() => '$GroupFailure { error: $error }';
+  String toString() => '$runtimeType { error: $error }';
 }

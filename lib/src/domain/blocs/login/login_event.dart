@@ -3,6 +3,9 @@ import 'package:meta/meta.dart';
 
 abstract class LoginEvent extends Equatable {
   LoginEvent([List props = const []]) : super(props);
+
+  @override
+  String toString() => '$runtimeType{}';
 }
 
 class LoginButtonPressed extends LoginEvent {

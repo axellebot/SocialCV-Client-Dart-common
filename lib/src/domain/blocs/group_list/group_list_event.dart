@@ -5,34 +5,32 @@ import 'package:social_cv_client_dart_common/src/ui/models/cursor_model.dart';
 
 abstract class GroupListEvent extends Equatable {
   GroupListEvent([List props = const []]) : super(props);
+
+  @override
+  String toString() => '$runtimeType';
 }
 
 class GroupListInitialized extends GroupListEvent
     with ElementListInitialized<GroupViewModel> {
   GroupListInitialized({
-    String withParentId,
-    List<GroupViewModel> withEntries,
+    String withParentPartId,
     String withOwnerId,
     Cursor cursor,
-  })  : assert(
-            withParentId != null || withEntries != null || withOwnerId != null),
-        super([withParentId, withEntries, withOwnerId]) {
-    this.parentId = withParentId;
-    this.elements = withEntries;
+  })  : assert(withParentPartId != null && withOwnerId == null),
+        assert(withParentPartId == null && withOwnerId != null),
+        super([withParentPartId, withOwnerId]) {
+    this.parentId = withParentPartId;
     this.ownerId = withOwnerId;
     this.cursor = cursor;
   }
 
   @override
   String toString() =>
-      '$GroupListInitialized { parentId: $parentId, entries: $elements ownerId: $ownerId, cursor: $cursor }';
+      '$runtimeType{ parentPartId: $parentId, ownerId: $ownerId, cursor: $cursor }';
 }
 
 class GroupListRefresh extends GroupListEvent
-    with ElementListRefresh<GroupViewModel> {
-  @override
-  String toString() => '$GroupListRefresh {}';
-}
+    with ElementListRefresh<GroupViewModel> {}
 
 class GroupListLoadMore extends GroupListEvent
     with ElementListLoadMore<GroupViewModel> {
@@ -43,5 +41,5 @@ class GroupListLoadMore extends GroupListEvent
   }
 
   @override
-  String toString() => '$GroupListLoadMore { cursor: $cursor }';
+  String toString() => '$runtimeType{ cursor: $cursor }';
 }

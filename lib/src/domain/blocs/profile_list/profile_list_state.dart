@@ -5,15 +5,13 @@ import 'package:social_cv_client_dart_common/models.dart';
 
 abstract class ProfileListState extends Equatable {
   ProfileListState([List props = const []]) : super(props);
+
+  @override
+  String toString() => '$runtimeType{}';
 }
 
 class ProfileListUninitialized extends ProfileListState
-    with ElementListUninitialized<ProfileViewModel> {
-  ProfileListUninitialized() : super([]);
-
-  @override
-  String toString() => '$ProfileListUninitialized {}';
-}
+    with ElementListUninitialized<ProfileViewModel> {}
 
 class ProfileListLoading extends ProfileListState
     with ElementListLoading<ProfileViewModel> {
@@ -22,7 +20,7 @@ class ProfileListLoading extends ProfileListState
   }
 
   @override
-  String toString() => '$ProfileListLoading { count: $count }';
+  String toString() => '$runtimeType{ count: $count }';
 }
 
 class ProfileListLoaded extends ProfileListState
@@ -33,7 +31,7 @@ class ProfileListLoaded extends ProfileListState
   }
 
   @override
-  String toString() => '$ProfileListLoaded { profiles: $elements}';
+  String toString() => '$runtimeType{ profiles: $elements}';
 }
 
 class ProfileListFailure extends ProfileListState
@@ -43,5 +41,5 @@ class ProfileListFailure extends ProfileListState
   }
 
   @override
-  String toString() => '$ProfileListLoaded { error: $error}';
+  String toString() => '$runtimeType{ error: $error}';
 }

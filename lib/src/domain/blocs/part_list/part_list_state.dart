@@ -5,15 +5,13 @@ import 'package:social_cv_client_dart_common/models.dart';
 
 abstract class PartListState extends Equatable {
   PartListState([List props = const []]) : super(props);
+
+  @override
+  String toString() => '$runtimeType{}';
 }
 
 class PartListUninitialized extends PartListState
-    with ElementListUninitialized<PartViewModel> {
-  PartListUninitialized() : super([]);
-
-  @override
-  String toString() => '$PartListUninitialized {}';
-}
+    with ElementListUninitialized<PartViewModel> {}
 
 class PartListLoading extends PartListState
     with ElementListLoading<PartViewModel> {
@@ -22,7 +20,7 @@ class PartListLoading extends PartListState
   }
 
   @override
-  String toString() => '$PartListLoading { count: $count }';
+  String toString() => '$runtimeType{ count: $count }';
 }
 
 class PartListLoaded extends PartListState
@@ -32,7 +30,7 @@ class PartListLoaded extends PartListState
   }
 
   @override
-  String toString() => '$PartListLoaded { parts: $elements}';
+  String toString() => '$runtimeType{ parts: $elements}';
 }
 
 class PartListFailure extends PartListState
@@ -42,5 +40,5 @@ class PartListFailure extends PartListState
   }
 
   @override
-  String toString() => '$PartListLoaded { error: $error}';
+  String toString() => '$runtimeType{ error: $error}';
 }

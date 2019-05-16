@@ -36,11 +36,7 @@ class ProfileListBloc extends ElementListBloc<ProfileViewModel,
       ownerId = event.ownerId;
       cursor = event.cursor;
 
-      if (elements != null && event.elements.isNotEmpty) {
-        elements = event.elements;
-      } else {
-        elements = await _fetchProfiles(cursor: cursor);
-      }
+      elements = await _fetchProfiles(cursor: cursor);
 
       yield ProfileListLoaded(profiles: elements);
     } catch (error) {

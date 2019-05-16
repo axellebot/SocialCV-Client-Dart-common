@@ -4,6 +4,9 @@ import 'package:social_cv_client_dart_common/models.dart';
 
 abstract class ProfileEvent extends Equatable {
   ProfileEvent([List props = const []]) : super(props);
+
+  @override
+  String toString() => '$runtimeType{}';
 }
 
 class ProfileInitialized extends ProfileEvent
@@ -19,14 +22,8 @@ class ProfileInitialized extends ProfileEvent
   }
 
   @override
-  String toString() =>
-      '$ProfileInitialized { id: $elementId, element: $element }';
+  String toString() => '$runtimeType{ id: $elementId, element: $element }';
 }
 
 class ProfileRefresh extends ProfileEvent
-    with ElementRefresh<ProfileViewModel> {
-  ProfileRefresh() : super([]);
-
-  @override
-  String toString() => '$ProfileRefresh {}';
-}
+    with ElementRefresh<ProfileViewModel> {}

@@ -5,34 +5,32 @@ import 'package:social_cv_client_dart_common/src/ui/models/cursor_model.dart';
 
 abstract class PartListEvent extends Equatable {
   PartListEvent([List props = const []]) : super(props);
+
+  @override
+  String toString() => '$runtimeType{}';
 }
 
 class PartListInitialized extends PartListEvent
     with ElementListInitialized<PartViewModel> {
   PartListInitialized({
     String withParentId,
-    List<PartViewModel> withEntries,
     String withOwnerId,
     Cursor cursor,
-  })  : assert(
-            withParentId != null || withEntries != null || withOwnerId != null),
-        super([withParentId, withEntries, withOwnerId]) {
+  })  : assert(withParentId != null && withOwnerId == null),
+        assert(withParentId == null && withOwnerId != null),
+        super([withParentId, withOwnerId]) {
     this.parentId = withParentId;
-    this.elements = withEntries;
     this.ownerId = withOwnerId;
     this.cursor = cursor;
   }
 
   @override
   String toString() =>
-      '$PartListInitialized { parentId: $parentId, entries: $elements ownerId: $ownerId, cursor: $cursor }';
+      '$runtimeType{ parentId: $parentId, ownerId: $ownerId, cursor: $cursor }';
 }
 
 class PartListRefresh extends PartListEvent
-    with ElementListRefresh<PartViewModel> {
-  @override
-  String toString() => '$PartListRefresh {}';
-}
+    with ElementListRefresh<PartViewModel> {}
 
 class PartListLoadMore extends PartListEvent
     with ElementListLoadMore<PartViewModel> {
@@ -43,5 +41,5 @@ class PartListLoadMore extends PartListEvent
   }
 
   @override
-  String toString() => '$PartListLoadMore { cursor: $cursor }';
+  String toString() => '$runtimeType{ cursor: $cursor }';
 }

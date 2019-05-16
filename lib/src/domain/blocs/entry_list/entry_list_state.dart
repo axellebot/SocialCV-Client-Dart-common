@@ -5,15 +5,13 @@ import 'package:social_cv_client_dart_common/models.dart';
 
 abstract class EntryListState extends Equatable {
   EntryListState([List props = const []]) : super(props);
+
+  @override
+  String toString() => '$runtimeType';
 }
 
 class EntryListUninitialized extends EntryListState
-    with ElementListUninitialized<EntryViewModel> {
-  EntryListUninitialized() : super([]);
-
-  @override
-  String toString() => '$EntryListUninitialized {}';
-}
+    with ElementListUninitialized<EntryViewModel> {}
 
 class EntryListLoading extends EntryListState
     with ElementListLoading<EntryViewModel> {
@@ -22,7 +20,7 @@ class EntryListLoading extends EntryListState
   }
 
   @override
-  String toString() => '$EntryListLoading { count: $count }';
+  String toString() => '$runtimeType{ count: $count }';
 }
 
 class EntryListLoaded extends EntryListState
@@ -32,7 +30,7 @@ class EntryListLoaded extends EntryListState
   }
 
   @override
-  String toString() => '$EntryListLoaded { entries: $elements}';
+  String toString() => '$runtimeType{ entries: $elements}';
 }
 
 class EntryListFailure extends EntryListState
@@ -42,5 +40,5 @@ class EntryListFailure extends EntryListState
   }
 
   @override
-  String toString() => '$EntryListFailure { error: $error}';
+  String toString() => '$runtimeType{ error: $error}';
 }

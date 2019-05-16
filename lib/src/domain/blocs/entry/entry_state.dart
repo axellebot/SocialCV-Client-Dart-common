@@ -4,22 +4,15 @@ import 'package:social_cv_client_dart_common/models.dart';
 
 abstract class EntryState extends Equatable {
   EntryState([List props = const []]) : super(props);
+
+  @override
+  String toString() => '$runtimeType{}';
 }
 
 class EntryUninitialized extends EntryState
-    with ElementUninitialized<EntryViewModel> {
-  EntryUninitialized() : super([]);
+    with ElementUninitialized<EntryViewModel> {}
 
-  @override
-  String toString() => '$EntryUninitialized {}';
-}
-
-class EntryLoading extends EntryState with ElementLoading<EntryViewModel> {
-  EntryLoading() : super([]);
-
-  @override
-  String toString() => '$EntryLoading {}';
-}
+class EntryLoading extends EntryState with ElementLoading<EntryViewModel> {}
 
 class EntryLoaded extends EntryState with ElementLoaded<EntryViewModel> {
   EntryLoaded({EntryViewModel entry}) : super([entry]) {
@@ -28,7 +21,7 @@ class EntryLoaded extends EntryState with ElementLoaded<EntryViewModel> {
 
   @override
   String toString() {
-    return '$EntryLoaded { element: $element }';
+    return '$runtimeType{ entry: $element }';
   }
 }
 
@@ -38,5 +31,5 @@ class EntryFailure extends EntryState with ElementFailure<EntryViewModel> {
   }
 
   @override
-  String toString() => '$EntryFailure { $error: $error }';
+  String toString() => '$runtimeType{ error: $error }';
 }

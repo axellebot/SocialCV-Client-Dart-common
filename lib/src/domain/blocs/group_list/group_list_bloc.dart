@@ -36,11 +36,7 @@ class GroupListBloc
       ownerId = event.ownerId;
       cursor = event.cursor;
 
-      if (elements != null && event.elements.isNotEmpty) {
-        elements = event.elements;
-      } else {
-        elements = await _fetchGroups(cursor: cursor);
-      }
+      elements = await _fetchGroups(cursor: cursor);
 
       yield GroupListLoaded(groups: elements);
     } catch (error) {

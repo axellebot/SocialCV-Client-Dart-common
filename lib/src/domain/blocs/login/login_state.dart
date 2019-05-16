@@ -3,17 +3,14 @@ import 'package:meta/meta.dart';
 
 abstract class LoginState extends Equatable {
   LoginState([List props = const []]) : super(props);
+
+  @override
+  String toString() => '$runtimeType{}';
 }
 
-class LoginInitial extends LoginState {
-  @override
-  String toString() => '$LoginInitial';
-}
+class LoginInitial extends LoginState {}
 
-class LoginLoading extends LoginState {
-  @override
-  String toString() => '$LoginLoading';
-}
+class LoginLoading extends LoginState {}
 
 class LoginFailure extends LoginState {
   final Error error;
@@ -30,5 +27,5 @@ class LoginSucceed extends LoginState {
   LoginSucceed({@required this.message}) : super([message]);
 
   @override
-  String toString() => '$LoginSucceed { message: $message }';
+  String toString() => '$runtimeType{ message: $message }';
 }

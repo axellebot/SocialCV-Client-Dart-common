@@ -36,11 +36,7 @@ class EntryListBloc
       ownerId = event.ownerId;
       cursor = event.cursor;
 
-      if (elements != null && event.elements.isNotEmpty) {
-        elements = event.elements;
-      } else {
-        elements = await _fetchEntries(cursor: event.cursor);
-      }
+      elements = await _fetchEntries(cursor: event.cursor);
 
       yield EntryListLoaded(entries: elements);
     } catch (error) {

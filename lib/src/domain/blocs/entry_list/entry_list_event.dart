@@ -5,34 +5,32 @@ import 'package:social_cv_client_dart_common/src/ui/models/cursor_model.dart';
 
 abstract class EntryListEvent extends Equatable {
   EntryListEvent([List props = const []]) : super(props);
+
+  @override
+  String toString() => '$runtimeType{}';
 }
 
 class EntryListInitialized extends EntryListEvent
     with ElementListInitialized<EntryViewModel> {
   EntryListInitialized({
     String withParentId,
-    List<EntryViewModel> withEntries,
     String withOwnerId,
     Cursor cursor,
-  })  : assert(
-            withParentId != null || withEntries != null || withOwnerId != null),
-        super([withParentId, withEntries, withOwnerId]) {
+  })  : assert(withParentId != null && withOwnerId == null),
+        assert(withParentId == null && withOwnerId != null),
+        super([withParentId, withOwnerId]) {
     this.parentId = withParentId;
-    this.elements = withEntries;
     this.ownerId = withOwnerId;
     this.cursor = cursor;
   }
 
   @override
   String toString() =>
-      '$EntryListInitialized { parentId: $parentId, entries: $elements ownerId: $ownerId, cursor: $cursor }';
+      '$runtimeType{ parentId: $parentId, ownerId: $ownerId, cursor: $cursor }';
 }
 
 class EntryListRefresh extends EntryListEvent
-    with ElementListRefresh<EntryViewModel> {
-  @override
-  String toString() => '$EntryListRefresh {}';
-}
+    with ElementListRefresh<EntryViewModel> {}
 
 class EntryListLoadMore extends EntryListEvent
     with ElementListLoadMore<EntryViewModel> {
@@ -43,5 +41,5 @@ class EntryListLoadMore extends EntryListEvent
   }
 
   @override
-  String toString() => '$EntryListLoadMore { cursor: $cursor }';
+  String toString() => '$runtimeType{ cursor: $cursor }';
 }

@@ -4,23 +4,16 @@ import 'package:social_cv_client_dart_common/models.dart';
 
 abstract class ProfileState extends Equatable {
   ProfileState([List props = const []]) : super(props);
+
+  @override
+  String toString() => '$runtimeType{}';
 }
 
 class ProfileUninitialized extends ProfileState
-    with ElementUninitialized<ProfileViewModel> {
-  ProfileUninitialized() : super([]);
-
-  @override
-  String toString() => '$ProfileUninitialized {}';
-}
+    with ElementUninitialized<ProfileViewModel> {}
 
 class ProfileLoading extends ProfileState
-    with ElementLoading<ProfileViewModel> {
-  ProfileLoading() : super([]);
-
-  @override
-  String toString() => '$ProfileLoading {}';
-}
+    with ElementLoading<ProfileViewModel> {}
 
 class ProfileLoaded extends ProfileState with ElementLoaded<ProfileViewModel> {
   ProfileLoaded({ProfileViewModel profile}) : super([profile]) {
@@ -29,7 +22,7 @@ class ProfileLoaded extends ProfileState with ElementLoaded<ProfileViewModel> {
 
   @override
   String toString() {
-    return '$ProfileLoaded { element: $element }';
+    return '$runtimeType{ element: $element }';
   }
 }
 
@@ -40,5 +33,5 @@ class ProfileFailure extends ProfileState
   }
 
   @override
-  String toString() => '$ProfileFailure { error: $error }';
+  String toString() => '$runtimeType{ error: $error }';
 }

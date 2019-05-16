@@ -4,6 +4,9 @@ import 'package:social_cv_client_dart_common/models.dart';
 
 abstract class PartEvent extends Equatable {
   PartEvent([List props = const []]) : super(props);
+
+  @override
+  String toString() => '$runtimeType{}';
 }
 
 class PartInitialized extends PartEvent with ElementInitialized<PartViewModel> {
@@ -18,12 +21,7 @@ class PartInitialized extends PartEvent with ElementInitialized<PartViewModel> {
   }
 
   @override
-  String toString() => '$PartInitialized { id: $elementId, element: $element }';
+  String toString() => '$runtimeType{ id: $elementId, element: $element }';
 }
 
-class PartRefresh extends PartEvent with ElementRefresh<PartViewModel> {
-  PartRefresh() : super([]);
-
-  @override
-  String toString() => '$PartRefresh {}';
-}
+class PartRefresh extends PartEvent with ElementRefresh<PartViewModel> {}

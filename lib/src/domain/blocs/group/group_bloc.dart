@@ -63,4 +63,9 @@ class GroupBloc extends ElementBloc<GroupViewModel, GroupEvent, GroupState> {
       yield GroupFailure(error: error);
     }
   }
+
+  @override
+  String toString() {
+    return '$runtimeType{}';
+  }
 }

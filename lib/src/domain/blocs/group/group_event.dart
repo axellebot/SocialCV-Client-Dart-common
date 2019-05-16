@@ -4,6 +4,9 @@ import 'package:social_cv_client_dart_common/models.dart';
 
 abstract class GroupEvent extends Equatable {
   GroupEvent([List props = const []]) : super(props);
+
+  @override
+  String toString() => '$runtimeType{}';
 }
 
 class GroupInitialized extends GroupEvent
@@ -20,12 +23,7 @@ class GroupInitialized extends GroupEvent
   }
 
   @override
-  String toString() => 'GroupInitialized { id: $elementId, element: $element }';
+  String toString() => '$runtimeType{ id: $elementId, element: $element }';
 }
 
-class GroupRefresh extends GroupEvent with ElementRefresh<GroupViewModel> {
-  GroupRefresh() : super([]);
-
-  @override
-  String toString() => '$GroupRefresh {}';
-}
+class GroupRefresh extends GroupEvent with ElementRefresh<GroupViewModel> {}

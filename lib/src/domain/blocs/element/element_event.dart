@@ -5,11 +5,10 @@ mixin ElementInitialized<T extends ElementViewModel> {
   T element;
 
   @override
-  String toString() =>
-      '$ElementInitialized<$T> { id: $elementId, element: $element }';
+  String toString() => '$runtimeType{ id: $elementId, element: $element }';
 }
 
 mixin ElementRefresh<T extends ElementViewModel> {
   @override
-  String toString() => '$ElementRefresh{}';
+  String toString() => '$runtimeType{}';
 }
