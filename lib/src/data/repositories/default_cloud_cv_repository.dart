@@ -86,8 +86,10 @@ class DefaultCloudCVRepository extends CVRepository {
 
     _setCaches(dataModels);
 
-    return dataModels.map(
-        (dataModel) => ModelMapper.instance.fromProfileDataModel(dataModel));
+    return dataModels
+        .map(
+            (dataModel) => ModelMapper.instance.fromProfileDataModel(dataModel))
+        .toList();
   }
 
   ///
@@ -133,7 +135,8 @@ class DefaultCloudCVRepository extends CVRepository {
     _setCaches(dataModels);
 
     return dataModels
-        .map((dataModel) => ModelMapper.instance.fromUserDataModel(dataModel));
+        .map((dataModel) => ModelMapper.instance.fromUserDataModel(dataModel))
+        .toList();
   }
 
   ///
@@ -178,8 +181,10 @@ class DefaultCloudCVRepository extends CVRepository {
 
     _setCaches(dataModels);
 
-    return dataModels.map(
-        (dataModel) => ModelMapper.instance.fromProfileDataModel(dataModel));
+    return dataModels
+        .map(
+            (dataModel) => ModelMapper.instance.fromProfileDataModel(dataModel))
+        .toList();
   }
 
   @override
@@ -203,8 +208,10 @@ class DefaultCloudCVRepository extends CVRepository {
 
     _setCaches(dataModels);
 
-    return dataModels.map(
-        (dataModel) => ModelMapper.instance.fromProfileDataModel(dataModel));
+    return dataModels
+        .map(
+            (dataModel) => ModelMapper.instance.fromProfileDataModel(dataModel))
+        .toList();
   }
 
   ///
@@ -246,7 +253,8 @@ class DefaultCloudCVRepository extends CVRepository {
     _setCaches(dataModels);
 
     return dataModels
-        .map((dataModel) => ModelMapper.instance.fromPartDataModel(dataModel));
+        .map((dataModel) => ModelMapper.instance.fromPartDataModel(dataModel))
+        .toList();
   }
 
   @override
@@ -271,7 +279,8 @@ class DefaultCloudCVRepository extends CVRepository {
     _setCaches(dataModels);
 
     return dataModels
-        .map((dataModel) => ModelMapper.instance.fromPartDataModel(dataModel));
+        .map((dataModel) => ModelMapper.instance.fromPartDataModel(dataModel))
+        .toList();
   }
 
   @override
@@ -296,7 +305,8 @@ class DefaultCloudCVRepository extends CVRepository {
     _setCaches(dataModels);
 
     return dataModels
-        .map((dataModel) => ModelMapper.instance.fromPartDataModel(dataModel));
+        .map((dataModel) => ModelMapper.instance.fromPartDataModel(dataModel))
+        .toList();
   }
 
   ///
@@ -341,7 +351,8 @@ class DefaultCloudCVRepository extends CVRepository {
     _setCaches(dataModels);
 
     return dataModels
-        .map((dataModel) => ModelMapper.instance.fromGroupDataModel(dataModel));
+        .map((dataModel) => ModelMapper.instance.fromGroupDataModel(dataModel))
+        .toList();
   }
 
   @override
@@ -366,7 +377,8 @@ class DefaultCloudCVRepository extends CVRepository {
     _setCaches(dataModels);
 
     return dataModels
-        .map((dataModel) => ModelMapper.instance.fromGroupDataModel(dataModel));
+        .map((dataModel) => ModelMapper.instance.fromGroupDataModel(dataModel))
+        .toList();
   }
 
   @override
@@ -391,7 +403,8 @@ class DefaultCloudCVRepository extends CVRepository {
     _setCaches(dataModels);
 
     return dataModels
-        .map((dataModel) => ModelMapper.instance.fromGroupDataModel(dataModel));
+        .map((dataModel) => ModelMapper.instance.fromGroupDataModel(dataModel))
+        .toList();
   }
 
   ///
@@ -437,7 +450,8 @@ class DefaultCloudCVRepository extends CVRepository {
     _setCaches(dataModels);
 
     return dataModels
-        .map((dataModel) => ModelMapper.instance.fromEntryDataModel(dataModel));
+        .map((dataModel) => ModelMapper.instance.fromEntryDataModel(dataModel))
+        .toList();
   }
 
   @override
@@ -462,7 +476,8 @@ class DefaultCloudCVRepository extends CVRepository {
     _setCaches(dataModels);
 
     return dataModels
-        .map((dataModel) => ModelMapper.instance.fromEntryDataModel(dataModel));
+        .map((dataModel) => ModelMapper.instance.fromEntryDataModel(dataModel))
+        .toList();
   }
 
   @override
@@ -487,7 +502,8 @@ class DefaultCloudCVRepository extends CVRepository {
     _setCaches(dataModels);
 
     return dataModels
-        .map((dataModel) => ModelMapper.instance.fromEntryDataModel(dataModel));
+        .map((dataModel) => ModelMapper.instance.fromEntryDataModel(dataModel))
+        .toList();
   }
 
   ///
