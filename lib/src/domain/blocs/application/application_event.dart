@@ -2,6 +2,9 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 abstract class AppEvent extends Equatable {
+  @override
+  String toString() => '$runtimeType{}';
+
   AppEvent([List props = const []]) : super(props);
 }
 
@@ -11,5 +14,5 @@ class AppThemeChanged extends AppEvent {
   AppThemeChanged({@required this.theme}) : super([theme]);
 
   @override
-  String toString() => '$AppThemeChanged { theme: $theme }';
+  String toString() => '$runtimeType{ theme: $theme }';
 }

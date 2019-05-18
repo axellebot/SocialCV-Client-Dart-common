@@ -13,20 +13,26 @@ abstract class ProfileListEvent extends Equatable {
 class ProfileListInitialized extends ProfileListEvent
     with ElementListInitialized<ProfileViewModel> {
   ProfileListInitialized({
-    String withParentId,
-    String withOwnerId,
+    String parentUserId,
+    String ownerId,
     Cursor cursor,
-  })  : assert(withParentId != null && withOwnerId == null),
-        assert(withParentId == null && withOwnerId != null),
-        super([withParentId, withOwnerId]) {
-    this.parentId = withParentId;
-    this.ownerId = withOwnerId;
+  })  : assert(
+          parentUserId != null && ownerId == null,
+          '$ProfileListInitialized must be created with a parentId or an ownerId',
+        ),
+        assert(
+          parentUserId == null && ownerId != null,
+          '$ProfileListInitialized must be created with a parentId or an ownerId',
+        ),
+        super([parentUserId, ownerId]) {
+    this.parentId = parentUserId;
+    this.ownerId = ownerId;
     this.cursor = cursor;
   }
 
   @override
   String toString() =>
-      '$runtimeType{ parentId: $parentId, ownerId: $ownerId, cursor: $cursor }';
+      '$runtimeType{ parentUserId: $parentId, ownerId: $ownerId, cursor: $cursor }';
 }
 
 class ProfileListRefresh extends ProfileListEvent

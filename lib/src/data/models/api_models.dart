@@ -128,7 +128,7 @@ class RequestEnvelopOAuthAccessToken extends Object {
 
   @override
   String toString() =>
-      '$RequestEnvelopOAuthAccessToken { username: $username, password: HIDDEN }';
+      '$runtimeType{ username: $username, password: HIDDEN }';
 }
 
 @JsonSerializable()
@@ -157,5 +157,5 @@ class ResponseEnvelopOAuthAccessToken extends Object {
 
   @override
   String toString() =>
-      '$ResponseEnvelopOAuthAccessToken { accessToken: $accessToken, refreshToken: $refreshToken, accessTokenExpiresAt: $accessTokenExpiresAt, tokenType: $tokenType }';
+      '$runtimeType{ accessToken: $accessToken, refreshToken: $refreshToken, accessTokenExpiresAt: $accessTokenExpiresAt, tokenType: $tokenType }';
 }

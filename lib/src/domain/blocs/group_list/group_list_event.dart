@@ -7,20 +7,26 @@ abstract class GroupListEvent extends Equatable {
   GroupListEvent([List props = const []]) : super(props);
 
   @override
-  String toString() => '$runtimeType';
+  String toString() => '$runtimeType{}';
 }
 
 class GroupListInitialized extends GroupListEvent
     with ElementListInitialized<GroupViewModel> {
   GroupListInitialized({
-    String withParentPartId,
-    String withOwnerId,
+    String parentPartId,
+    String ownerId,
     Cursor cursor,
-  })  : assert(withParentPartId != null && withOwnerId == null),
-        assert(withParentPartId == null && withOwnerId != null),
-        super([withParentPartId, withOwnerId]) {
-    this.parentId = withParentPartId;
-    this.ownerId = withOwnerId;
+  })  : assert(
+          parentPartId != null && ownerId == null,
+          '$GroupListInitialized must be created with a parentId or an ownerId',
+        ),
+        assert(
+          parentPartId == null && ownerId != null,
+          '$GroupListInitialized must be created with a parentId or an ownerId',
+        ),
+        super([parentPartId, ownerId]) {
+    this.parentId = parentPartId;
+    this.ownerId = ownerId;
     this.cursor = cursor;
   }
 

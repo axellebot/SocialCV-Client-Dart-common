@@ -7,7 +7,7 @@ abstract class EntryListState extends Equatable {
   EntryListState([List props = const []]) : super(props);
 
   @override
-  String toString() => '$runtimeType';
+  String toString() => '$runtimeType{}';
 }
 
 class EntryListUninitialized extends EntryListState

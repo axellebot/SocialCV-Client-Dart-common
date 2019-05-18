@@ -58,5 +58,5 @@ class ProfileViewModel extends ElementViewModel {
 
   @override
   String toString() =>
-      '$ProfileViewModel { id: $id, title: $title, subtitle: $subtitle, picture: $picture, cover: $cover, type: $type, partIds: $partIds, owner: $ownerId, createdAt: $createdAt, updatedAt: $updatedAt, version: $version }';
+      '$runtimeType{ id: $id, title: $title, subtitle: $subtitle, picture: $picture, cover: $cover, type: $type, partIds: $partIds, owner: $ownerId, createdAt: $createdAt, updatedAt: $updatedAt, version: $version }';
 }

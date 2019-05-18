@@ -21,7 +21,7 @@ class GroupLoaded extends GroupState with ElementLoaded<GroupViewModel> {
 
   @override
   String toString() {
-    return '$runtimeType{ element: $element }';
+    return '$runtimeType{ group: $element }';
   }
 }
 
@@ -31,5 +31,5 @@ class GroupFailure extends GroupState with ElementFailure<GroupViewModel> {
   }
 
   @override
-  String toString() => '$runtimeType { error: $error }';
+  String toString() => '$runtimeType { error: ${error.runtimeType} }';
 }

@@ -11,19 +11,22 @@ abstract class EntryEvent extends Equatable {
 
 class EntryInitialized extends EntryEvent
     with ElementInitialized<EntryViewModel> {
-  final String _assertErrorMessage =
-      '$EntryInitialized must be created with an $EntryViewModel or its ID';
-
-  EntryInitialized({String withId, EntryViewModel withEntry})
-      : assert(withId != null && withEntry == null, _assertErrorMessage),
-        assert(withId == null && withEntry != null, _assertErrorMessage),
-        super([withId, withEntry]) {
-    this.elementId = withId;
-    this.element = withEntry;
+  EntryInitialized({String entryId, EntryViewModel entry})
+      : assert(
+          entryId != null && entry == null,
+          '$EntryInitialized must be created with an $EntryViewModel or its ID',
+        ),
+        assert(
+          entryId == null && entry != null,
+          '$EntryInitialized must be created with an $EntryViewModel or its ID',
+        ),
+        super([entryId, entry]) {
+    this.elementId = entryId;
+    this.element = entry;
   }
 
   @override
-  String toString() => '$runtimeType{ id: $elementId, element: $element }';
+  String toString() => '$runtimeType{ entryId: $elementId, element: $element }';
 }
 
 class EntryRefresh extends EntryEvent with ElementRefresh<EntryViewModel> {}

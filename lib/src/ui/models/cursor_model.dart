@@ -10,7 +10,7 @@ class Cursor {
         assert(limit != null, 'No limit($int) given');
 
   @override
-  String toString() => 'Cursor { offset: $offset, limit: $limit }';
+  String toString() => '$runtimeType{ offset: $offset, limit: $limit }';
 
   Cursor copyWith({int offset, int limit}) {
     return Cursor(

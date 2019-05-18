@@ -11,14 +11,18 @@ abstract class ProfileEvent extends Equatable {
 
 class ProfileInitialized extends ProfileEvent
     with ElementInitialized<ProfileViewModel> {
-  ProfileInitialized({String withId, ProfileViewModel withProfile})
+  ProfileInitialized({String profileId, ProfileViewModel profile})
       : assert(
-            (withId != null && withProfile == null) ||
-                (withId == null && withProfile != null),
-            '$ProfileInitialized must be created with an $ProfileViewModel or its ID'),
-        super([withId, withProfile]) {
-    this.elementId = withId;
-    this.element = withProfile;
+          profileId != null && profile == null,
+          '$ProfileInitialized must be created with an $ProfileViewModel or its ID',
+        ),
+        assert(
+          profileId == null && profile != null,
+          '$ProfileInitialized must be created with an $ProfileViewModel or its ID',
+        ),
+        super([profileId, profile]) {
+    this.elementId = profileId;
+    this.element = profile;
   }
 
   @override

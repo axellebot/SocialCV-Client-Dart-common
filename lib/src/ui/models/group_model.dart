@@ -46,5 +46,5 @@ class GroupViewModel extends ElementViewModel {
 
   @override
   String toString() =>
-      '$GroupViewModel { id: $id, name: $name, type: $type, entryIds: $entryIds, owner: $ownerId, createdAt: $createdAt, updatedAt: $updatedAt, version: $version }';
+      '$runtimeType{ id: $id, name: $name, type: $type, entryIds: $entryIds, owner: $ownerId, createdAt: $createdAt, updatedAt: $updatedAt, version: $version }';
 }

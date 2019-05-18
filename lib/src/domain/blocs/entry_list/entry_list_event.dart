@@ -13,14 +13,20 @@ abstract class EntryListEvent extends Equatable {
 class EntryListInitialized extends EntryListEvent
     with ElementListInitialized<EntryViewModel> {
   EntryListInitialized({
-    String withParentId,
-    String withOwnerId,
+    String parentGroupId,
+    String ownerId,
     Cursor cursor,
-  })  : assert(withParentId != null && withOwnerId == null),
-        assert(withParentId == null && withOwnerId != null),
-        super([withParentId, withOwnerId]) {
-    this.parentId = withParentId;
-    this.ownerId = withOwnerId;
+  })  : assert(
+          parentGroupId != null && ownerId == null,
+          '$EntryListInitialized must be created with a parentId or an ownerId',
+        ),
+        assert(
+          parentGroupId == null && ownerId != null,
+          '$EntryListInitialized must be created with a parentId or an ownerId',
+        ),
+        super([parentGroupId, ownerId]) {
+    this.parentId = parentGroupId;
+    this.ownerId = ownerId;
     this.cursor = cursor;
   }
 

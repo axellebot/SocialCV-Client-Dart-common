@@ -47,5 +47,5 @@ class ProfileDataModel extends ElementDataModel {
 
   @override
   String toString() =>
-      '$ProfileDataModel { id: $id, title: $title, subtitle: $subtitle, picture: $picture, cover: $cover, parts: $partIds, type: $type, owner: $ownerId }';
+      '$runtimeType{ id: $id, title: $title, subtitle: $subtitle, picture: $picture, cover: $cover, parts: $partIds, type: $type, owner: $ownerId }';
 }

@@ -20,5 +20,5 @@ abstract class BaseDataModel extends Object {
 
   @override
   String toString() =>
-      '$BaseDataModel { id: $id, createdAt: $createdAt, updatedAt: $updatedAt, version: $version }';
+      '$runtimeType{ id: $id, createdAt: $createdAt, updatedAt: $updatedAt, version: $version }';
 }

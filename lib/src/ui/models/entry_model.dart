@@ -59,5 +59,5 @@ class EntryViewModel extends ElementViewModel {
 
   @override
   String toString() =>
-      '$EntryViewModel { id: $id, name: $name, type: $type, content: $content, startDate: $startDate, endDate: $endDate, location: $location, owner: $ownerId, createdAt: $createdAt, updatedAt: $updatedAt, version: $version }';
+      '$runtimeType{ id: $id, name: $name, type: $type, content: $content, startDate: $startDate, endDate: $endDate, location: $location, owner: $ownerId, createdAt: $createdAt, updatedAt: $updatedAt, version: $version }';
 }

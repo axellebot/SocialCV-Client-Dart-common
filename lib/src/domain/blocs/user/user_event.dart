@@ -10,16 +10,16 @@ abstract class UserEvent extends Equatable {
 }
 
 class UserInitialized extends UserEvent with ElementInitialized<UserViewModel> {
-  UserInitialized({String withId, UserViewModel withUser})
-      : assert(withId != null && withUser == null),
-        assert(withId == null && withUser != null),
-        super([withId, withUser]) {
-    this.elementId = withId;
-    this.element = withUser;
+  UserInitialized({String userId, UserViewModel user})
+      : assert(userId != null && user == null),
+        assert(userId == null && user != null),
+        super([userId, user]) {
+    this.elementId = userId;
+    this.element = user;
   }
 
   @override
-  String toString() => '$runtimeType{ id: $elementId, element: $element }';
+  String toString() => '$runtimeType{ userId: $elementId, user: $element }';
 }
 
 class UserRefresh extends UserEvent with ElementRefresh<UserViewModel> {}

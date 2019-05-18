@@ -18,7 +18,7 @@ class LoginFailure extends LoginState {
   LoginFailure({@required this.error}) : super([error]);
 
   @override
-  String toString() => '$LoginFailure { error: $error }';
+  String toString() => '$runtimeType{ error: ${error.runtimeType} }';
 }
 
 class LoginSucceed extends LoginState {

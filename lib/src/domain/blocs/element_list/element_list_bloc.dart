@@ -22,6 +22,4 @@ abstract class ElementListBloc<T extends ElementViewModel, E, S>
   ElementListBloc({@required this.cvRepository})
       : assert(cvRepository != null, 'No $CVRepository given'),
         super();
-
-
 }

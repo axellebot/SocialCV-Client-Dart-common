@@ -44,5 +44,5 @@ class UserDataModel extends ElementDataModel {
 
   @override
   String toString() =>
-      '$UserDataModel { id: $id, disabled: $disabled, email: $email, username: $username, picture: $picture, profileIds: $profileIds, permission: $permission}';
+      '$runtimeType{ id: $id, disabled: $disabled, email: $email, username: $username, picture: $picture, profileIds: $profileIds, permission: $permission}';
 }

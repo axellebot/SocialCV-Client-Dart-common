@@ -46,5 +46,5 @@ class PartViewModel extends ElementViewModel {
 
   @override
   String toString() =>
-      '$PartViewModel{ id: $id, name: $name, groupIds: $groupIds, type: $type, owner: $ownerId, createdAt: $createdAt, updatedAt: $updatedAt, version: $version }';
+      '$runtimeType{ id: $id, name: $name, groupIds: $groupIds, type: $type, owner: $ownerId, createdAt: $createdAt, updatedAt: $updatedAt, version: $version }';
 }

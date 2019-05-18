@@ -15,5 +15,5 @@ abstract class ElementViewModel extends Object {
 
   @override
   String toString() =>
-      '$ElementViewModel { id: $id, createdAt: $createdAt, updatedAt: $updatedAt, version: $version }';
+      '$runtimeType{ id: $id, createdAt: $createdAt, updatedAt: $updatedAt, version: $version }';
 }

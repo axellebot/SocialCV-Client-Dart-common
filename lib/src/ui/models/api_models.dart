@@ -13,5 +13,5 @@ class AccessTokenViewModelModel extends Object {
 
   @override
   String toString() =>
-      '$AccessTokenViewModelModel { accessToken: $accessToken, refreshToken: $refreshToken, accessTokenExpiresAt: $accessTokenExpiresAt, tokenType: $tokenType }';
+      '$runtimeType{ accessToken: $accessToken, refreshToken: $refreshToken, accessTokenExpiresAt: $accessTokenExpiresAt, tokenType: $tokenType }';
 }

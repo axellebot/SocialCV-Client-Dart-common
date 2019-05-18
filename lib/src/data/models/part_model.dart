@@ -38,5 +38,5 @@ class PartDataModel extends ElementDataModel {
 
   @override
   String toString() =>
-      '$PartDataModel{ id: $id, name: $name, groupIds: $groupIds, type: $type, owner: $ownerId}';
+      '$runtimeType{ id: $id, name: $name, groupIds: $groupIds, type: $type, owner: $ownerId}';
 }

@@ -3,14 +3,11 @@ import 'package:meta/meta.dart';
 
 abstract class AuthenticationEvent extends Equatable {
   AuthenticationEvent([List props = const []]) : super(props);
+
+  String toString() => '$runtimeType{}';
 }
 
-class AppStarted extends AuthenticationEvent {
-  AppStarted() : super([]);
-
-  @override
-  String toString() => '$AppStarted';
-}
+class AppStarted extends AuthenticationEvent {}
 
 class LoggedIn extends AuthenticationEvent {
   final String accessToken;
@@ -32,12 +29,7 @@ class LoggedIn extends AuthenticationEvent {
 
   @override
   String toString() =>
-      '$LoggedIn { accessToken: $accessToken, accessTokenExpirationDate: $accessTokenExpirationDate, refreshToken: $refreshToken, refreshTokenExpirationDate: $refreshTokenExpirationDate }';
+      '$runtimeType{ accessToken: $accessToken, accessTokenExpirationDate: $accessTokenExpirationDate, refreshToken: $refreshToken, refreshTokenExpirationDate: $refreshTokenExpirationDate }';
 }
 
-class LoggedOut extends AuthenticationEvent {
-  LoggedOut() : super([]);
-
-  @override
-  String toString() => '$LoggedOut {}';
-}
+class LoggedOut extends AuthenticationEvent {}

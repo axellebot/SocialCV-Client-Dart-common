@@ -5,25 +5,24 @@ import 'package:social_cv_client_dart_common/src/ui/models/user_model.dart';
 
 abstract class AccountState extends Equatable {
   AccountState([List props = const []]) : super(props);
+
+  @override
+  String toString() => '$runtimeType{}';
 }
 
-class AccountUninitialized extends AccountState {
-  @override
-  String toString() => '$AccountUninitialized';
-}
+class AccountUninitialized extends AccountState {}
 
 class AccountLoaded extends AccountState {
-  UserViewModel userModel;
-  List<ProfileViewModel> profileList;
+  UserViewModel user;
+  List<ProfileViewModel> profiles;
 
   AccountLoaded({
-    @required this.userModel,
-    @required this.profileList,
-  }) : super([userModel, profileList]);
+    @required this.user,
+    @required this.profiles,
+  }) : super([user, profiles]);
 
   @override
-  String toString() =>
-      '$AccountLoaded { userModel: $userModel, profileList: $profileList }';
+  String toString() => '$runtimeType{ userModel: $user, profiles: $profiles }';
 }
 
 class AccountFailed extends AccountState {
@@ -32,5 +31,5 @@ class AccountFailed extends AccountState {
   AccountFailed({@required this.error}) : super([error]);
 
   @override
-  String toString() => '$AccountFailed { error: $error }';
+  String toString() => '$runtimeType{ error: $error }';
 }

@@ -13,20 +13,26 @@ abstract class PartListEvent extends Equatable {
 class PartListInitialized extends PartListEvent
     with ElementListInitialized<PartViewModel> {
   PartListInitialized({
-    String withParentId,
-    String withOwnerId,
+    String parentProfileId,
+    String ownerId,
     Cursor cursor,
-  })  : assert(withParentId != null && withOwnerId == null),
-        assert(withParentId == null && withOwnerId != null),
-        super([withParentId, withOwnerId]) {
-    this.parentId = withParentId;
-    this.ownerId = withOwnerId;
+  })  : assert(
+          parentProfileId != null && ownerId == null,
+          '$PartListInitialized must be created with a parentId or an ownerId',
+        ),
+        assert(
+          parentProfileId == null && ownerId != null,
+          '$PartListInitialized must be created with a parentId or an ownerId',
+        ),
+        super([parentProfileId, ownerId]) {
+    this.parentId = parentProfileId;
+    this.ownerId = ownerId;
     this.cursor = cursor;
   }
 
   @override
   String toString() =>
-      '$runtimeType{ parentId: $parentId, ownerId: $ownerId, cursor: $cursor }';
+      '$runtimeType{ parentProfileId: $parentId, ownerId: $ownerId, cursor: $cursor }';
 }
 
 class PartListRefresh extends PartListEvent

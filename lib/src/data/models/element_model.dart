@@ -16,5 +16,5 @@ abstract class ElementDataModel extends BaseDataModel {
 
   @override
   String toString() =>
-      '$ElementDataModel { id: $id, createdAt: $createdAt, updatedAt: $updatedAt, version: $version }';
+      '$runtimeType{ id: $id, createdAt: $createdAt, updatedAt: $updatedAt, version: $version }';
 }

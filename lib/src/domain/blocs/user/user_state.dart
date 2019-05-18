@@ -4,22 +4,15 @@ import 'package:social_cv_client_dart_common/models.dart';
 
 abstract class UserState extends Equatable {
   UserState([List props = const []]) : super(props);
+
+  @override
+  String toString() => '$runtimeType{}';
 }
 
 class UserUninitialized extends UserState
-    with ElementUninitialized<UserViewModel> {
-  UserUninitialized() : super([]);
+    with ElementUninitialized<UserViewModel> {}
 
-  @override
-  String toString() => '$UserUninitialized { }';
-}
-
-class UserLoading extends UserState with ElementLoading<UserViewModel> {
-  UserLoading() : super([]);
-
-  @override
-  String toString() => '$UserLoading { }';
-}
+class UserLoading extends UserState with ElementLoading<UserViewModel> {}
 
 class UserLoaded extends UserState with ElementLoaded<UserViewModel> {
   UserLoaded({UserViewModel user}) : super([user]) {
@@ -28,7 +21,7 @@ class UserLoaded extends UserState with ElementLoaded<UserViewModel> {
 
   @override
   String toString() {
-    return '$UserLoaded { element: $element }';
+    return '$runtimeType{ element: $element }';
   }
 }
 
@@ -38,5 +31,5 @@ class UserFailure extends UserState with ElementFailure<UserViewModel> {
   }
 
   @override
-  String toString() => '$UserFailure { error: $error }';
+  String toString() => '$runtimeType{ error: $error }';
 }
