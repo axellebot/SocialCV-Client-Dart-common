@@ -26,6 +26,11 @@ class ProfileListBloc extends ElementListBloc<ProfileViewModel,
     }
   }
 
+  /// Map [ProfileListInitialized] to [ProfileListState]
+  ///
+  /// ```dart
+  /// yield* _mapProfileListInitializedEventToState(event);
+  /// ```
   Stream<ProfileListState> _mapProfileListInitializedEventToState(
       ProfileListInitialized event) async* {
     print('$_tag:$_mapProfileListInitializedEventToState($event)');
@@ -44,6 +49,11 @@ class ProfileListBloc extends ElementListBloc<ProfileViewModel,
     }
   }
 
+  /// Map [ProfileListRefresh] to [ProfileListState]
+  ///
+  /// ```dart
+  /// yield* _mapProfileListRefreshEventToState(event);
+  /// ```
   Stream<ProfileListState> _mapProfileListRefreshEventToState(
       ProfileListRefresh event) async* {
     print('$_tag:$_mapProfileListRefreshEventToState($event)');
@@ -56,6 +66,11 @@ class ProfileListBloc extends ElementListBloc<ProfileViewModel,
     }
   }
 
+  /// Map [ProfileListLoadMore] to [ProfileListState]
+  ///
+  /// ```dart
+  /// yield* _mapProfileListLoadMoreEventToState(event);
+  /// ```
   Stream<ProfileListState> _mapProfileListLoadMoreEventToState(
       ProfileListLoadMore event) async* {
     print('$_tag:$_mapProfileListLoadMoreEventToState($event)');

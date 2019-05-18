@@ -27,6 +27,11 @@ class ProfileBloc
     }
   }
 
+  /// Map [ProfileInitialized] to [ProfileState]
+  ///
+  /// ```dart
+  /// yield* _mapInitializedEventToState(event);
+  /// ```
   Stream<ProfileState> _mapInitializedEventToState(
       ProfileInitialized event) async* {
     print('$_tag:$_mapInitializedEventToState($event)');
@@ -47,6 +52,11 @@ class ProfileBloc
     }
   }
 
+  /// Map [ProfileRefresh] to [ProfileState]
+  ///
+  /// ```dart
+  /// yield* _mapRefreshEventToState(event);
+  /// ```
   Stream<ProfileState> _mapRefreshEventToState(ProfileRefresh event) async* {
     print('$_tag:$_mapRefreshEventToState($event)');
     try {

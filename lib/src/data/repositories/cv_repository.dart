@@ -5,9 +5,9 @@ import 'package:social_cv_client_dart_common/models.dart';
 import 'package:social_cv_client_dart_common/src/ui/models/cursor_model.dart';
 
 abstract class CVRepository {
-  ///
-  /// OAuth
-  ///
+  /// ----------------------------------------------------------
+  /// ------------------------- OAuth --------------------------
+  /// ----------------------------------------------------------
 
   Future<AccessTokenViewModelModel> authenticate({
     @required String email,
@@ -21,9 +21,9 @@ abstract class CVRepository {
     @required String password,
   });
 
-  ///
-  /// Account
-  ///
+  /// ----------------------------------------------------------
+  /// ------------------------ Account -------------------------
+  /// ----------------------------------------------------------
 
   Future<UserViewModel> fetchAccount();
 
@@ -33,9 +33,9 @@ abstract class CVRepository {
     Cursor cursor = const Cursor(),
   });
 
-  ///
-  /// Users
-  ///
+  /// ----------------------------------------------------------
+  /// ------------------------- Users --------------------------
+  /// ----------------------------------------------------------
 
   Future<UserViewModel> fetchUser(String userId, {force = false});
 
@@ -45,9 +45,9 @@ abstract class CVRepository {
     Cursor cursor = const Cursor(),
   });
 
-  ///
-  /// Profiles
-  ///
+  /// ----------------------------------------------------------
+  /// ----------------------- Profiles -------------------------
+  /// ----------------------------------------------------------
 
   Future<ProfileViewModel> fetchProfile(
     String profileId, {
@@ -68,9 +68,9 @@ abstract class CVRepository {
     Cursor cursor = const Cursor(),
   });
 
-  ///
-  /// Parts
-  ///
+  /// ----------------------------------------------------------
+  /// ------------------------- Parts --------------------------
+  /// ----------------------------------------------------------
 
   Future<PartViewModel> fetchPart(
     String partId, {
@@ -99,9 +99,9 @@ abstract class CVRepository {
     Cursor cursor = const Cursor(),
   });
 
-  ///
-  /// Groups
-  ///
+  /// ----------------------------------------------------------
+  /// ------------------------ Groups --------------------------
+  /// ----------------------------------------------------------
 
   Future<GroupViewModel> fetchGroup(
     String groupId, {
@@ -130,9 +130,9 @@ abstract class CVRepository {
     Cursor cursor = const Cursor(),
   });
 
-  ///
-  /// Entries
-  ///
+  /// ----------------------------------------------------------
+  /// ----------------------- Entries --------------------------
+  /// ----------------------------------------------------------
 
   Future<EntryViewModel> fetchEntry(
     String entryId, {
@@ -160,4 +160,11 @@ abstract class CVRepository {
     /// TODO: Add sort
     Cursor cursor = const Cursor(),
   });
+
+  /// ----------------------------------------------------------
+  /// ------------------------- Misc ---------------------------
+  /// ----------------------------------------------------------
+
+  @override
+  String toString() => '$runtimeType{}';
 }

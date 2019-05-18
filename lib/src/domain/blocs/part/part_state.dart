@@ -21,7 +21,7 @@ class PartLoaded extends PartState with ElementLoaded<PartViewModel> {
 
   @override
   String toString() {
-    return '$runtimeType{ element: $element }';
+    return '$runtimeType{ part: $element }';
   }
 }
 

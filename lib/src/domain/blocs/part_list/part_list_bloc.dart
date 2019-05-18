@@ -56,6 +56,11 @@ class PartListBloc
     }
   }
 
+  /// Map [PartListLoadMore] to [PartListState]
+  ///
+  /// ```dart
+  /// yield* _mapPartListLoadMoreEventToState(event);
+  /// ```
   Stream<PartListState> _mapPartListLoadMoreEventToState(
       PartListLoadMore event) async* {
     print('$_tag:$_mapPartListLoadMoreEventToState($event)');

@@ -20,9 +20,9 @@ class DefaultCVCacheManager implements CVCacheManager {
 
   _CacheModel<UserDataModel> accountCache;
 
-  ///
-  /// Account
-  ///
+  /// ----------------------------------------------------------
+  /// ------------------------ Account -------------------------
+  /// ----------------------------------------------------------
 
   Future<UserDataModel> getAccount() async {
     print('$_tag:$getAccount');
@@ -40,9 +40,9 @@ class DefaultCVCacheManager implements CVCacheManager {
         _CacheModel<UserDataModel>(model: userModel, expiration: expiration);
   }
 
-  ///
-  /// Users
-  ///
+  /// ----------------------------------------------------------
+  /// ------------------------- Users --------------------------
+  /// ----------------------------------------------------------
 
   Future<UserDataModel> getUser(String userId) async {
     print('$_tag:$getUser($userId)');
@@ -62,9 +62,9 @@ class DefaultCVCacheManager implements CVCacheManager {
     _users[userModel.id] = cacheModel;
   }
 
-  ///
-  /// Profiles
-  ///
+  /// ----------------------------------------------------------
+  /// ----------------------- Profiles -------------------------
+  /// ----------------------------------------------------------
 
   Future<ProfileDataModel> getProfile(String profileId) async {
     print('$_tag:$getProfile($profileId)');
@@ -84,9 +84,9 @@ class DefaultCVCacheManager implements CVCacheManager {
     _profiles[profileModel.id] = cacheModel;
   }
 
-  ///
-  /// Parts
-  ///
+  /// ----------------------------------------------------------
+  /// ------------------------- Parts --------------------------
+  /// ----------------------------------------------------------
 
   Future<PartDataModel> getPart(String partId) async {
     print('$_tag:$getPart($partId)');
@@ -106,9 +106,9 @@ class DefaultCVCacheManager implements CVCacheManager {
     _parts[partModel.id] = cacheModel;
   }
 
-  ///
-  /// Groups
-  ///
+  /// ----------------------------------------------------------
+  /// ------------------------ Groups --------------------------
+  /// ----------------------------------------------------------
 
   Future<GroupDataModel> getGroup(String groupId) async {
     print('$_tag:$getGroup($groupId)');
@@ -128,9 +128,9 @@ class DefaultCVCacheManager implements CVCacheManager {
     _groups[groupModel.id] = cacheModel;
   }
 
-  ///
-  /// Entries
-  ///
+  /// ----------------------------------------------------------
+  /// ----------------------- Entries --------------------------
+  /// ----------------------------------------------------------
 
   Future<EntryDataModel> getEntry(String entryId) async {
     print('$_tag:$getEntry($entryId)');

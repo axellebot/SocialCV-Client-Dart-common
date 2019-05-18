@@ -13,9 +13,9 @@ abstract class CVApiManager {
     @required String password,
   });
 
-  ///
-  /// Account
-  ///
+  /// ----------------------------------------------------------
+  /// ------------------------ Account -------------------------
+  /// ----------------------------------------------------------
 
   Future<ResponseEnvelop<UserDataModel>> fetchAccount();
 
@@ -24,9 +24,9 @@ abstract class CVApiManager {
     int limit = 5,
   });
 
-  ///
-  /// Users
-  ///
+  /// ----------------------------------------------------------
+  /// ------------------------- Users --------------------------
+  /// ----------------------------------------------------------
 
   Future<ResponseEnvelop<UserDataModel>> fetchUser(String userId);
 
@@ -35,9 +35,9 @@ abstract class CVApiManager {
     int limit = 5,
   });
 
-  ///
-  /// Profiles
-  ///
+  /// ----------------------------------------------------------
+  /// ----------------------- Profiles -------------------------
+  /// ----------------------------------------------------------
 
   Future<ResponseEnvelop<ProfileDataModel>> fetchProfile(String profileId);
 
@@ -52,9 +52,9 @@ abstract class CVApiManager {
     int limit = 5,
   });
 
-  ///
-  /// Parts
-  ///
+  /// ----------------------------------------------------------
+  /// ------------------------- Parts --------------------------
+  /// ----------------------------------------------------------
 
   Future<ResponseEnvelop<PartDataModel>> fetchPart(String partId);
 
@@ -75,9 +75,9 @@ abstract class CVApiManager {
     int limit = 5,
   });
 
-  ///
-  /// Groups
-  ///
+  /// ----------------------------------------------------------
+  /// ------------------------ Groups --------------------------
+  /// ----------------------------------------------------------
 
   Future<ResponseEnvelop<GroupDataModel>> fetchGroup(String groupId);
 
@@ -98,9 +98,9 @@ abstract class CVApiManager {
     int limit = 5,
   });
 
-  ///
-  /// Entries
-  ///
+  /// ----------------------------------------------------------
+  /// ----------------------- Entries --------------------------
+  /// ----------------------------------------------------------
 
   Future<ResponseEnvelop<EntryDataModel>> fetchEntry(String entryId);
 

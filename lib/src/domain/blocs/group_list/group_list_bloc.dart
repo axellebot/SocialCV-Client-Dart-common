@@ -26,6 +26,11 @@ class GroupListBloc
     }
   }
 
+  /// Map [GroupListInitialized] to [GroupListState]
+  ///
+  /// ```dart
+  /// yield* _mapGroupListInitializedEventToState(event);
+  /// ```
   Stream<GroupListState> _mapGroupListInitializedEventToState(
       GroupListInitialized event) async* {
     print('$_tag:$_mapGroupListInitializedEventToState($event)');
@@ -44,6 +49,11 @@ class GroupListBloc
     }
   }
 
+  /// Map [GroupListRefresh] to [GroupListState]
+  ///
+  /// ```dart
+  /// yield* _mapGroupListRefreshEventToState(event);
+  /// ```
   Stream<GroupListState> _mapGroupListRefreshEventToState(
       GroupListRefresh event) async* {
     print('$_tag:$_mapGroupListRefreshEventToState($event)');
@@ -56,6 +66,11 @@ class GroupListBloc
     }
   }
 
+  /// Map [GroupListLoadMore] to [GroupListState]
+  ///
+  /// ```dart
+  /// yield* _mapGroupListLoadMoreEventToState(event);
+  /// ```
   Stream<GroupListState> _mapGroupListLoadMoreEventToState(
       GroupListLoadMore event) async* {
     print('$_tag:$_mapGroupListLoadMoreEventToState($event)');

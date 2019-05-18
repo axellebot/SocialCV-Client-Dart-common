@@ -64,4 +64,7 @@ class ApiInterceptor extends Interceptor {
 
     return response;
   }
+
+  @override
+  String toString() => '$runtimeType{}';
 }

@@ -20,9 +20,9 @@ class DefaultCloudCVRepository extends CVRepository {
   })  : assert(cvApiManager != null, 'Missing $CVApiManager'),
         assert(cvCacheManager != null, 'Missing $CVCacheManager');
 
-  ///
-  /// OAuth
-  ///
+  /// ----------------------------------------------------------
+  /// ------------------------- OAuth --------------------------
+  /// ----------------------------------------------------------
 
   @override
   Future<AccessTokenViewModelModel> authenticate({
@@ -37,6 +37,7 @@ class DefaultCloudCVRepository extends CVRepository {
     return ModelMapper.instance.fromOAuthAccessToken(response);
   }
 
+  @deprecated
   Future<AccessTokenViewModelModel> register({
     @required String fName,
     @required String lName,
@@ -50,9 +51,9 @@ class DefaultCloudCVRepository extends CVRepository {
 //    return ModelMapper.instance.fromOAuthAccessToken(reponse);
   }
 
-  ///
-  /// Account
-  ///
+  /// ----------------------------------------------------------
+  /// ------------------------ Account -------------------------
+  /// ----------------------------------------------------------
 
   @override
   Future<UserViewModel> fetchAccount() async {
@@ -92,9 +93,9 @@ class DefaultCloudCVRepository extends CVRepository {
         .toList();
   }
 
-  ///
-  /// Users
-  ///
+  /// ----------------------------------------------------------
+  /// ------------------------- Users --------------------------
+  /// ----------------------------------------------------------
 
   @override
   Future<UserViewModel> fetchUser(
@@ -139,9 +140,9 @@ class DefaultCloudCVRepository extends CVRepository {
         .toList();
   }
 
-  ///
-  /// Profiles
-  ///
+  /// ----------------------------------------------------------
+  /// ----------------------- Profiles -------------------------
+  /// ----------------------------------------------------------
 
   @override
   Future<ProfileViewModel> fetchProfile(
@@ -214,9 +215,9 @@ class DefaultCloudCVRepository extends CVRepository {
         .toList();
   }
 
-  ///
-  /// Parts
-  ///
+  /// ----------------------------------------------------------
+  /// ------------------------- Parts --------------------------
+  /// ----------------------------------------------------------
 
   @override
   Future<PartViewModel> fetchPart(String partId, {force = false}) async {
@@ -309,9 +310,9 @@ class DefaultCloudCVRepository extends CVRepository {
         .toList();
   }
 
-  ///
-  /// Groups
-  ///
+  /// ----------------------------------------------------------
+  /// ------------------------ Groups --------------------------
+  /// ----------------------------------------------------------
 
   @override
   Future<GroupViewModel> fetchGroup(
@@ -407,9 +408,9 @@ class DefaultCloudCVRepository extends CVRepository {
         .toList();
   }
 
-  ///
-  /// Entries
-  ///
+  /// ----------------------------------------------------------
+  /// ----------------------- Entries --------------------------
+  /// ----------------------------------------------------------
 
   @override
   Future<EntryViewModel> fetchEntry(
@@ -506,9 +507,9 @@ class DefaultCloudCVRepository extends CVRepository {
         .toList();
   }
 
-  ///
-  /// Tools
-  ///
+  /// ----------------------------------------------------------
+  /// ------------------------ Tools ---------------------------
+  /// ----------------------------------------------------------
 
   void _setCaches(List dataModels) {
     for (var model in dataModels) {
@@ -532,4 +533,12 @@ class DefaultCloudCVRepository extends CVRepository {
     }
     return cursor;
   }
+
+  /// ----------------------------------------------------------
+  /// ------------------------- Misc ---------------------------
+  /// ----------------------------------------------------------
+
+  @override
+  String toString() =>
+      '$runtimeType{ cvApiManager: $cvApiManager, cvCacheManager: $cvCacheManager }';
 }

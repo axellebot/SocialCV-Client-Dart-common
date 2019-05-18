@@ -25,7 +25,7 @@ class PartInitialized extends PartEvent with ElementInitialized<PartViewModel> {
   }
 
   @override
-  String toString() => '$runtimeType{ id: $elementId, element: $element }';
+  String toString() => '$runtimeType{ id: $elementId, part: $element }';
 }
 
 class PartRefresh extends PartEvent with ElementRefresh<PartViewModel> {}

@@ -26,6 +26,11 @@ class PartBloc extends ElementBloc<PartViewModel, PartEvent, PartState> {
     }
   }
 
+  /// Map [PartInitialized] to [PartState]
+  ///
+  /// ```dart
+  /// yield* _mapInitializedEventToState(event);
+  /// ```
   Stream<PartState> _mapInitializedEventToState(PartInitialized event) async* {
     print('$_tag:$_mapInitializedEventToState($event)');
     try {
@@ -45,6 +50,11 @@ class PartBloc extends ElementBloc<PartViewModel, PartEvent, PartState> {
     }
   }
 
+  /// Map [PartRefresh] to [PartState]
+  ///
+  /// ```dart
+  /// yield* _mapRefreshEventToState(event);
+  /// ```
   Stream<PartState> _mapRefreshEventToState(PartRefresh event) async* {
     print('$_tag:$_mapRefreshEventToState($event)');
     try {

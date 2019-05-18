@@ -127,8 +127,7 @@ class RequestEnvelopOAuthAccessToken extends Object {
   Map<String, dynamic> toJson() => _$RequestEnvelopOAuthAccessTokenToJson(this);
 
   @override
-  String toString() =>
-      '$runtimeType{ username: $username, password: HIDDEN }';
+  String toString() => '$runtimeType{ username: $username, password: HIDDEN }';
 }
 
 @JsonSerializable()

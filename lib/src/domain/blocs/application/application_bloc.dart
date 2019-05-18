@@ -19,7 +19,9 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   AppBloc({
     @required this.preferencesRepository,
   })  : assert(
-            preferencesRepository != null, 'No $PreferencesRepository given'),
+          preferencesRepository != null,
+          'No $PreferencesRepository given',
+        ),
         super();
 
   @override
@@ -29,12 +31,21 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   Stream<AppState> mapEventToState(AppEvent event) async* {
     print('$_tag:$mapEventToState($event)');
 
+    if (event is AppThemeChanged) {
+      yield* _mapAppThemeChangedToState(event);
+    }
+  }
+
+  /// Map [AppThemeChanged] to [AppState]
+  ///
+  /// ```dart
+  /// yield* _mapAppThemeChangedToState(event);
+  /// ```
+  Stream<AppState> _mapAppThemeChangedToState(AppThemeChanged event) async* {
     try {
-      if (event is AppThemeChanged) {
-        yield AppLoading();
-        preferencesRepository.setAppTheme(event.theme);
-        yield AppInitialized(theme: event.theme);
-      }
+      yield AppLoading();
+      preferencesRepository.setAppTheme(event.theme);
+      yield AppInitialized(theme: event.theme);
     } catch (error) {
       yield AppFailure(error: error);
     }

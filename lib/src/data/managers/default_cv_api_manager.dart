@@ -32,7 +32,7 @@ class DefaultCVApiManager implements CVApiManager {
     @required this.apiBaseUrl,
     @required this.apiInterceptor,
   })  : assert(apiBaseUrl != null, 'Missing api base url'),
-        assert(apiInterceptor != null, 'Missing api interceptor') {
+        assert(apiInterceptor != null, 'No $ApiInterceptor given') {
     _dio = Dio(BaseOptions(
       baseUrl: apiBaseUrl,
       connectTimeout: 3000,
@@ -74,9 +74,9 @@ class DefaultCVApiManager implements CVApiManager {
     return model;
   }
 
-  ///
-  /// Account
-  ///
+  /// ----------------------------------------------------------
+  /// ------------------------ Account -------------------------
+  /// ----------------------------------------------------------
 
   @override
   Future<ResponseEnvelop<UserDataModel>> fetchAccount() async {
@@ -112,9 +112,9 @@ class DefaultCVApiManager implements CVApiManager {
     return ResponseEnvelopWithArray<ProfileDataModel>.fromJson(response.data);
   }
 
-  ///
-  /// Users
-  ///
+  /// ----------------------------------------------------------
+  /// ------------------------- Users --------------------------
+  /// ----------------------------------------------------------
 
   @override
   Future<ResponseEnvelop<UserDataModel>> fetchUser(String userId) async {
@@ -150,9 +150,9 @@ class DefaultCVApiManager implements CVApiManager {
     return ResponseEnvelopWithArray<UserDataModel>.fromJson(response.data);
   }
 
-  ///
-  /// Profiles
-  ///
+  /// ----------------------------------------------------------
+  /// ----------------------- Profiles -------------------------
+  /// ----------------------------------------------------------
 
   @override
   Future<ResponseEnvelop<ProfileDataModel>> fetchProfile(
@@ -207,9 +207,9 @@ class DefaultCVApiManager implements CVApiManager {
     return ResponseEnvelopWithArray<ProfileDataModel>.fromJson(response.data);
   }
 
-  ///
-  /// Parts
-  ///
+  /// ----------------------------------------------------------
+  /// ------------------------- Parts --------------------------
+  /// ----------------------------------------------------------
 
   @override
   Future<ResponseEnvelop<PartDataModel>> fetchPart(String partId) async {
@@ -271,9 +271,9 @@ class DefaultCVApiManager implements CVApiManager {
     return ResponseEnvelopWithArray<PartDataModel>.fromJson(response.data);
   }
 
-  ///
-  /// Groups
-  ///
+  /// ----------------------------------------------------------
+  /// ------------------------ Groups --------------------------
+  /// ----------------------------------------------------------
 
   @override
   Future<ResponseEnvelop<GroupDataModel>> fetchGroup(String groupId) async {
@@ -337,9 +337,9 @@ class DefaultCVApiManager implements CVApiManager {
     return ResponseEnvelopWithArray<GroupDataModel>.fromJson(response.data);
   }
 
-  ///
-  /// Entries
-  ///
+  /// ----------------------------------------------------------
+  /// ----------------------- Entries --------------------------
+  /// ----------------------------------------------------------
 
   @override
   Future<ResponseEnvelop<EntryDataModel>> fetchEntry(String entryId) async {

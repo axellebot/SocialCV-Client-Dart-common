@@ -20,11 +20,22 @@ class AuthenticationBloc
     @required this.preferencesRepository,
     @required this.configRepository,
     @required this.accountBloc,
-  })  : assert(cvRepository != null, 'No $CVRepository given'),
+  })  : assert(
+          cvRepository != null,
+          'No $CVRepository given',
+        ),
         assert(
-            preferencesRepository != null, 'No $PreferencesRepository given'),
-        assert(configRepository != null, 'No $ConfigRepository given'),
-        assert(accountBloc != null, 'No $AccountBloc given'),
+          preferencesRepository != null,
+          'No $PreferencesRepository given',
+        ),
+        assert(
+          configRepository != null,
+          'No $ConfigRepository given',
+        ),
+        assert(
+          accountBloc != null,
+          'No $AccountBloc given',
+        ),
         super();
 
   @override
@@ -34,43 +45,66 @@ class AuthenticationBloc
   Stream<AuthenticationState> mapEventToState(
       AuthenticationEvent event) async* {
     print('$_TAG:$mapEventToState($event)');
+    if (event is AppStarted) {
+      yield* _mapAppStartedToState(event);
+    } else if (event is LoggedIn) {
+      yield* _mapLoggedInToState(event);
+    } else if (event is LoggedOut) {
+      yield* _mapLoggedOutToState(event);
+    }
+  }
+
+  /// Map [AppStarted] to [AuthenticationState]
+  ///
+  /// ```dart
+  /// yield* _mapAppStartedToState(event);
+  /// ```
+  Stream<AuthenticationState> _mapAppStartedToState(AppStarted event) async* {
     try {
-      if (event is AppStarted) {
-        final String token = await preferencesRepository.getAccessToken();
+      final String token = await preferencesRepository.getAccessToken();
 
-        /// TODO: Check access token expiration and fetch new access token with refresh token
-        /// TODO: Check refresh token expiration, if it's expired set state to Unauthenticated
+      /// TODO: Check access token expiration and fetch new access token with refresh token
+      /// TODO: Check refresh token expiration, if it's expired set state to Unauthenticated
 
-        if (token != null) {
-          yield AuthenticationAuthenticated();
-          accountBloc.dispatch(AccountRefresh());
-        } else {
-          yield AuthenticationUnauthenticated();
-        }
-      }
-
-      if (event is LoggedIn) {
-        yield AuthenticationLoading();
-        await preferencesRepository.setAccessToken(event.accessToken);
-        await preferencesRepository
-            .setAccessTokenExpiration(event.accessTokenExpirationDate);
-        await preferencesRepository.setRefreshToken(event.refreshToken);
-        await preferencesRepository
-            .setRefreshTokenExpiration(event.refreshTokenExpirationDate);
+      if (token != null) {
         yield AuthenticationAuthenticated();
         accountBloc.dispatch(AccountRefresh());
-      }
-
-      if (event is LoggedOut) {
-        yield AuthenticationLoading();
-        await preferencesRepository.deleteAccessToken();
-        await preferencesRepository.deleteAccessTokenExpiration();
-        await preferencesRepository.deleteRefreshToken();
-        await preferencesRepository.deleteRefreshTokenExpiration();
+      } else {
         yield AuthenticationUnauthenticated();
       }
     } catch (error) {
       yield AuthenticationFailed(error: error);
     }
+  }
+
+  /// Map [LoggedIn] to [AuthenticationState]
+  ///
+  /// ```dart
+  /// yield* _mapLoggedInToState(event);
+  /// ```
+  Stream<AuthenticationState> _mapLoggedInToState(LoggedIn event) async* {
+    yield AuthenticationLoading();
+    await preferencesRepository.setAccessToken(event.accessToken);
+    await preferencesRepository
+        .setAccessTokenExpiration(event.accessTokenExpirationDate);
+    await preferencesRepository.setRefreshToken(event.refreshToken);
+    await preferencesRepository
+        .setRefreshTokenExpiration(event.refreshTokenExpirationDate);
+    yield AuthenticationAuthenticated();
+    accountBloc.dispatch(AccountRefresh());
+  }
+
+  /// Map [LoggedIn] to [AuthenticationState]
+  ///
+  /// ```dart
+  /// yield* _mapLoggedInToState(event);
+  /// ```
+  Stream<AuthenticationState> _mapLoggedOutToState(LoggedOut event) async* {
+    yield AuthenticationLoading();
+    await preferencesRepository.deleteAccessToken();
+    await preferencesRepository.deleteAccessTokenExpiration();
+    await preferencesRepository.deleteRefreshToken();
+    await preferencesRepository.deleteRefreshTokenExpiration();
+    yield AuthenticationUnauthenticated();
   }
 }

@@ -46,6 +46,11 @@ class GroupBloc extends ElementBloc<GroupViewModel, GroupEvent, GroupState> {
     }
   }
 
+  /// Map [GroupRefresh] to [GroupState]
+  ///
+  /// ```dart
+  /// yield* _mapRefreshEventToState(event);
+  /// ```
   Stream<GroupState> _mapRefreshEventToState(GroupRefresh event) async* {
     print('$_tag:$_mapRefreshEventToState($event)');
     try {
@@ -66,6 +71,6 @@ class GroupBloc extends ElementBloc<GroupViewModel, GroupEvent, GroupState> {
 
   @override
   String toString() {
-    return '$runtimeType{}';
+    return '$runtimeType{ cvRepository: $cvRepository }';
   }
 }

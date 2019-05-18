@@ -26,6 +26,11 @@ class UserBloc extends ElementBloc<UserViewModel, UserEvent, UserState> {
     }
   }
 
+  /// Map [UserInitialized] to [UserState]
+  ///
+  /// ```dart
+  /// yield* _mapInitializedEventToState(event);
+  /// ```
   Stream<UserState> _mapInitializedEventToState(UserInitialized event) async* {
     print('$_tag:$_mapInitializedEventToState($event)');
     try {
@@ -45,6 +50,11 @@ class UserBloc extends ElementBloc<UserViewModel, UserEvent, UserState> {
     }
   }
 
+  /// Map [UserRefresh] to [UserState]
+  ///
+  /// ```dart
+  /// yield* _mapRefreshEventToState(event);
+  /// ```
   Stream<UserState> _mapRefreshEventToState(UserRefresh event) async* {
     print('$_tag:$_mapRefreshEventToState($event)');
     try {

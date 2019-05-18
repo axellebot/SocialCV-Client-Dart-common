@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:social_cv_client_dart_common/blocs.dart';
-import 'package:social_cv_client_dart_common/models.dart';
 import 'package:social_cv_client_dart_common/repositories.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
@@ -25,12 +24,23 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   @override
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
     print('$_tag:$mapEventToState($event)');
+    if (event is LoginButtonPressed) {
+      yield* _mapLoginButtonPressedToState(event);
+    }
+  }
+
+  /// Map [LoginButtonPressed] to [LoginState]
+  ///
+  /// ```dart
+  /// yield* _mapLoginButtonPressedToState(event);
+  /// ```
+  Stream<LoginState> _mapLoginButtonPressedToState(
+      LoginButtonPressed event) async* {
     try {
       if (event is LoginButtonPressed) {
         yield LoginLoading();
 
-        final AccessTokenViewModelModel response =
-            await cvRepository.authenticate(
+        final response = await cvRepository.authenticate(
           email: event.email,
           password: event.password,
         );

@@ -26,6 +26,11 @@ class EntryListBloc
     }
   }
 
+  /// Map [EntryListInitialized] to [EntryListState]
+  ///
+  /// ```dart
+  /// yield* _mapEntryListInitializedEventToState(event);
+  /// ```
   Stream<EntryListState> _mapEntryListInitializedEventToState(
       EntryListInitialized event) async* {
     print('$_tag:$_mapEntryListInitializedEventToState($event)');
@@ -44,6 +49,11 @@ class EntryListBloc
     }
   }
 
+  /// Map [EntryListRefresh] to [EntryListState]
+  ///
+  /// ```dart
+  /// yield* _mapEntryListRefreshEventToState(event);
+  /// ```
   Stream<EntryListState> _mapEntryListRefreshEventToState(
       EntryListRefresh event) async* {
     print('$_tag:$_mapEntryListRefreshEventToState($event)');
@@ -56,6 +66,11 @@ class EntryListBloc
     }
   }
 
+  /// Map [EntryListLoadMore] to [EntryListState]
+  ///
+  /// ```dart
+  /// yield* _mapEntryListRefreshEventToState(event);
+  /// ```
   Stream<EntryListState> _mapEntryListLoadMoreEventToState(
       EntryListLoadMore event) async* {
     print('$_tag:$_mapEntryListLoadMoreEventToState($event)');

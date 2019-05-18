@@ -26,6 +26,11 @@ class EntryBloc extends ElementBloc<EntryViewModel, EntryEvent, EntryState> {
     }
   }
 
+  /// Map [EntryInitialized] to [EntryState]
+  ///
+  /// ```dart
+  /// yield* _mapInitializedEventToState(event);
+  /// ```
   Stream<EntryState> _mapInitializedEventToState(
       EntryInitialized event) async* {
     print('$_tag:$_mapInitializedEventToState($event)');
@@ -46,6 +51,11 @@ class EntryBloc extends ElementBloc<EntryViewModel, EntryEvent, EntryState> {
     }
   }
 
+  /// Map [EntryRefresh] to [EntryState]
+  ///
+  /// ```dart
+  /// yield* _mapRefreshEventToState(event);
+  /// ```
   Stream<EntryState> _mapRefreshEventToState(EntryRefresh event) async* {
     print('$_tag:$_mapRefreshEventToState($event)');
     try {

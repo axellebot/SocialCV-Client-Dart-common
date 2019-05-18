@@ -1,6 +1,6 @@
 import 'dart:async';
 
-/// Interface for Preferences
+/// Interface for Preferences repositories
 abstract class PreferencesRepository {
   /// ----------------------------------------------------------
   /// ------------------------- Tokens -------------------------
@@ -55,4 +55,11 @@ abstract class PreferencesRepository {
   /// ----------------------------------------------------------
 
   Future deleteAll();
+
+  /// ----------------------------------------------------------
+  /// ------------------------- Misc ---------------------------
+  /// ----------------------------------------------------------
+
+  @override
+  String toString() => '$runtimeType{}';
 }
