@@ -15,10 +15,10 @@ dependencies:
 
   # Rx
   async: ^2.0.8
-  rxdart: ^0.21.0
+  rxdart: ^0.22.0
 
   # BLoC Pattern
-  bloc: ^0.12.0
+  bloc: ^0.13.0
 
   # Serialization
   json_annotation: ^2.0.0
