@@ -33,12 +33,24 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
     print('$_tag:$mapEventToState($event)');
 
     if (event is AccountRefresh) {
-      try {
-        final userModel = await cvRepository.fetchAccount();
-        await appPreferencesRepository.setUserId(userModel.id);
-      } catch (error) {
-        yield AccountFailed(error: error);
-      }
+      yield* _mapAccountRefreshToState(event);
+    }
+  }
+
+  /// Map [AccountRefresh] to [AccountState]
+  ///
+  /// ```dart
+  /// yield* _mapAccountRefreshToState(event);
+  /// ```
+  Stream<AccountState> _mapAccountRefreshToState(AccountRefresh event) async* {
+    try {
+      yield AccountLoading();
+      final userModel = await cvRepository.fetchAccount();
+      await appPreferencesRepository.setUserId(userModel.id);
+      yield AccountLoaded(user: userModel);
+    } catch (error) {
+      print('$_tag:$_mapAccountRefreshToState -> ${error.runtimeType}');
+      yield AccountFailed(error: error);
     }
   }
 }

@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-import 'package:social_cv_client_dart_common/src/ui/models/profile_model.dart';
 import 'package:social_cv_client_dart_common/src/ui/models/user_model.dart';
 
 abstract class AccountState extends Equatable {
@@ -12,17 +11,17 @@ abstract class AccountState extends Equatable {
 
 class AccountUninitialized extends AccountState {}
 
+class AccountLoading extends AccountState {}
+
 class AccountLoaded extends AccountState {
   UserViewModel user;
-  List<ProfileViewModel> profiles;
 
   AccountLoaded({
     @required this.user,
-    @required this.profiles,
-  }) : super([user, profiles]);
+  }) : super([user]);
 
   @override
-  String toString() => '$runtimeType{ userModel: $user, profiles: $profiles }';
+  String toString() => '$runtimeType{ userModel: $user }';
 }
 
 class AccountFailed extends AccountState {
