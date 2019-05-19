@@ -3,6 +3,7 @@ import 'package:social_cv_client_dart_common/blocs.dart';
 import 'package:social_cv_client_dart_common/models.dart';
 import 'package:social_cv_client_dart_common/repositories.dart';
 
+/// Business Logic Component for Group
 class GroupBloc extends ElementBloc<GroupViewModel, GroupEvent, GroupState> {
   final String _tag = '$GroupBloc';
 

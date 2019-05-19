@@ -4,6 +4,7 @@ import 'package:social_cv_client_dart_common/models.dart';
 import 'package:social_cv_client_dart_common/repositories.dart';
 import 'package:social_cv_client_dart_common/src/ui/models/cursor_model.dart';
 
+/// Business Logic Component for Profile list
 class ProfileListBloc extends ElementListBloc<ProfileViewModel,
     ProfileListEvent, ProfileListState> {
   final String _tag = '$ProfileListBloc';

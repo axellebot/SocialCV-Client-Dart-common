@@ -401,6 +401,9 @@ class DefaultCVApiManager implements CVApiManager {
     });
     return ResponseEnvelopWithArray<EntryDataModel>.fromJson(response.data);
   }
+
+  @override
+  String toString() => '$runtimeType{}';
 }
 
 Future _filterStatusCode(response) async {

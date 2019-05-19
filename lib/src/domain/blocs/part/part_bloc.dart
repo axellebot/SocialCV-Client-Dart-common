@@ -3,6 +3,7 @@ import 'package:social_cv_client_dart_common/blocs.dart';
 import 'package:social_cv_client_dart_common/models.dart';
 import 'package:social_cv_client_dart_common/repositories.dart';
 
+/// Business Logic Component for Part
 class PartBloc extends ElementBloc<PartViewModel, PartEvent, PartState> {
   final String _tag = '$PartBloc';
 

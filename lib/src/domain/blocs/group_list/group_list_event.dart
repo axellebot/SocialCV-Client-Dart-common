@@ -3,6 +3,7 @@ import 'package:social_cv_client_dart_common/blocs.dart';
 import 'package:social_cv_client_dart_common/models.dart';
 import 'package:social_cv_client_dart_common/src/ui/models/cursor_model.dart';
 
+/// [GroupListEvent] that must be dispatch to [GroupListBloc]
 abstract class GroupListEvent extends Equatable {
   GroupListEvent([List props = const []]) : super(props);
 

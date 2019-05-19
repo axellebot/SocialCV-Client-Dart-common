@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:social_cv_client_dart_common/blocs.dart';
 import 'package:social_cv_client_dart_common/models.dart';
 
+/// [GroupEvent] that must be dispatch to [GroupBloc]
 abstract class GroupEvent extends Equatable {
   GroupEvent([List props = const []]) : super(props);
 

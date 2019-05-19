@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
+/// [RegisterEvent] that must be dispatch to [RegisterBloc]
 abstract class RegisterEvent extends Equatable {
   RegisterEvent([List props = const []]) : super(props);
 }

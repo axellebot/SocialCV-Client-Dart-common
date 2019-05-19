@@ -153,6 +153,9 @@ class DefaultCVCacheManager implements CVCacheManager {
   DateTime _generateExpirationDateTime(Duration duration) {
     return DateTime.now().add(duration);
   }
+
+  @override
+  String toString() => '$runtimeType{}';
 }
 
 class _CacheModel<T> {

@@ -3,6 +3,7 @@ import 'package:social_cv_client_dart_common/blocs.dart';
 import 'package:social_cv_client_dart_common/models.dart';
 import 'package:social_cv_client_dart_common/repositories.dart';
 
+/// Business Logic Component for Entry
 class EntryBloc extends ElementBloc<EntryViewModel, EntryEvent, EntryState> {
   final String _tag = '$EntryBloc';
 

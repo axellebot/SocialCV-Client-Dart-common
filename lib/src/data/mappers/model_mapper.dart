@@ -109,4 +109,7 @@ class ModelMapper {
       version: dataModel.version,
     );
   }
+
+  @override
+  String toString() => '$runtimeType{}';
 }

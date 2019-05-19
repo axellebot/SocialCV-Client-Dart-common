@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:social_cv_client_dart_common/blocs.dart';
 import 'package:social_cv_client_dart_common/models.dart';
 
+/// [UserEvent] that must be dispatch to [UserBloc]
 abstract class UserEvent extends Equatable {
   UserEvent([List props = const []]) : super(props);
 

@@ -4,6 +4,7 @@ import 'package:social_cv_client_dart_common/models.dart';
 import 'package:social_cv_client_dart_common/repositories.dart';
 import 'package:social_cv_client_dart_common/src/ui/models/cursor_model.dart';
 
+/// Business Logic Component for Group list
 class GroupListBloc
     extends ElementListBloc<GroupViewModel, GroupListEvent, GroupListState> {
   final String _tag = '$GroupListBloc';

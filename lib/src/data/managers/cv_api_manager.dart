@@ -120,4 +120,7 @@ abstract class CVApiManager {
     int offset = 0,
     int limit = 5,
   });
+
+  @override
+  String toString() => '$runtimeType{}';
 }

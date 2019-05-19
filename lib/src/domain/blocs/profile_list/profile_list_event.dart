@@ -3,6 +3,7 @@ import 'package:social_cv_client_dart_common/blocs.dart';
 import 'package:social_cv_client_dart_common/models.dart';
 import 'package:social_cv_client_dart_common/src/ui/models/cursor_model.dart';
 
+/// [ProfileListEvent] that must be dispatch to [ProfileListBloc]
 abstract class ProfileListEvent extends Equatable {
   ProfileListEvent([List props = const []]) : super(props);
 

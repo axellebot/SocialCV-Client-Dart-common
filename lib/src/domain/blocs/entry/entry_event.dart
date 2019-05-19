@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:social_cv_client_dart_common/blocs.dart';
 import 'package:social_cv_client_dart_common/models.dart';
 
+/// [EntryEvent] that must be dispatch to [EntryBloc]
 abstract class EntryEvent extends Equatable {
   EntryEvent([List props = const []]) : super(props);
 

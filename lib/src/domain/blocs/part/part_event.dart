@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:social_cv_client_dart_common/blocs.dart';
 import 'package:social_cv_client_dart_common/models.dart';
 
+/// [PartEvent] that must be dispatch to [PartBloc]
 abstract class PartEvent extends Equatable {
   PartEvent([List props = const []]) : super(props);
 

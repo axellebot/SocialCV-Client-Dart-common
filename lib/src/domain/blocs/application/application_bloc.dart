@@ -10,28 +10,29 @@ class ThemeType {
   static const String DARK = 'THEME_DARK';
 }
 
-/// Business Logic Component for Application behavior and configurations
+/// Business Logic Component for Application behaviors
 class AppBloc extends Bloc<AppEvent, AppState> {
   final String _tag = 'AppBloc';
 
-  final PreferencesRepository preferencesRepository;
+  final AppPreferencesRepository appPreferencesRepository;
 
   AppBloc({
-    @required this.preferencesRepository,
+    @required this.appPreferencesRepository,
   })  : assert(
-          preferencesRepository != null,
-          'No $PreferencesRepository given',
+          appPreferencesRepository != null,
+          'No $AppPreferencesRepository given',
         ),
         super();
 
   @override
-  AppState get initialState => AppUninitialized();
+  AppState get initialState => AppInitialized(theme: ThemeType.LIGHT);
 
   @override
   Stream<AppState> mapEventToState(AppEvent event) async* {
     print('$_tag:$mapEventToState($event)');
-
-    if (event is AppThemeChanged) {
+    if (event is AppConfigured) {
+      yield* _mapAppConfiguredToState(event);
+    } else if (event is AppThemeChanged) {
       yield* _mapAppThemeChangedToState(event);
     }
   }
@@ -44,8 +45,24 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   Stream<AppState> _mapAppThemeChangedToState(AppThemeChanged event) async* {
     try {
       yield AppLoading();
-      preferencesRepository.setAppTheme(event.theme);
+      await appPreferencesRepository.setAppTheme(event.theme);
       yield AppInitialized(theme: event.theme);
+    } catch (error) {
+      yield AppFailure(error: error);
+    }
+  }
+
+  /// Map [AppConfigured] to [AppState]
+  ///
+  /// ```dart
+  /// yield* _mapAppConfiguredToState(event);
+  /// ```
+  Stream<AppState> _mapAppConfiguredToState(AppConfigured event) async* {
+    try {
+      yield AppLoading();
+      final theme =
+          await appPreferencesRepository.getAppTheme() ?? ThemeType.LIGHT;
+      yield AppInitialized(theme: theme);
     } catch (error) {
       yield AppFailure(error: error);
     }

@@ -11,13 +11,13 @@ class AuthenticationBloc
   final String _TAG = '$AuthenticationBloc';
 
   final CVRepository cvRepository;
-  final PreferencesRepository preferencesRepository;
+  final AuthPreferencesRepository authPreferencesRepository;
   final ConfigRepository configRepository;
   final AccountBloc accountBloc;
 
   AuthenticationBloc({
     @required this.cvRepository,
-    @required this.preferencesRepository,
+    @required this.authPreferencesRepository,
     @required this.configRepository,
     @required this.accountBloc,
   })  : assert(
@@ -25,8 +25,8 @@ class AuthenticationBloc
           'No $CVRepository given',
         ),
         assert(
-          preferencesRepository != null,
-          'No $PreferencesRepository given',
+          authPreferencesRepository != null,
+          'No $AppPreferencesRepository given',
         ),
         assert(
           configRepository != null,
@@ -61,7 +61,7 @@ class AuthenticationBloc
   /// ```
   Stream<AuthenticationState> _mapAppStartedToState(AppStarted event) async* {
     try {
-      final String token = await preferencesRepository.getAccessToken();
+      final String token = await authPreferencesRepository.getAccessToken();
 
       /// TODO: Check access token expiration and fetch new access token with refresh token
       /// TODO: Check refresh token expiration, if it's expired set state to Unauthenticated
@@ -84,11 +84,11 @@ class AuthenticationBloc
   /// ```
   Stream<AuthenticationState> _mapLoggedInToState(LoggedIn event) async* {
     yield AuthenticationLoading();
-    await preferencesRepository.setAccessToken(event.accessToken);
-    await preferencesRepository
+    await authPreferencesRepository.setAccessToken(event.accessToken);
+    await authPreferencesRepository
         .setAccessTokenExpiration(event.accessTokenExpirationDate);
-    await preferencesRepository.setRefreshToken(event.refreshToken);
-    await preferencesRepository
+    await authPreferencesRepository.setRefreshToken(event.refreshToken);
+    await authPreferencesRepository
         .setRefreshTokenExpiration(event.refreshTokenExpirationDate);
     yield AuthenticationAuthenticated();
     accountBloc.dispatch(AccountRefresh());
@@ -101,10 +101,10 @@ class AuthenticationBloc
   /// ```
   Stream<AuthenticationState> _mapLoggedOutToState(LoggedOut event) async* {
     yield AuthenticationLoading();
-    await preferencesRepository.deleteAccessToken();
-    await preferencesRepository.deleteAccessTokenExpiration();
-    await preferencesRepository.deleteRefreshToken();
-    await preferencesRepository.deleteRefreshTokenExpiration();
+    await authPreferencesRepository.deleteAccessToken();
+    await authPreferencesRepository.deleteAccessTokenExpiration();
+    await authPreferencesRepository.deleteRefreshToken();
+    await authPreferencesRepository.deleteRefreshTokenExpiration();
     yield AuthenticationUnauthenticated();
   }
 }

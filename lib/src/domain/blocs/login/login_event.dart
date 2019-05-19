@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
+/// [LoginEvent] that must be dispatch to [LoginBloc]
 abstract class LoginEvent extends Equatable {
   LoginEvent([List props = const []]) : super(props);
 

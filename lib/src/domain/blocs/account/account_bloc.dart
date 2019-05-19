@@ -5,22 +5,23 @@ import 'package:meta/meta.dart';
 import 'package:social_cv_client_dart_common/blocs.dart';
 import 'package:social_cv_client_dart_common/repositories.dart';
 
+/// Business Logic Component for Account
 class AccountBloc extends Bloc<AccountEvent, AccountState> {
   final String _tag = '$AccountBloc';
 
   final CVRepository cvRepository;
-  final PreferencesRepository preferencesRepository;
+  final AppPreferencesRepository appPreferencesRepository;
 
   AccountBloc({
     @required this.cvRepository,
-    @required this.preferencesRepository,
+    @required this.appPreferencesRepository,
   })  : assert(
           cvRepository != null,
           'No $CVRepository given',
         ),
         assert(
-          preferencesRepository != null,
-          'No $PreferencesRepository given',
+          appPreferencesRepository != null,
+          'No $AppPreferencesRepository given',
         ),
         super();
 
@@ -34,7 +35,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
     if (event is AccountRefresh) {
       try {
         final userModel = await cvRepository.fetchAccount();
-        await preferencesRepository.setUserId(userModel.id);
+        await appPreferencesRepository.setUserId(userModel.id);
       } catch (error) {
         yield AccountFailed(error: error);
       }

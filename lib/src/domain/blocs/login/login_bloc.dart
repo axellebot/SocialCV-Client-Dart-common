@@ -5,17 +5,18 @@ import 'package:meta/meta.dart';
 import 'package:social_cv_client_dart_common/blocs.dart';
 import 'package:social_cv_client_dart_common/repositories.dart';
 
+/// Business Logic Component for Login
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final String _tag = '$LoginBloc';
 
   final CVRepository cvRepository;
-  final AuthenticationBloc authBloc;
+  final AuthenticationBloc authenticationBloc;
 
   LoginBloc({
     @required this.cvRepository,
-    @required this.authBloc,
-  })  : assert(cvRepository != null, 'Missing CV Repository'),
-        assert(authBloc != null, 'Missing Authentication Bloc'),
+    @required this.authenticationBloc,
+  })  : assert(cvRepository != null, 'No $CVRepository given'),
+        assert(authenticationBloc != null, 'No $AuthenticationBloc given'),
         super();
 
   @override
@@ -45,7 +46,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           password: event.password,
         );
 
-        authBloc.dispatch(LoggedIn(
+        authenticationBloc.dispatch(LoggedIn(
           accessToken: response.accessToken,
           accessTokenExpirationDate: response.accessTokenExpiresAt,
           refreshToken: response.refreshToken,

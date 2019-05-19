@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 
+/// [AccountEvent] that must be dispatch to [AccountBloc]
 abstract class AccountEvent extends Equatable {
   AccountEvent([List props = const []]) : super(props);
 

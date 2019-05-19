@@ -3,6 +3,7 @@ import 'package:social_cv_client_dart_common/blocs.dart';
 import 'package:social_cv_client_dart_common/models.dart';
 import 'package:social_cv_client_dart_common/src/ui/models/cursor_model.dart';
 
+/// [EntryListEvent] that must be dispatch to [EntryListBloc]
 abstract class EntryListEvent extends Equatable {
   EntryListEvent([List props = const []]) : super(props);
 
