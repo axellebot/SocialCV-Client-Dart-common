@@ -98,12 +98,12 @@ class GroupListBloc
     print('$_tag:$_fetchGroups({cursor: $cursor})');
     if (parentId != null) {
       return await cvRepository.fetchGroupsFromPart(
-        partId: parentId,
+        parentId,
         cursor: cursor,
       );
     } else if (ownerId != null) {
       return await cvRepository.fetchGroupsFromUser(
-        userId: ownerId,
+        ownerId,
         cursor: cursor,
       );
     } else {

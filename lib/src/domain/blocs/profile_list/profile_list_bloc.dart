@@ -99,12 +99,12 @@ class ProfileListBloc extends ElementListBloc<ProfileViewModel,
     print('$_tag:$_fetchProfiles({cursor: $cursor})');
     if (parentId != null) {
       return await cvRepository.fetchProfilesFromUser(
-        userId: parentId,
+        parentId,
         cursor: cursor,
       );
     } else if (ownerId != null) {
       return await cvRepository.fetchProfilesFromUser(
-        userId: ownerId,
+        ownerId,
         cursor: cursor,
       );
     } else {

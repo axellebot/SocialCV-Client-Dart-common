@@ -98,12 +98,12 @@ class EntryListBloc
     print('$_tag:$_fetchEntries({cursor: $cursor})');
     if (parentId != null) {
       return await cvRepository.fetchEntriesFromGroup(
-        groupId: parentId,
+        parentId,
         cursor: cursor,
       );
     } else if (ownerId != null) {
       return await cvRepository.fetchEntriesFromUser(
-        userId: ownerId,
+        ownerId,
         cursor: cursor,
       );
     } else {

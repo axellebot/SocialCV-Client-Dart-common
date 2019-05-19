@@ -8,6 +8,11 @@ import 'package:social_cv_client_dart_common/repositories.dart';
 import 'package:social_cv_client_dart_common/src/ui/models/cursor_model.dart';
 
 /// Default Implementation of [CVRepository]
+///
+/// Use [cvApiManager] to fetch data
+/// Use [cvCacheManager] to save data temporary
+///
+/// If data exists in [cvCacheManager] it will not use [cvApiManager]
 class DefaultCloudCVRepository extends CVRepository {
   final String _tag = '$DefaultCloudCVRepository';
 
@@ -30,6 +35,7 @@ class DefaultCloudCVRepository extends CVRepository {
     @required String password,
   }) async {
     print('$_tag:$authenticate');
+
     assert(email != null && password != null);
 
     var response =
@@ -189,8 +195,8 @@ class DefaultCloudCVRepository extends CVRepository {
   }
 
   @override
-  Future<List<ProfileViewModel>> fetchProfilesFromUser({
-    @required String userId,
+  Future<List<ProfileViewModel>> fetchProfilesFromUser(
+    String userId, {
 
     /// TODO: Add filters
     /// TODO: Add sort
@@ -259,8 +265,8 @@ class DefaultCloudCVRepository extends CVRepository {
   }
 
   @override
-  Future<List<PartViewModel>> fetchPartsFromUser({
-    @required String userId,
+  Future<List<PartViewModel>> fetchPartsFromUser(
+    String userId, {
 
     /// TODO: Add filters
     /// TODO: Add sort
@@ -285,8 +291,8 @@ class DefaultCloudCVRepository extends CVRepository {
   }
 
   @override
-  Future<List<PartViewModel>> fetchPartsFromProfile({
-    @required String profileId,
+  Future<List<PartViewModel>> fetchPartsFromProfile(
+    String profileId, {
 
     /// TODO: Add filters
     /// TODO: Add sort
@@ -357,8 +363,8 @@ class DefaultCloudCVRepository extends CVRepository {
   }
 
   @override
-  Future<List<GroupViewModel>> fetchGroupsFromUser({
-    @required String userId,
+  Future<List<GroupViewModel>> fetchGroupsFromUser(
+    String userId, {
 
     /// TODO: Add filters
     /// TODO: Add sort
@@ -383,8 +389,8 @@ class DefaultCloudCVRepository extends CVRepository {
   }
 
   @override
-  Future<List<GroupViewModel>> fetchGroupsFromPart({
-    @required String partId,
+  Future<List<GroupViewModel>> fetchGroupsFromPart(
+    String partId, {
 
     /// TODO: Add filters
     /// TODO: Add sort
@@ -456,8 +462,8 @@ class DefaultCloudCVRepository extends CVRepository {
   }
 
   @override
-  Future<List<EntryViewModel>> fetchEntriesFromUser({
-    @required String userId,
+  Future<List<EntryViewModel>> fetchEntriesFromUser(
+    String userId, {
 
     /// TODO: Add filters
     /// TODO: Add sort
@@ -482,8 +488,8 @@ class DefaultCloudCVRepository extends CVRepository {
   }
 
   @override
-  Future<List<EntryViewModel>> fetchEntriesFromGroup({
-    @required String groupId,
+  Future<List<EntryViewModel>> fetchEntriesFromGroup(
+    String groupId, {
 
     /// TODO: Add filters
     /// TODO: Add sort

@@ -88,12 +88,12 @@ class PartListBloc
     print('$_tag:$_fetchParts({cursor: $cursor})');
     if (parentId != null) {
       return await cvRepository.fetchPartsFromProfile(
-        profileId: parentId,
+        parentId,
         cursor: cursor,
       );
     } else if (ownerId != null) {
       return await cvRepository.fetchPartsFromUser(
-        userId: ownerId,
+        ownerId,
         cursor: cursor,
       );
     } else {

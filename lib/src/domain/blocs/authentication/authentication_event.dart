@@ -24,11 +24,11 @@ class LoggedIn extends AuthenticationEvent {
     @required this.refreshToken,
     @required this.refreshTokenExpirationDate,
   }) : super([
-    accessToken,
-    accessTokenExpirationDate,
-    refreshToken,
-    refreshTokenExpirationDate
-  ]);
+          accessToken,
+          accessTokenExpirationDate,
+          refreshToken,
+          refreshTokenExpirationDate
+        ]);
 
   @override
   String toString() =>

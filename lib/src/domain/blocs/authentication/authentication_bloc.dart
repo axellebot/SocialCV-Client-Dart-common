@@ -20,22 +20,21 @@ class AuthenticationBloc
     @required this.authPreferencesRepository,
     @required this.configRepository,
     @required this.accountBloc,
-  })
-      : assert(
-  cvRepository != null,
-  'No $CVRepository given',
-  ),
-        assert(
-        authPreferencesRepository != null,
-        'No $AppPreferencesRepository given',
+  })  : assert(
+          cvRepository != null,
+          'No $CVRepository given',
         ),
         assert(
-        configRepository != null,
-        'No $ConfigRepository given',
+          authPreferencesRepository != null,
+          'No $AppPreferencesRepository given',
         ),
         assert(
-        accountBloc != null,
-        'No $AccountBloc given',
+          configRepository != null,
+          'No $ConfigRepository given',
+        ),
+        assert(
+          accountBloc != null,
+          'No $AccountBloc given',
         ),
         super();
 
