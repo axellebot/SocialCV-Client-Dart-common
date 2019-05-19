@@ -20,21 +20,22 @@ class AuthenticationBloc
     @required this.authPreferencesRepository,
     @required this.configRepository,
     @required this.accountBloc,
-  })  : assert(
-          cvRepository != null,
-          'No $CVRepository given',
+  })
+      : assert(
+  cvRepository != null,
+  'No $CVRepository given',
+  ),
+        assert(
+        authPreferencesRepository != null,
+        'No $AppPreferencesRepository given',
         ),
         assert(
-          authPreferencesRepository != null,
-          'No $AppPreferencesRepository given',
+        configRepository != null,
+        'No $ConfigRepository given',
         ),
         assert(
-          configRepository != null,
-          'No $ConfigRepository given',
-        ),
-        assert(
-          accountBloc != null,
-          'No $AccountBloc given',
+        accountBloc != null,
+        'No $AccountBloc given',
         ),
         super();
 
@@ -61,12 +62,12 @@ class AuthenticationBloc
   /// ```
   Stream<AuthenticationState> _mapAppStartedToState(AppStarted event) async* {
     try {
-      final String token = await authPreferencesRepository.getAccessToken();
+      final token = await authPreferencesRepository.getAccessToken();
 
       /// TODO: Check access token expiration and fetch new access token with refresh token
       /// TODO: Check refresh token expiration, if it's expired set state to Unauthenticated
 
-      if (token != null) {
+      if (token != null && token?.length > 0) {
         yield AuthenticationAuthenticated();
         accountBloc.dispatch(AccountRefresh());
       } else {

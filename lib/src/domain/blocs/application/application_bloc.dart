@@ -25,7 +25,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         super();
 
   @override
-  AppState get initialState => AppInitialized(theme: ThemeType.LIGHT);
+  AppState get initialState => AppInitialized.defaultValues();
 
   @override
   Stream<AppState> mapEventToState(AppEvent event) async* {
