@@ -1,24 +1,38 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
-import 'package:social_cv_client_dart_common/src/data/models/element_model.dart';
+import 'package:social_cv_client_dart_common/data.dart';
+import 'package:social_cv_client_dart_common/domain.dart';
 
 part 'entry_model.g.dart';
 
 @JsonSerializable()
-class EntryDataModel extends ElementDataModel {
+class EntryDataModel extends ElementDataModel implements EntryEntity {
   @JsonKey(name: 'name')
+  @override
   String name;
+
   @JsonKey(name: 'type')
+  @override
   String type;
+
   @JsonKey(name: 'content')
+  @override
   dynamic content;
+
   @JsonKey(name: 'startDate')
+  @override
   String startDate;
+
   @JsonKey(name: 'endDate')
+  @override
   String endDate;
+
   @JsonKey(name: 'location')
+  @override
   String location;
+
   @JsonKey(name: 'owner')
+  @override
   String ownerId;
 
   EntryDataModel({
@@ -44,8 +58,4 @@ class EntryDataModel extends ElementDataModel {
       _$EntryDataModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$EntryDataModelToJson(this);
-
-  @override
-  String toString() =>
-      '$runtimeType{ id: $id, name: $name, type: $type, content: $content, startDate: $startDate, endDate: $endDate, location: $location, owner: $ownerId, createdAt: $createdAt, updatedAt: $updatedAt, version: $version }';
 }

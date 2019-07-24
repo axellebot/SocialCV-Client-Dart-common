@@ -1,14 +1,22 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
+import 'package:social_cv_client_dart_common/domain.dart';
 
-abstract class BaseDataModel extends Object {
+abstract class BaseDataModel implements BaseEntity {
   @JsonKey(name: '_id')
+  @override
   String id;
+
   @JsonKey(name: 'createdAt')
+  @override
   DateTime createdAt;
+
   @JsonKey(name: 'updatedAt')
+  @override
   DateTime updatedAt;
+
   @JsonKey(name: '__v')
+  @override
   int version;
 
   BaseDataModel({
@@ -17,8 +25,4 @@ abstract class BaseDataModel extends Object {
     this.updatedAt,
     this.version,
   }) : super();
-
-  @override
-  String toString() =>
-      '$runtimeType{ id: $id, createdAt: $createdAt, updatedAt: $updatedAt, version: $version }';
 }

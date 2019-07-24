@@ -1,24 +1,38 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
-import 'package:social_cv_client_dart_common/src/data/models/element_model.dart';
+import 'package:social_cv_client_dart_common/data.dart';
+import 'package:social_cv_client_dart_common/domain.dart';
 
 part 'profile_model.g.dart';
 
 @JsonSerializable()
-class ProfileDataModel extends ElementDataModel {
+class ProfileDataModel extends ElementDataModel implements ProfileEntity {
   @JsonKey(name: 'title')
+  @override
   String title;
+
   @JsonKey(name: 'subtitle')
+  @override
   String subtitle;
+
   @JsonKey(name: 'picture')
+  @override
   Uri picture;
+
   @JsonKey(name: 'cover')
+  @override
   Uri cover;
+
   @JsonKey(name: 'parts')
-  dynamic partIds;
+  @override
+  List<String> partIds;
+
   @JsonKey(name: 'type')
+  @override
   String type;
+
   @JsonKey(name: 'owner')
+  @override
   String ownerId;
 
   ProfileDataModel({
@@ -44,8 +58,4 @@ class ProfileDataModel extends ElementDataModel {
       _$ProfileDataModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$ProfileDataModelToJson(this);
-
-  @override
-  String toString() =>
-      '$runtimeType{ id: $id, title: $title, subtitle: $subtitle, picture: $picture, cover: $cover, parts: $partIds, type: $type, owner: $ownerId }';
 }

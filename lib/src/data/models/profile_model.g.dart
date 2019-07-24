@@ -14,7 +14,7 @@ ProfileDataModel _$ProfileDataModelFromJson(Map<String, dynamic> json) {
       picture:
           json['picture'] == null ? null : Uri.parse(json['picture'] as String),
       cover: json['cover'] == null ? null : Uri.parse(json['cover'] as String),
-      partIds: json['parts'],
+      partIds: (json['parts'] as List)?.map((e) => e as String)?.toList(),
       type: json['type'] as String,
       ownerId: json['owner'] as String,
       createdAt: json['createdAt'] == null
