@@ -21,9 +21,10 @@ abstract class _Envelop extends Object {
   });
 }
 
+/// Envelop containing [data] of type [T]
 @JsonSerializable()
 class DataEnvelop<T> extends _Envelop {
-  @_GenericListConverter()
+  @_GenericConverter()
   T data;
 
   DataEnvelop({
@@ -38,9 +39,10 @@ class DataEnvelop<T> extends _Envelop {
   Map<String, dynamic> toJson() => _$DataEnvelopToJson<T>(this);
 }
 
+/// Envelop with containing [data] list of type [T]
 @JsonSerializable()
 class DataArrayEnvelop<T> extends _Envelop {
-  @_GenericListConverter()
+  @_GenericConverter()
   List<T> data;
 
   int total;
@@ -58,10 +60,25 @@ class DataArrayEnvelop<T> extends _Envelop {
   Map<String, dynamic> toJson() => _$DataArrayEnvelopToJson<T>(this);
 }
 
-/// Example of model with GenericCollection
+/// Provide json serialization and deserialization methods
+/// for generic/template field type
+///
+/// Working for generic type only
+///
+/// Based on
 /// https://github.com/dart-lang/json_serializable/blob/ee2c5c788279af01860624303abe16811850b82c/example/lib/json_converter_example.dart
-class _GenericListConverter<T> implements JsonConverter<T, Object> {
-  const _GenericListConverter();
+///
+/// Example:
+/// ```dart
+/// @_GenericConverter
+/// List<T> generics
+///
+/// @_GenericConverter
+/// T generic
+/// ```
+///
+class _GenericConverter<T> implements JsonConverter<T, Object> {
+  const _GenericConverter();
 
   @override
   T fromJson(Object json) {

@@ -12,7 +12,7 @@ DataEnvelop<T> _$DataEnvelopFromJson<T>(Map<String, dynamic> json) {
       message: json['message'] as String,
       data: json['data'] == null
           ? null
-          : _GenericListConverter<T>().fromJson(json['data']));
+          : _GenericConverter<T>().fromJson(json['data']));
 }
 
 Map<String, dynamic> _$DataEnvelopToJson<T>(DataEnvelop<T> instance) =>
@@ -21,7 +21,7 @@ Map<String, dynamic> _$DataEnvelopToJson<T>(DataEnvelop<T> instance) =>
       'message': instance.message,
       'data': instance.data == null
           ? null
-          : _GenericListConverter<T>().toJson(instance.data)
+          : _GenericConverter<T>().toJson(instance.data)
     };
 
 DataArrayEnvelop<T> _$DataArrayEnvelopFromJson<T>(Map<String, dynamic> json) {
@@ -29,8 +29,7 @@ DataArrayEnvelop<T> _$DataArrayEnvelopFromJson<T>(Map<String, dynamic> json) {
       error: json['error'] as bool,
       message: json['message'] as String,
       data: (json['data'] as List)
-          ?.map(
-              (e) => e == null ? null : _GenericListConverter<T>().fromJson(e))
+          ?.map((e) => e == null ? null : _GenericConverter<T>().fromJson(e))
           ?.toList(),
       total: json['total'] as int);
 }
@@ -41,7 +40,7 @@ Map<String, dynamic> _$DataArrayEnvelopToJson<T>(
       'error': instance.error,
       'message': instance.message,
       'data': instance.data
-          ?.map((e) => e == null ? null : _GenericListConverter<T>().toJson(e))
+          ?.map((e) => e == null ? null : _GenericConverter<T>().toJson(e))
           ?.toList(),
       'total': instance.total
     };
