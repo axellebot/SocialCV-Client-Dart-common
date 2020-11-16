@@ -1,9 +1,10 @@
 library social_cv_client_dart_common.blocs;
 
-/// Blocs + Events + States
 
+/// Blocs + Events + States
 export './src/bloc/blocs/application/application.dart';
 export './src/bloc/blocs/authentication/authentication.dart';
+export './src/bloc/blocs/configuration/configuration.dart';
 
 /// Element Blocs + Event + States
 export './src/bloc/blocs/element/element.dart';
@@ -23,4 +24,4 @@ export './src/bloc/blocs/profile_list/profile_list.dart';
 export './src/bloc/blocs/register/register.dart';
 export './src/bloc/blocs/user/user.dart';
 
-//export './src/domain/blocs/user_list/user_list.dart';
+//export './src/bloc/blocs/user_list/user_list.dart';
